@@ -1,5 +1,5 @@
-# Slack Clone
+# Virtual Bar Application
 
 Created with React and Firebase
 
-https://slack-clone-13896.web.app
+Public chat room to meet folks
