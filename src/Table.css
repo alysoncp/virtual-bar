@@ -1,0 +1,9 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  padding: 30px;
+  color: rgb(13, 49, 27);
+}
+

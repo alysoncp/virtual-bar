@@ -1,0 +1,22 @@
+.bar_container {
+  height: 75vh;
+  flex: 1.0;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f8f8;
+  color: white;
+  padding: 20px;
+}
+
+.bar_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgb(13, 49, 27);;
+  padding: 20px;
+}
+
+.table_list {
+  display: flex;
+  flex-direction: row;
+}

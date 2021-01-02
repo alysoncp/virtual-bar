@@ -1,0 +1,58 @@
+.table_chat {
+	display: flex;
+	flex: 1.0;
+	flex-direction: row;
+}
+
+.table_users {
+	flex: 0.5;
+	color: white;
+	padding: 25px;
+	background-color: rgb(13, 49, 27);
+	border-top: 3px solid gold;
+}
+
+.table_users_header {
+	margin: 10px;
+}
+
+.table_users_list {
+	margin: 10px;
+}
+
+.chat {
+	width: 30%;
+	flex-grow: 1;
+	overflow-y: scroll;
+	padding-bottom: 150px;
+}
+
+.chat__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px;
+	border-bottom: 1px solid lightgray;
+}
+
+.chat__channelName {
+	display: flex;
+	align-items: center;
+	text-transform: lowercase;
+}
+
+.chat__channelName > .MuiSvgIcon-root {
+	margin-left: 10px;
+	font-size: 18px;
+}
+
+.chat__headerRight > p {
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+}
+
+.chat__headerRight > p > .MuiSvgIcon-root {
+	margin-right: 5px !important;
+	font-size: 16px;
+}

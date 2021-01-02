@@ -1,0 +1,12 @@
+.bar_listing {
+  border: 1px solid rgb(13, 49, 27);
+  width: 200px;
+  padding: 30px;
+  color: rgb(13, 49, 27);
+  margin: 30px;
+}
+
+
+.bar_logo {
+  width: 80%;
+}
