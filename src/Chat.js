@@ -16,8 +16,8 @@ function Chat() {
 
 	const history = useHistory();
 
-
-	// For autoscrolling to bottom of chat
+// --------------------------------------------------------
+// For autoscrolling to bottom of chat 
 	const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
@@ -25,8 +25,15 @@ function Chat() {
   }
 
   useEffect(scrollToBottom, [tableMessages]);
+// --------------------------------------------------------
+// For only loading contemporary messages
 
+	const joinTimestamp = new Date()
+	console.log("User joined at: " + joinTimestamp)
+	const twoMinAgo = new Date(joinTimestamp - 120000);
+	console.log("Two minutes ago was: " + twoMinAgo)
 
+// -------------------------------------------------------
 	
 	useEffect(() => {
 		
@@ -45,6 +52,7 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("messages")
+			.where("timestamp", ">=", twoMinAgo)
 			.orderBy("timestamp", "asc")
 			.onSnapshot((snapshot) => {
 				setTableMessages(snapshot.docs.map((doc) => doc.data()))
