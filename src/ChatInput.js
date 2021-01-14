@@ -20,7 +20,7 @@ function ChatInput({ barId, tableId, tableNumber }) {
 			.collection("messages")
 			.add({
 			message: input,
-			// timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 			user: user.displayName,
 			// userImage: user.photoURL,
 		});

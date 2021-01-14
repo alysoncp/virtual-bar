@@ -32,7 +32,7 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("messages")
-			//.orderBy("timestamp", "asc")
+			.orderBy("timestamp", "asc")
 			.onSnapshot((snapshot) => {
 				setTableMessages(snapshot.docs.map((doc) => doc.data()))
 			});
