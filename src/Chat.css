@@ -1,4 +1,5 @@
 .table_chat {
+	height: 70vh;
 	display: flex;
 	flex: 1.0;
 	flex-direction: row;
@@ -55,4 +56,8 @@
 .chat__headerRight > p > .MuiSvgIcon-root {
 	margin-right: 5px !important;
 	font-size: 16px;
+}
+
+.scroll-spacer {
+	height: 1px;
 }
