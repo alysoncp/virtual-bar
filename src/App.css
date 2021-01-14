@@ -4,6 +4,9 @@ body {
 }
 
 .app__body {
+	position: absolute;
+	height:90vh;
+	top: 10vh;
+	width: 100vw;
 	display: flex;
-	height: 100vh;
 }
