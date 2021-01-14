@@ -1,7 +1,7 @@
 import React from "react";
 import "./Message.css";
 
-function Message({ message, user }) {
+function Message({ message, user, timestamp }) {
 
 	console.log(message)
 
@@ -11,7 +11,7 @@ function Message({ message, user }) {
 				<h4>
 					{user}{" "}
 					<span className="message__timestamp">
-						{/* {new Date(timestamp?.toDate()).toUTCString()} */}
+						{new Date(timestamp?.toDate()).toUTCString()}
 					</span>
 				</h4>
 				<p>{message}</p>

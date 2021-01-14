@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import ChatInput from "./ChatInput";
 
+import ChatInput from "./ChatInput";
 import Message from "./Message";
 import db from "./firebase";
-
 import "./Chat.css";
+
 import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
+
 
 function Chat() {
 	const { barId, tableId } = useParams();
@@ -15,6 +16,25 @@ function Chat() {
 
 	const history = useHistory();
 
+// --------------------------------------------------------
+// For autoscrolling to bottom of chat 
+	const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(scrollToBottom, [tableMessages]);
+// --------------------------------------------------------
+// For only loading contemporary messages
+
+	const joinTimestamp = new Date()
+	console.log("User joined at: " + joinTimestamp)
+	const twoMinAgo = new Date(joinTimestamp - 120000);
+	console.log("Two minutes ago was: " + twoMinAgo)
+
+// -------------------------------------------------------
+	
 	useEffect(() => {
 		
 		if (tableId) {
@@ -32,12 +52,15 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("messages")
+			.where("timestamp", ">=", twoMinAgo)
 			.orderBy("timestamp", "asc")
 			.onSnapshot((snapshot) => {
 				setTableMessages(snapshot.docs.map((doc) => doc.data()))
 			});
 
 	}, [tableId]);
+
+	
 
 	console.log("TableDetails: ", tableDetails);
 
@@ -74,17 +97,20 @@ function Chat() {
 					</div>
 					<div className="chat__headerRight" onClick={leaveTable}>
 						Leave Table
-						{/* <p><InfoOutlinedIcon /> Details</p>	 */}
 					</div>
 				</div>
-				<div className="chat__messages">
-					{tableMessages.map(({ message, user }) => (
-						<Message
-							message={message}
-							user={user}
-						/>
-					))}
-				</div>
+				
+					<div className="chat__messages">
+						{tableMessages.map(({ message, timestamp, user }) => (
+							<Message
+								message={message}
+								timestamp={timestamp}
+								user={user}
+							/>
+						))}
+					</div>
+					<div className="scroll-spacer" ref={messagesEndRef} />
+				
 				<ChatInput barId={barId} tableId={tableId} tableNumber={tableDetails?.number}/>
 			</div>
 		</div>
