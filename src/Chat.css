@@ -1,5 +1,5 @@
 .table_chat {
-	height: 70vh;
+	width: 100%;
 	display: flex;
 	flex: 1.0;
 	flex-direction: row;
@@ -10,7 +10,6 @@
 	color: white;
 	padding: 25px;
 	background-color: rgb(13, 49, 27);
-	border-top: 3px solid gold;
 }
 
 .table_users_header {
