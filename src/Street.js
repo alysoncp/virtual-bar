@@ -46,7 +46,7 @@ function Street() {
 			locations[0],
 			locations[1]
 		);
-		const closeProximity = distanceBetween <= 0 ? true : false;
+		const closeProximity = distanceBetween <= 20 ? true : false;
 
 		return closeProximity;
 	};
