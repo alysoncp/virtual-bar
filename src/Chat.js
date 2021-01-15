@@ -91,7 +91,6 @@ function Chat() {
 				<div className="chat__header">
 					<div className="chat__headerLeft">
 						<h4 className="chat__channelName">
-							<StarBorderOutlinedIcon />
 							<strong>  Table Number {tableDetails?.number}</strong>
 						</h4>
 					</div>
