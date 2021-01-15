@@ -1,4 +1,5 @@
 import React from "react";
+import HaversineGeolocation from "haversine-geolocation";
 import "./Login.css";
 import { Button } from "@material-ui/core";
 import { auth, provider } from "./firebase";
@@ -11,10 +12,17 @@ function Login() {
 		auth
 			.signInWithPopup(provider)
 			.then((result) => {
-				console.log(result);
-				dispatch({
-					type: actionTypes.SET_USER,
-					user: result.user,
+				HaversineGeolocation.isGeolocationAvailable().then((data) => {
+					const userLocation = {
+						latitude: data.coords.latitude,
+						longitude: data.coords.longitude,
+					};
+					// fire off dispatch only once we have the lat/lon data
+					dispatch({
+						type: actionTypes.SET_USER,
+						user: result.user,
+						location: userLocation,
+					});
 				});
 			})
 			.catch((error) => {
