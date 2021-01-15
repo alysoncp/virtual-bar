@@ -1,26 +1,39 @@
 import React from "react";
 import "./Login.css";
 import { Button } from "@material-ui/core";
-import { auth, provider } from "./firebase";
+import db, { auth, provider } from "./firebase";
 import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
 
 function Login() {
 	const [state, dispatch] = useStateValue();
+	let displayName;
+	let photoURL;
 	const signIn = () => {
 		auth
 			.signInWithPopup(provider)
 			.then((result) => {
-				console.log(result);
+				displayName = result.user.displayName;
+				photoURL = result.user.photoURL;
 				dispatch({
 					type: actionTypes.SET_USER,
 					user: result.user,
 				});
+				addUserToDB(displayName, photoURL);
 			})
 			.catch((error) => {
 				alert(error.message);
 			});
+
 	};
+
+	const addUserToDB = (displayName, profileImage) => {
+		db.collection("users").add({
+			username: displayName,
+			profile_image: profileImage,
+			is_online: true
+		})
+	}
 
 	return (
 		<div className="login">
