@@ -2,16 +2,22 @@ import React from "react";
 import HaversineGeolocation from "haversine-geolocation";
 import "./Login.css";
 import { Button } from "@material-ui/core";
-import { auth, provider } from "./firebase";
+import db, { auth, provider } from "./firebase";
 import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
 
 function Login() {
 	const [state, dispatch] = useStateValue();
 	const signIn = () => {
+		let displayName;
+		let photoURL;
 		auth
 			.signInWithPopup(provider)
 			.then((result) => {
+
+				displayName = result.user.displayName;
+				photoURL = result.user.photoURL;
+
 				HaversineGeolocation.isGeolocationAvailable().then((data) => {
 					const userLocation = {
 						latitude: data.coords.latitude,
@@ -24,11 +30,21 @@ function Login() {
 						location: userLocation,
 					});
 				});
+				addUserToDB(displayName, photoURL);
 			})
 			.catch((error) => {
 				alert(error.message);
 			});
+
 	};
+
+	const addUserToDB = (displayName, profileImage) => {
+		db.collection("users").add({
+			username: displayName,
+			profile_image: profileImage,
+			is_online: true
+		})
+	}
 
 	return (
 		<div className="login">
