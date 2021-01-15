@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
+import { Avatar } from "@material-ui/core";
 import ChatInput from "./ChatInput";
 import Message from "./Message";
 import db from "./firebase";
@@ -65,7 +66,7 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("users")
-			.add({name: user?.displayName});
+			.add({name: user?.displayName, photoURL: user?.photoURL});
 
 
 		
@@ -89,16 +90,16 @@ function Chat() {
 		history.push(`/bar/${barId}`);
 
 		const userToDelete = db.collection("bars")
-											.doc(barId)
-											.collection("tables")
-											.doc(tableId)
-											.collection("users")
-											.where("name", "==", user.displayName)
-					userToDelete.get().then(function(querySnapshot) {
-							querySnapshot.forEach(function(doc) {
-								doc.ref.delete();
-							});
-						});								
+													.doc(barId)
+													.collection("tables")
+													.doc(tableId)
+													.collection("users")
+													.where("name", "==", user.displayName)
+							userToDelete.get().then(function(querySnapshot) {
+									querySnapshot.forEach(function(doc) {
+										doc.ref.delete();
+									});
+								});								
 
 	}
 	
@@ -112,10 +113,14 @@ function Chat() {
 					<h3>Users at Table</h3>
 				</div>
 				<div className="table_users_list">
-					<h4>User list needs to be implemented</h4>
 						<ul>
-						{tableUsers.map(({ name }) => (
+						{tableUsers.map(({ name, photoURL }) => (
 								<li>
+									<Avatar
+										className="header__avatar"
+										alt={name}
+										src={photoURL}
+									/>
 									<h5>{name}</h5>
 								</li>
 							))}

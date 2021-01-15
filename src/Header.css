@@ -15,6 +15,7 @@
 	display: flex;
 	align-items: center;
 	margin-left: 40px;
+	margin-right: 10px;
 }
 
 .header__left > .MuiSvgIcon-root {
@@ -53,6 +54,7 @@
 .nav-item {
 	margin-left: auto;
 	margin-right: auto;
+	
 }
 
 .header__right > .MuiSvgIcon-root {

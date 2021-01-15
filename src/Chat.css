@@ -20,6 +20,16 @@
 	margin: 10px;
 }
 
+.table_users_list li {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.table_users_list h5 {
+	padding-left: 10px;
+}
+
 .chat {
 	width: 30%;
 	flex-grow: 1;
