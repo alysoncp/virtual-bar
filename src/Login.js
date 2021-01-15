@@ -7,9 +7,9 @@ import { actionTypes } from "./hooks+context/reducer";
 
 function Login() {
 	const [state, dispatch] = useStateValue();
-	let displayName;
-	let photoURL;
 	const signIn = () => {
+		let displayName;
+		let photoURL;
 		auth
 			.signInWithPopup(provider)
 			.then((result) => {
