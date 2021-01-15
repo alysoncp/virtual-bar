@@ -35,7 +35,6 @@ function Header() {
 				<h2>Virtual Bar</h2>
 			</div>
 			<div className="header__right" >
-				<div className='nav-item' onClick={goHome}><h3>Home</h3></div>
 				<div className='nav-item' onClick={logout}><h3>Logout</h3></div>
 			</div>
 			
