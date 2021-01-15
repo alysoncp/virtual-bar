@@ -2,8 +2,20 @@ import React, { useState } from "react";
 import { useStateValue } from "./hooks+context/StateProvider";
 import db from "./firebase";
 import firebase from "firebase";
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 import "./ChatInput.css";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '99%',
+    },
+  },
+}));
+
 
 function ChatInput({ barId, tableId, tableNumber }) {
 	const [input, setInput] = useState("");
@@ -27,10 +39,17 @@ function ChatInput({ barId, tableId, tableNumber }) {
 		setInput("");
 	};
 
+	
+	const classes = useStyles();
+
 	return (
+		
 		<div className="chatInput">
-			<form>
-				<input
+			<form className={classes.root} noValidate autoComplete="off">
+				<TextField
+					id="outlined-basic"
+					label="This one time at band camp..."
+					variant="outlined"
 					value={input}
 					onChange={(event) => setInput(event.target.value)}
 					placeholder={`Message Table #${tableNumber}`}
