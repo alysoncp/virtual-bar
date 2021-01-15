@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
-
+import { useStateValue } from "./hooks+context/StateProvider";
 import ChatInput from "./ChatInput";
 import Message from "./Message";
 import db from "./firebase";
@@ -13,6 +13,8 @@ function Chat() {
 	const { barId, tableId } = useParams();
 	const [tableDetails, setTableDetails] = useState(null);
 	const [tableMessages, setTableMessages] = useState([]);
+	const [tableUsers, setTableUsers] = useState([]);
+	const [{ user }] = useStateValue();
 
 	const history = useHistory();
 
@@ -58,17 +60,49 @@ function Chat() {
 				setTableMessages(snapshot.docs.map((doc) => doc.data()))
 			});
 
+			db.collection("bars")
+			.doc(barId)
+			.collection("tables")
+			.doc(tableId)
+			.collection("users")
+			.add({name: user?.displayName});
+
+
+		
+			db.collection("bars")
+			.doc(barId)
+			.collection("tables")
+			.doc(tableId)
+			.collection("users")
+			.onSnapshot((snapshot) => {
+				setTableUsers(snapshot.docs.map((doc) => doc.data()))
+			});
+
 	}, [tableId]);
 
 	
 
-	console.log("TableDetails: ", tableDetails);
+	console.log("TableUsers: ", tableUsers);
 
 
 	const leaveTable = () => {
 		history.push(`/bar/${barId}`);
+
+		const userToDelete = db.collection("bars")
+											.doc(barId)
+											.collection("tables")
+											.doc(tableId)
+											.collection("users")
+											.where("name", "==", user.displayName)
+					userToDelete.get().then(function(querySnapshot) {
+							querySnapshot.forEach(function(doc) {
+								doc.ref.delete();
+							});
+						});								
+
 	}
 	
+
 
 	return (
 		<div className="table_chat">
@@ -79,10 +113,13 @@ function Chat() {
 				</div>
 				<div className="table_users_list">
 					<h4>User list needs to be implemented</h4>
-					<ul>
-						<li>Add user collection to table</li>
-						<li>Function to update users at table with leave/enter room functions</li>
-					</ul>
+						<ul>
+						{tableUsers.map(({ name }) => (
+								<li>
+									<h5>{name}</h5>
+								</li>
+							))}
+						</ul>	
 				</div>
 				
 			</div>
