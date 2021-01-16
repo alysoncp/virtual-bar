@@ -27,6 +27,7 @@ function Street() {
 		});
 	}, []);
 
+	// flag for rendering info telling user no bars are near them
 	let atLeastOneBar;
 
 	const closeProximityToUser = (location) => {
@@ -51,9 +52,28 @@ function Street() {
 		return closeProximity;
 	};
 
+	const addBar = () => {
+		const barName = prompt("Please enter a Bar name");
+
+		if (barName) {
+			db.collection("bars").add({
+				table_size: 6,
+				capacity: 60,
+				name: barName,
+				location: {
+					latitude: userLocation.latitude,
+					longitude: userLocation.longitude,
+				},
+			});
+		}
+	};
+
 	return (
 		<div className="street">
-			<div className="street_header">Open Bars</div>
+			<div className="street_header">
+				<div>Open Bars</div>
+				<div onClick={addBar}>Open New Bar</div>
+			</div>
 			<div className="bar_list">
 				{channels.map((channel) =>
 					closeProximityToUser(channel.location) ? (
