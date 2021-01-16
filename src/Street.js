@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import HaversineGeolocation from "haversine-geolocation";
 import { useStateValue } from "./hooks+context/StateProvider";
+import firebase from "firebase";
 import db from "./firebase";
-
-import "./Street.css";
-import "./BarListing.css";
+import HaversineGeolocation from "haversine-geolocation";
 
 import BarListing from "./BarListing";
+import "./Street.css";
+import "./BarListing.css";
 
 function Street() {
 	const [channels, setChannels] = useState([]);
@@ -60,10 +60,10 @@ function Street() {
 				table_size: 6,
 				capacity: 60,
 				name: barName,
-				location: {
-					latitude: userLocation.latitude,
-					longitude: userLocation.longitude,
-				},
+				location: new firebase.firestore.GeoPoint(
+					userLocation.latitude,
+					userLocation.longitude
+				),
 			});
 		}
 	};
@@ -89,7 +89,11 @@ function Street() {
 						<></>
 					)
 				)}
-				{!atLeastOneBar && <h1>😪😪😪😪😪😪😪😪</h1>}
+				{!atLeastOneBar && (
+					<h1 id="test__no_bar">
+						Sorry, there no bars are near you. Start your own!
+					</h1>
+				)}
 			</div>
 		</div>
 	);
