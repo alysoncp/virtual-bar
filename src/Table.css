@@ -1,9 +1,23 @@
 .table {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 200px;
-  padding: 30px;
-  color: rgb(13, 49, 27);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 200px;
+	padding: 30px;
+	color: rgb(13, 49, 27);
 }
 
+#input__table_box {
+	display: none !important;
+}
+
+.button__grab_table.MuiButtonBase-root,
+.MuiButton-root,
+.MuiButton-contained,
+.MuiButton-containedPrimary {
+	background-color: rgb(26, 96, 53);
+}
+
+.button__grab_table.MuiButtonBase-root:hover {
+	background-color: rgb(20, 191, 46);
+}
