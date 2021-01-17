@@ -77,7 +77,7 @@ function Street() {
 		handleClose();
 	};
 
-	// start of stuff for bar name popup input
+	// start of code for bar name popup input
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			"& > *": {
@@ -102,7 +102,7 @@ function Street() {
 
 	const open = Boolean(anchorEl);
 	const id = open ? "simple-popover" : undefined;
-	// end of stuff for bar name popup input
+	// end of code for bar name popup input
 
 	return (
 		<div className="street">
@@ -110,6 +110,7 @@ function Street() {
 				<div>Open Bars</div>
 				<div>
 					<Button
+						className="button__open_new_bar"
 						id="form_close"
 						variant="contained"
 						color="primary"
