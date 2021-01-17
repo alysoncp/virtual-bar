@@ -29,13 +29,13 @@
 	display: none !important;
 }
 
-button.MuiButtonBase-root,
+.button__open_new_bar.MuiButtonBase-root,
 .MuiButton-root,
 .MuiButton-contained,
 .MuiButton-containedPrimary {
 	background-color: rgb(26, 96, 53);
 }
 
-button.MuiButtonBase-root:hover {
+.button__open_new_bar.MuiButtonBase-root:hover {
 	background-color: rgb(20, 191, 46);
 }

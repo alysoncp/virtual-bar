@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 import "./Table.css";
 
-function Table({ id, number }) {
+function Table({ id, name }) {
 	const { barId } = useParams();
 	const history = useHistory();
 
@@ -17,7 +17,7 @@ function Table({ id, number }) {
 				src="https://www.flaticon.com/svg/static/icons/svg/160/160705.svg"
 				alt="table logo"
 			/>
-			<div className="title">{`The #${number} table!!`}</div>
+			<div className="title">{`The #${name} table!!`}</div>
 		</div>
 	);
 }
