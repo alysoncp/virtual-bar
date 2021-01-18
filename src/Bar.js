@@ -51,18 +51,20 @@ function Bar() {
 
 	const addTable = (event) => {
 		event.preventDefault();
-		// const tableName = prompt("Please tell us your table name");
+
 		if (input) {
 			db.collection("bars").doc(barId).collection("tables").add({
 				name: input,
 				creatorId: idToken,
 			});
 		}
+
 		setInput("");
 		handleClose();
 	};
 
 	// start of code for table name popup input
+	// ----------------------------------------
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			"& > *": {
@@ -87,9 +89,8 @@ function Bar() {
 
 	const open = Boolean(anchorEl);
 	const id = open ? "simple-popover" : undefined;
+	// --------------------------------------
 	// end of code for table name popup input
-
-	console.log("Tables: ", tables);
 
 	return (
 		<div className="container bar_container">
