@@ -16,7 +16,7 @@ function Header() {
 	};
 
 	const logout = () => {
-		alert('implement logout function')
+		window.location.reload(false);
 	}
 
 	return (
