@@ -21,14 +21,14 @@ exports.newUserSignUp = functions.auth.user().onCreate(user => {
 
 // Create a new function which is triggered on changes to /status/{uid}
 // Note: This is a Realtime Database trigger, *not* Firestore.
-exports.onUserStatusChanged = functions.database.ref('/status/{uid}').onUpdate(
+exports.onUserStatusChanged = functions.database.ref('/users/{uid}').onUpdate(
     async (change, context) => {
       // Get the data written to Realtime Database
       const eventStatus = change.after.val();
 
       // Then use other event data to create a reference to the
       // corresponding Firestore document.
-      const userStatusFirestoreRef = firestore.doc(`status/${context.params.uid}`);
+      const userStatusFirestoreRef = firestore.doc(`users/${context.params.uid}`);
 
       // It is likely that the Realtime Database change that triggered
       // this event has already been overwritten by a fast change in
@@ -47,7 +47,7 @@ exports.onUserStatusChanged = functions.database.ref('/status/{uid}').onUpdate(
       eventStatus.last_changed = new Date(eventStatus.last_changed);
 
       // ... and write it to Firestore.
-      return userStatusFirestoreRef.set(eventStatus);
+      return userStatusFirestoreRef.update(eventStatus);
     });
 // [END presence_sync_function]
 

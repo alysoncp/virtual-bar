@@ -20,7 +20,7 @@ export default function useStatus() {
 
 			// Create a reference to this user's specific status node.
 			// This is where we will store data about being online/offline.
-			const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+			const userStatusDatabaseRef = firebase.database().ref('/users/' + uid);
 
 			// Create two constants which we will write to the Realtime database when this device is offline or online.
 			const isOfflineForDatabase = {
@@ -43,7 +43,7 @@ export default function useStatus() {
 				// Use 'onDisconnect()' 
 				// Triggers when client has disconnected by closing the app, losing internet, etc.
 				userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
-						userStatusDatabaseRef.set(isOnlineForDatabase);
+						userStatusDatabaseRef.update(isOnlineForDatabase);
 				});
 			});
 			
@@ -53,7 +53,7 @@ export default function useStatus() {
 			// ------------------------------------------------------------------------
 			// Update Cloud firestore's local cache...
 
-			const userStatusFirestoreRef = firebase.firestore().doc('/status/' + uid);
+			const userStatusFirestoreRef = firebase.firestore().doc('/users/' + uid);
 
 			// Firestore uses a different server timestamp value 
 			// Instead create two more constants for Firestore state.
@@ -70,15 +70,15 @@ export default function useStatus() {
 			firebase.database().ref('.info/connected').on('value', function(snapshot) {
 					if (snapshot.val() == false) {
 							// Set Firestore's state to 'offline'. This ensures that our Firestore cache is awarevof the switch to 'offline.'
-							userStatusFirestoreRef.set(isOfflineForFirestore);
+							userStatusFirestoreRef.update(isOfflineForFirestore);
 							return;
 					};
 
 					userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
-							userStatusDatabaseRef.set(isOnlineForDatabase);
+							userStatusDatabaseRef.update(isOnlineForDatabase);
 
 							// We'll also add Firestore set here for when we come online.
-							userStatusFirestoreRef.set(isOnlineForFirestore);
+							userStatusFirestoreRef.update(isOnlineForFirestore);
 					});
 			});
 
