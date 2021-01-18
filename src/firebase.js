@@ -1,8 +1,9 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 import firebase from "firebase";
+import React from "react";
 
 const firebaseConfig = {
-  apiKey: REACT_APP_FIREBASEAPIKEY,
+  apiKey: process.env.REACT_APP_FIREBASEAPIKEY,
   authDomain: "virtual-bar-9a045.firebaseapp.com",
   projectId: "virtual-bar-9a045",
   storageBucket: "virtual-bar-9a045.appspot.com",
