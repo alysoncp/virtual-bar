@@ -19,6 +19,9 @@ function Chat() {
 
 	const history = useHistory();
 
+
+console.log("User's UID is: ", user.uid)	
+
 // --------------------------------------------------------
 // For autoscrolling to bottom of chat 
 	const messagesEndRef = useRef(null)
@@ -65,8 +68,8 @@ function Chat() {
 			.doc(barId)
 			.collection("tables")
 			.doc(tableId)
-			.collection("users")
-			.add({name: user?.displayName, photoURL: user?.photoURL});
+			.collection("usersAtTable")
+			.add({uid: user.uid});
 
 
 		
@@ -74,7 +77,7 @@ function Chat() {
 			.doc(barId)
 			.collection("tables")
 			.doc(tableId)
-			.collection("users")
+			.collection("usersAtTable")
 			.onSnapshot((snapshot) => {
 				setTableUsers(snapshot.docs.map((doc) => doc.data()))
 			});
@@ -93,8 +96,8 @@ function Chat() {
 													.doc(barId)
 													.collection("tables")
 													.doc(tableId)
-													.collection("users")
-													.where("name", "==", user.displayName)
+													.collection("usersAtTable")
+													.where("uid", "==", user.uid)
 							userToDelete.get().then(function(querySnapshot) {
 									querySnapshot.forEach(function(doc) {
 										doc.ref.delete();
@@ -109,19 +112,21 @@ function Chat() {
 		<div className="table_chat">
 			
 			<div className="table_users">
+
 				<div className="table_users_header">
 					<h3>Users at Table</h3>
 				</div>
 				<div className="table_users_list">
 						<ul>
-						{tableUsers.map(({ name, photoURL }) => (
+						{tableUsers.map(({ uid }) => (
 								<li>
-									<Avatar
+									{/* <Avatar
 										className="header__avatar"
 										alt={name}
 										src={photoURL}
-									/>
-									<h5>{name}</h5>
+									/> */}
+									<h5>{uid}</h5> 
+									{/* ---> changed from  { name } */}
 								</li>
 							))}
 						</ul>	
