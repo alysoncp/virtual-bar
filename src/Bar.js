@@ -19,7 +19,7 @@ function Bar() {
 	const history = useHistory();
 	const [barDetails, setBarDetails] = useState(null);
 	const [tables, setTables] = useState([]);
-	// const [{ user, userLocation }] = useStateValue();
+	const [{ idToken }] = useStateValue();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [input, setInput] = useState("");
 
@@ -39,6 +39,7 @@ function Bar() {
 					snapshot.docs.map((doc) => ({
 						id: doc.id,
 						name: doc.data().name,
+						creatorId: doc.data().creatorId,
 					}))
 				)
 			);
@@ -54,6 +55,7 @@ function Bar() {
 		if (input) {
 			db.collection("bars").doc(barId).collection("tables").add({
 				name: input,
+				creatorId: idToken,
 			});
 		}
 		setInput("");
@@ -145,7 +147,12 @@ function Bar() {
 			</div>
 			<div className="table_list">
 				{tables.map((table) => (
-					<Table key={table.id} id={table.id} name={table.name} />
+					<Table
+						key={table.id}
+						id={table.id}
+						name={table.name}
+						tableCreatorId={table.creatorId}
+					/>
 				))}
 			</div>
 		</div>
