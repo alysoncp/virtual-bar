@@ -35,21 +35,21 @@ function Login() {
 						idToken: idToken
 					});
 				});
-				addUserToDB(displayName, photoURL, idToken);
+				// addUserToDB(displayName, photoURL, idToken);
 			})
 			.catch((error) => {
 				alert(error.message);
 			});
 	}		
 
-	const addUserToDB = (displayName, profileImage, idToken) => {
-		db.collection("users").add({
-			username: displayName,
-			profile_image: profileImage,
-			idToken: idToken,
-			is_online: true
-		})
-	}
+	// const addUserToDB = (displayName, profileImage, idToken) => {
+	// 	db.collection("users").add({
+	// 		username: displayName,
+	// 		profile_image: profileImage,
+	// 		idToken: idToken,
+	// 		is_online: true
+	// 	})
+	// }
 
 
 	return (

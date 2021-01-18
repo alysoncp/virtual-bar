@@ -2,11 +2,22 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
-
-// Since this code will be running in the Cloud Functions environment
-// we call initialize Firestore without any arguments because it
-// detects authentication from the environment.
 const firestore = admin.firestore();
+
+// ----------------------------------------------------------------------------
+
+// auth trigger (new user signup)
+exports.newUserSignUp = functions.auth.user().onCreate(user => {
+  // for background triggers you must return a value/promise
+  return admin.firestore().collection('users').doc(user.uid).set({
+    email: user.email,
+    username: user.displayName,
+    profile_image: user.photoURL,
+  });
+});
+
+
+// ----------------------------------------------------------------------------
 
 // Create a new function which is triggered on changes to /status/{uid}
 // Note: This is a Realtime Database trigger, *not* Firestore.
@@ -39,3 +50,4 @@ exports.onUserStatusChanged = functions.database.ref('/status/{uid}').onUpdate(
       return userStatusFirestoreRef.set(eventStatus);
     });
 // [END presence_sync_function]
+
