@@ -3,12 +3,14 @@ import HaversineGeolocation from "haversine-geolocation";
 import "./Login.css";
 import { Button } from "@material-ui/core";
 import firebase from "firebase";
-import { auth, provider } from "./firebase";
+import db, { auth, provider } from "./firebase";
 import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
 
 function Login() {
+
 	const [state, dispatch] = useStateValue();
+	
 	const signIn = () => {
 		let displayName;
 		let photoURL;
@@ -38,7 +40,7 @@ function Login() {
 			.catch((error) => {
 				alert(error.message);
 			});
-
+	}		
 
 	const addUserToDB = (displayName, profileImage, idToken) => {
 		db.collection("users").add({
