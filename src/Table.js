@@ -4,7 +4,7 @@ import db from "./firebase";
 import { useStateValue } from "./hooks+context/StateProvider";
 import "./Table.css";
 
-function Table({ id, name, tableCreatorId }) {
+function Table({ id, name, tableCreatorId, customTableImage }) {
 	const { barId } = useParams();
 	const history = useHistory();
 	const [{ idToken }] = useStateValue();
@@ -28,7 +28,11 @@ function Table({ id, name, tableCreatorId }) {
 	return (
 		<div className="table">
 			<img
-				src="https://www.flaticon.com/svg/static/icons/svg/160/160705.svg"
+				src={
+					customTableImage
+						? customTableImage
+						: "https://www.flaticon.com/svg/static/icons/svg/160/160705.svg"
+				}
 				alt="table logo"
 			/>
 			<div className="title">{`The #${name} table!!`}</div>
