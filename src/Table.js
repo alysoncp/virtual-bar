@@ -14,6 +14,20 @@ function Table({ id, name, tableCreatorId, customTableImage }) {
 	};
 
 	const userCanDelete = (tableIdToken, userIdToken) => {
+		db.collection("bars")
+			.doc(barId)
+			.collection("tables")
+			.doc(id)
+			.collection("usersAtTable")
+			.get()
+			.then((snap) => {
+				const size = snap.size;
+				console.log("This is the size", size);
+			});
+
+		// 	db.collection('...').get().then(snap => {
+		// 		size = snap.size // will return the collection size
+		//  });
 		return tableIdToken === userIdToken ? true : false;
 	};
 
