@@ -18,24 +18,19 @@ function BarListing({ Icon, title, id, addChannelOption, barCreatorId }) {
 
 	const userCanDelete = (barIdToken, userIdToken) => {
 		if (barIdToken === userIdToken) {
-			return true
+			return true;
 		} else {
-			return false
+			return false;
 		}
-	}
+	};
 
 	const deleteBar = () => {
-
-		if (window.confirm('Are you sure you want to delete the bar?')) {
-			db
-			.collection("bars")
-			.doc(id)
-			.delete()
+		if (window.confirm("Are you sure you want to delete the bar?")) {
+			db.collection("bars").doc(id).delete();
 		} else {
 			return;
 		}
-		
-	}
+	};
 
 	return (
 		<div className="bar_listing">
@@ -52,7 +47,7 @@ function BarListing({ Icon, title, id, addChannelOption, barCreatorId }) {
 			</div>
 			<button onClick={selectChannel}>Join Bar</button>
 			{userCanDelete(barCreatorId, idToken) && (
-					<button onClick={deleteBar}>Delete Bar</button> 
+				<button onClick={deleteBar}>Delete Bar</button>
 			)}
 		</div>
 	);
