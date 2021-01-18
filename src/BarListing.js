@@ -1,10 +1,12 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import db from "./firebase";
+import { useStateValue } from "./hooks+context/StateProvider";
 import "./BarListing.css";
 
-function BarListing({ Icon, title, id, addChannelOption }) {
+function BarListing({ Icon, title, id, addChannelOption, barCreatorId }) {
 	const history = useHistory();
+	const [{ idToken }] = useStateValue();
 
 	const selectChannel = () => {
 		if (id) {
@@ -14,8 +16,29 @@ function BarListing({ Icon, title, id, addChannelOption }) {
 		}
 	};
 
+	const userCanDelete = (barIdToken, userIdToken) => {
+		if (barIdToken === userIdToken) {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	const deleteBar = () => {
+
+		if (window.confirm('Are you sure you want to delete the bar?')) {
+			db
+			.collection("bars")
+			.doc(id)
+			.delete()
+		} else {
+			return;
+		}
+		
+	}
+
 	return (
-		<div className="bar_listing" onClick={selectChannel}>
+		<div className="bar_listing">
 			<div className="bar_listing_header">
 				<img
 					className="bar_logo"
@@ -27,6 +50,10 @@ function BarListing({ Icon, title, id, addChannelOption }) {
 			<div className="bar_description">
 				Need to add descriptions to database...
 			</div>
+			<button onClick={selectChannel}>Join Bar</button>
+			{userCanDelete(barCreatorId, idToken) && (
+					<button onClick={deleteBar}>Delete Bar</button> 
+			)}
 		</div>
 	);
 }
