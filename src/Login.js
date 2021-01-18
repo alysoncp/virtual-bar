@@ -2,7 +2,8 @@ import React from "react";
 import HaversineGeolocation from "haversine-geolocation";
 import "./Login.css";
 import { Button } from "@material-ui/core";
-import db, { auth, provider } from "./firebase";
+import firebase from "firebase";
+import { auth, provider } from "./firebase";
 import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
 
@@ -38,7 +39,6 @@ function Login() {
 				alert(error.message);
 			});
 
-	};
 
 	const addUserToDB = (displayName, profileImage, idToken) => {
 		db.collection("users").add({
@@ -48,6 +48,7 @@ function Login() {
 			is_online: true
 		})
 	}
+
 
 	return (
 		<div className="login">

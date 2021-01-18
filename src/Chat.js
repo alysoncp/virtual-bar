@@ -18,9 +18,11 @@ function Chat() {
 
 	const history = useHistory();
 
-	// --------------------------------------------------------
-	// For autoscrolling to bottom of chat
-	const messagesEndRef = useRef(null);
+  console.log("User's UID is: ", user.uid)	
+
+// --------------------------------------------------------
+// For autoscrolling to bottom of chat 
+	const messagesEndRef = useRef(null)
 
 	const scrollToBottom = () => {
 		messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -63,14 +65,14 @@ function Chat() {
 			.doc(barId)
 			.collection("tables")
 			.doc(tableId)
-			.collection("users")
-			.add({ name: user?.displayName, photoURL: user?.photoURL });
+			.collection("usersAtTable")
+			.add({uid: user.uid, name: user?.displayName, photoURL: user?.photoURL });
 
 		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
 			.doc(tableId)
-			.collection("users")
+			.collection("usersAtTable")
 			.onSnapshot((snapshot) => {
 				setTableUsers(snapshot.docs.map((doc) => doc.data()));
 			});
@@ -81,35 +83,42 @@ function Chat() {
 	const leaveTable = () => {
 		history.push(`/bar/${barId}`);
 
-		const userToDelete = db
-			.collection("bars")
-			.doc(barId)
-			.collection("tables")
-			.doc(tableId)
-			.collection("users")
-			.where("name", "==", user.displayName);
-		userToDelete.get().then(function (querySnapshot) {
-			querySnapshot.forEach(function (doc) {
-				doc.ref.delete();
-			});
-		});
-	};
+		const userToDelete = db.collection("bars")
+													.doc(barId)
+													.collection("tables")
+													.doc(tableId)
+													.collection("usersAtTable")
+													.where("uid", "==", user.uid)
+							userToDelete.get().then(function(querySnapshot) {
+									querySnapshot.forEach(function(doc) {
+										doc.ref.delete();
+									});
+								});								
+
+	}
+	
 
 	return (
 		<div className="table_chat">
 			<div className="table_users">
+
 				<div className="table_users_header">
 					<h3>Users at the Table #{tableDetails?.name}</h3>
 				</div>
 				<div className="table_users_list">
-					<ul>
-						{tableUsers.map(({ name, photoURL }) => (
-							<li>
-								<Avatar className="header__avatar" alt={name} src={photoURL} />
-								<h5>{name}</h5>
-							</li>
-						))}
-					</ul>
+						<ul>
+						{tableUsers.map(({ uid }) => (
+								<li>
+									{/* <Avatar
+										className="header__avatar"
+										alt={name}
+										src={photoURL}
+									/> */}
+									<h5>{uid}</h5> 
+									{/* ---> changed from  { name } */}
+								</li>
+							))}
+						</ul>	
 				</div>
 			</div>
 
