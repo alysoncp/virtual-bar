@@ -17,6 +17,7 @@ function App() {
 	useEffect(() => {
 		console.log("User changed: ", user)
 
+		// !! INTEND TO REFACTOR TO MAKE A CUSTOM HOOK 
 			
 		if(user != null) {
 			// ----------------------------------------------------------
@@ -29,9 +30,7 @@ function App() {
 			// This is where we will store data about being online/offline.
 			const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
 
-			// We'll create two constants which we will write to 
-			// the Realtime database when this device is offline
-			// or online.
+			// Create two constants which we will write to the Realtime database when this device is offline or online.
 			const isOfflineForDatabase = {
 					state: 'offline',
 					last_changed: firebase.database.ServerValue.TIMESTAMP,
@@ -42,27 +41,16 @@ function App() {
 					last_changed: firebase.database.ServerValue.TIMESTAMP,
 			};
 
-			// Create a reference to the special '.info/connected' path in 
-			// Realtime Database. This path returns `true` when connected
-			// and `false` when disconnected.
+			// Create a reference to the special '.info/connected' path in Realtime Database. 
+			// Returns `true` when connected and `false` when disconnected.
 			firebase.database().ref('.info/connected').on('value', function(snapshot) {
-					// If we're not currently connected, don't do anything.
 					if (snapshot.val() == false) {
 							return;
 			};
 
-				// If we are currently connected, then use the 'onDisconnect()' 
-				// method to add a set which will only trigger once this 
-				// client has disconnected by closing the app, 
-				// losing internet, or any other means.
+				// Use 'onDisconnect()' 
+				// Triggers when client has disconnected by closing the app, losing internet, etc.
 				userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
-						// The promise returned from .onDisconnect().set() will
-						// resolve as soon as the server acknowledges the onDisconnect() 
-						// request, NOT once we've actually disconnected:
-						// https://firebase.google.com/docs/reference/js/firebase.database.OnDisconnect
-
-						// We can now safely set ourselves as 'online' knowing that the
-						// server will mark us as offline once we lose connection.
 						userStatusDatabaseRef.set(isOnlineForDatabase);
 				});
 			});
@@ -75,8 +63,8 @@ function App() {
 
 			const userStatusFirestoreRef = firebase.firestore().doc('/status/' + uid);
 
-			// Firestore uses a different server timestamp value, so we'll 
-			// create two more constants for Firestore state.
+			// Firestore uses a different server timestamp value 
+			// Instead create two more constants for Firestore state.
 			const isOfflineForFirestore = {
 					state: 'offline',
 					last_changed: firebase.firestore.FieldValue.serverTimestamp(),
@@ -89,9 +77,7 @@ function App() {
 
 			firebase.database().ref('.info/connected').on('value', function(snapshot) {
 					if (snapshot.val() == false) {
-							// Instead of simply returning, we'll also set Firestore's state
-							// to 'offline'. This ensures that our Firestore cache is aware
-							// of the switch to 'offline.'
+							// Set Firestore's state to 'offline'. This ensures that our Firestore cache is awarevof the switch to 'offline.'
 							userStatusFirestoreRef.set(isOfflineForFirestore);
 							return;
 					};
@@ -106,7 +92,7 @@ function App() {
 
 			// -------------------------------------------------------------------
 
-			
+			// Check and console what what the client thinks the online status is
 			userStatusFirestoreRef.onSnapshot(function(doc) {
 				const isOnline = doc.data().state == 'online';
 				console.log("Is online function says: ", isOnline)
@@ -114,8 +100,7 @@ function App() {
 
 		}		
 	
-	}, [user])
-// END OF USE EFFECT HOOK
+	}, [user])  // END OF USE EFFECT HOOK - UPDATES WHEN USER CHANGES (login/logout/disconnect)
 
 
 	return (
