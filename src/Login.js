@@ -8,19 +8,18 @@ import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
 
 function Login() {
-
 	const [state, dispatch] = useStateValue();
-	
+
 	const signIn = () => {
-		let displayName;
-		let photoURL;
-		let idToken;
+		// let displayName;
+		// let photoURL;
+		// let idToken;
 		auth
 			.signInWithPopup(provider)
 			.then((result) => {
-				displayName = result.user.displayName;
-				photoURL = result.user.photoURL;
-				idToken = result.credential.idToken;
+				// const displayName = result.user.displayName;
+				// const photoURL = result.user.photoURL;
+				const idToken = result.user.uid;
 
 				HaversineGeolocation.isGeolocationAvailable().then((data) => {
 					const userLocation = {
@@ -32,7 +31,7 @@ function Login() {
 						type: actionTypes.SET_USER,
 						user: result.user,
 						location: userLocation,
-						idToken: idToken
+						idToken: idToken,
 					});
 				});
 				// addUserToDB(displayName, photoURL, idToken);
@@ -40,7 +39,7 @@ function Login() {
 			.catch((error) => {
 				alert(error.message);
 			});
-	}		
+	};
 
 	// const addUserToDB = (displayName, profileImage, idToken) => {
 	// 	db.collection("users").add({
@@ -50,7 +49,6 @@ function Login() {
 	// 		is_online: true
 	// 	})
 	// }
-
 
 	return (
 		<div className="login">
