@@ -9,7 +9,6 @@ import "./Chat.css";
 
 import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
 
-
 function Chat() {
 	const { barId, tableId } = useParams();
 	const [tableDetails, setTableDetails] = useState(null);
@@ -19,37 +18,35 @@ function Chat() {
 
 	const history = useHistory();
 
-
-console.log("User's UID is: ", user.uid)	
+  console.log("User's UID is: ", user.uid)	
 
 // --------------------------------------------------------
 // For autoscrolling to bottom of chat 
 	const messagesEndRef = useRef(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
-  }
+	const scrollToBottom = () => {
+		messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+	};
 
-  useEffect(scrollToBottom, [tableMessages]);
-// --------------------------------------------------------
-// For only loading contemporary messages
+	useEffect(scrollToBottom, [tableMessages]);
+	// --------------------------------------------------------
+	// For only loading contemporary messages
 
-	const joinTimestamp = new Date()
-	console.log("User joined at: " + joinTimestamp)
+	const joinTimestamp = new Date();
+	console.log("User joined at: " + joinTimestamp);
 	const twoMinAgo = new Date(joinTimestamp - 120000);
-	console.log("Two minutes ago was: " + twoMinAgo)
+	console.log("Two minutes ago was: " + twoMinAgo);
 
-// -------------------------------------------------------
-	
+	// -------------------------------------------------------
+
 	useEffect(() => {
-		
 		if (tableId) {
 			db.collection("bars")
 				.doc(barId)
 				.collection("tables")
 				.doc(tableId)
 				.onSnapshot((snapshot) => {
-					setTableDetails(snapshot.data())
+					setTableDetails(snapshot.data());
 				});
 		}
 
@@ -61,33 +58,27 @@ console.log("User's UID is: ", user.uid)
 			.where("timestamp", ">=", twoMinAgo)
 			.orderBy("timestamp", "asc")
 			.onSnapshot((snapshot) => {
-				setTableMessages(snapshot.docs.map((doc) => doc.data()))
+				setTableMessages(snapshot.docs.map((doc) => doc.data()));
 			});
 
-			db.collection("bars")
+		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
 			.doc(tableId)
 			.collection("usersAtTable")
-			.add({uid: user.uid});
+			.add({uid: user.uid, name: user?.displayName, photoURL: user?.photoURL });
 
-
-		
-			db.collection("bars")
+		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
 			.doc(tableId)
 			.collection("usersAtTable")
 			.onSnapshot((snapshot) => {
-				setTableUsers(snapshot.docs.map((doc) => doc.data()))
+				setTableUsers(snapshot.docs.map((doc) => doc.data()));
 			});
-
 	}, [tableId]);
 
-	
-
 	console.log("TableUsers: ", tableUsers);
-
 
 	const leaveTable = () => {
 		history.push(`/bar/${barId}`);
@@ -107,14 +98,12 @@ console.log("User's UID is: ", user.uid)
 	}
 	
 
-
 	return (
 		<div className="table_chat">
-			
 			<div className="table_users">
 
 				<div className="table_users_header">
-					<h3>Users at Table</h3>
+					<h3>Users at the Table #{tableDetails?.name}</h3>
 				</div>
 				<div className="table_users_list">
 						<ul>
@@ -131,33 +120,32 @@ console.log("User's UID is: ", user.uid)
 							))}
 						</ul>	
 				</div>
-				
 			</div>
 
 			<div className="chat">
 				<div className="chat__header">
 					<div className="chat__headerLeft">
 						<h4 className="chat__channelName">
-							<strong>  Table Number {tableDetails?.number}</strong>
+							<strong> Table #{tableDetails?.name}</strong>
 						</h4>
 					</div>
 					<div className="chat__headerRight" onClick={leaveTable}>
 						Leave Table
 					</div>
 				</div>
-				
-					<div className="chat__messages">
-						{tableMessages.map(({ message, timestamp, user }) => (
-							<Message
-								message={message}
-								timestamp={timestamp}
-								user={user}
-							/>
-						))}
-					</div>
-					<div className="scroll-spacer" ref={messagesEndRef} />
-				
-				<ChatInput barId={barId} tableId={tableId} tableNumber={tableDetails?.number}/>
+
+				<div className="chat__messages">
+					{tableMessages.map(({ message, timestamp, user }) => (
+						<Message message={message} timestamp={timestamp} user={user} />
+					))}
+				</div>
+				<div className="scroll-spacer" ref={messagesEndRef} />
+
+				<ChatInput
+					barId={barId}
+					tableId={tableId}
+					tableNumber={tableDetails?.name}
+				/>
 			</div>
 		</div>
 	);

@@ -16,7 +16,7 @@ import Button from "@material-ui/core/Button";
 
 function Street() {
 	const [channels, setChannels] = useState([]);
-	const [{ user, userLocation }] = useStateValue();
+	const [{ user, userLocation, idToken }] = useStateValue();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [input, setInput] = useState("");
 
@@ -26,6 +26,7 @@ function Street() {
 				snapshot.docs.map((doc) => ({
 					id: doc.id,
 					name: doc.data().name,
+					creatorId: doc.data().creatorId,
 					location: {
 						latitude: doc.data().location.latitude,
 						longitude: doc.data().location.longitude,
@@ -67,6 +68,7 @@ function Street() {
 				table_size: 6,
 				capacity: 60,
 				name: input,
+				creatorId: idToken,
 				location: new firebase.firestore.GeoPoint(
 					userLocation.latitude,
 					userLocation.longitude
@@ -77,7 +79,7 @@ function Street() {
 		handleClose();
 	};
 
-	// start of stuff for bar name popup input
+	// start of code for bar name popup input
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			"& > *": {
@@ -102,14 +104,14 @@ function Street() {
 
 	const open = Boolean(anchorEl);
 	const id = open ? "simple-popover" : undefined;
-	// end of stuff for bar name popup input
-
+	// end of code for bar name popup input
 	return (
 		<div className="street">
 			<div className="street_header">
 				<div>Open Bars</div>
 				<div>
 					<Button
+						className="button__open_new_bar"
 						id="form_close"
 						variant="contained"
 						color="primary"
@@ -163,6 +165,7 @@ function Street() {
 								key={channel.id}
 								title={channel.name}
 								id={channel.id}
+								barCreatorId={channel.creatorId}
 							/>
 						))
 					) : (
