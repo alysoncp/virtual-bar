@@ -79,7 +79,8 @@ function Street() {
 		handleClose();
 	};
 
-	// start of code for bar name popup input
+	// start of code for table name popup input
+	// ----------------------------------------
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			"& > *": {
@@ -104,7 +105,9 @@ function Street() {
 
 	const open = Boolean(anchorEl);
 	const id = open ? "simple-popover" : undefined;
-	// end of code for bar name popup input
+	// --------------------------------------
+	// end of code for table name popup input
+
 	return (
 		<div className="street">
 			<div className="street_header">

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
-import firebase from "firebase";
 import db from "./firebase";
 
 import Table from "./Table";
@@ -22,6 +21,7 @@ function Bar() {
 	const [{ idToken }] = useStateValue();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [input, setInput] = useState("");
+	const [imageUrl, setImageUrl] = useState("");
 
 	useEffect(() => {
 		if (barId) {
@@ -40,6 +40,7 @@ function Bar() {
 						id: doc.id,
 						name: doc.data().name,
 						creatorId: doc.data().creatorId,
+						customTableImage: doc.data().customTableImage,
 					}))
 				)
 			);
@@ -52,14 +53,23 @@ function Bar() {
 	const addTable = (event) => {
 		event.preventDefault();
 
-		if (input) {
+		if (input && !imageUrl) {
 			db.collection("bars").doc(barId).collection("tables").add({
 				name: input,
 				creatorId: idToken,
 			});
 		}
 
+		if (input && imageUrl) {
+			db.collection("bars").doc(barId).collection("tables").add({
+				name: input,
+				creatorId: idToken,
+				customTableImage: imageUrl,
+			});
+		}
+
 		setInput("");
+		setImageUrl("");
 		handleClose();
 	};
 
@@ -132,6 +142,13 @@ function Bar() {
 								onChange={(event) => setInput(event.target.value)}
 								value={input}
 							/>
+							<TextField
+								id="outlined-basic"
+								label="Enter an image URL"
+								variant="outlined"
+								onChange={(event) => setImageUrl(event.target.value)}
+								value={imageUrl}
+							/>
 							<div>
 								<button
 									id="input__table_box"
@@ -153,6 +170,7 @@ function Bar() {
 						id={table.id}
 						name={table.name}
 						tableCreatorId={table.creatorId}
+						customTableImage={table.customTableImage}
 					/>
 				))}
 			</div>
