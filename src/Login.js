@@ -11,14 +11,9 @@ function Login() {
 	const [state, dispatch] = useStateValue();
 
 	const signIn = () => {
-		// let displayName;
-		// let photoURL;
-		// let idToken;
 		auth
 			.signInWithPopup(provider)
 			.then((result) => {
-				// const displayName = result.user.displayName;
-				// const photoURL = result.user.photoURL;
 				const idToken = result.user.uid;
 
 				HaversineGeolocation.isGeolocationAvailable().then((data) => {
@@ -34,21 +29,11 @@ function Login() {
 						idToken: idToken,
 					});
 				});
-				// addUserToDB(displayName, photoURL, idToken);
 			})
 			.catch((error) => {
 				alert(error.message);
 			});
 	};
-
-	// const addUserToDB = (displayName, profileImage, idToken) => {
-	// 	db.collection("users").add({
-	// 		username: displayName,
-	// 		profile_image: profileImage,
-	// 		idToken: idToken,
-	// 		is_online: true
-	// 	})
-	// }
 
 	return (
 		<div className="login">
