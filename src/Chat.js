@@ -128,7 +128,7 @@ function Chat() {
 				<div className="chat__header">
 					<div className="chat__headerLeft">
 						<h4 className="chat__channelName">
-							<strong>Hanging at {tableDetails?.name}</strong>
+							<strong>Hanging at #{tableDetails?.name}</strong>
 						</h4>
 					</div>
 					<div className="chat__headerRight" onClick={leaveTable}>
