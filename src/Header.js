@@ -94,7 +94,6 @@ function Header() {
   const history = useHistory();
 
 	const logout = () => {
-    history.replace(`/`);
 		window.location.reload(false);
 	}
 
