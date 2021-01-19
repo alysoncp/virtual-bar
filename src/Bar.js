@@ -102,23 +102,6 @@ function Bar() {
 	// --------------------------------------
 	// end of code for table name popup input
 
-	const usersPresent = async (tableId) => {
-		const result = await db
-			.collection("bars")
-			.doc(barId)
-			.collection("tables")
-			.doc(tableId)
-			.collection("usersAtTable")
-			.get()
-			.then((snap) => {
-				const usersPresent = snap.size;
-				console.log("this is the size", usersPresent);
-				return usersPresent;
-			});
-		console.log("this is the result", result);
-		return result;
-	};
-
 	return (
 		<div className="container bar_container">
 			<div className="bar_header">
@@ -188,7 +171,6 @@ function Bar() {
 						name={table.name}
 						tableCreatorId={table.creatorId}
 						customTableImage={table.customTableImage}
-						// usersPresent={usersPresent(table.id)}
 					/>
 				))}
 			</div>
