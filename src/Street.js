@@ -1,24 +1,57 @@
-import React, { useState, useEffect } from "react";
+// React 
+import React, { useState, useEffect, Fragment } from "react";
 import { useStateValue } from "./hooks+context/StateProvider";
 import firebase from "firebase";
 import db from "./firebase";
 import HaversineGeolocation from "haversine-geolocation";
-
 import BarListing from "./BarListing";
-import "./Street.css";
-import "./BarListing.css";
 
+// Material UI 
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import HomeIcon from '@material-ui/icons/Home';
+
+// Custom Styles
+import "./Street.css";
+import "./BarListing.css";
+
+// Material UI Styles
+const useStyles = makeStyles((theme) => ({
+	root: {
+		"& > *": {
+			margin: theme.spacing(1),
+			width: "25ch",
+		},
+	},
+	typography: {
+		padding: theme.spacing(2),
+	},
+	link: {
+    display: 'flex',
+  },
+  icon: {
+    marginRight: theme.spacing(0.5),
+    width: 20,
+    height: 20,
+  },
+}));
+
+function handleBreadCrumbClick(event) {
+  event.preventDefault();
+  console.info('You clicked a breadcrumb.');
+}
 
 function Street() {
 	const [channels, setChannels] = useState([]);
 	const [{ user, userLocation, idToken }] = useStateValue();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [input, setInput] = useState("");
+	const classes = useStyles();
 
 	useEffect(() => {
 		db.collection("bars").onSnapshot((snapshot) => {
@@ -81,19 +114,6 @@ function Street() {
 
 	// start of code for table name popup input
 	// ----------------------------------------
-	const useStyles = makeStyles((theme) => ({
-		root: {
-			"& > *": {
-				margin: theme.spacing(1),
-				width: "25ch",
-			},
-		},
-		typography: {
-			padding: theme.spacing(2),
-		},
-	}));
-
-	const classes = useStyles();
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -109,11 +129,14 @@ function Street() {
 	// end of code for table name popup input
 
 	return (
-		<div className="street">
-			<div className="street_header">
-				<div>Open Bars</div>
-				<div>
-					<Button
+			<Fragment>
+				<div className="street">
+					<Breadcrumbs aria-label="breadcrumb" className="breadCrumbs">
+						<Link color="inherit" className={classes.link}>
+							<HomeIcon className={classes.icon} />
+							Bars Nearby
+						</Link>
+						<Button
 						className="button__open_new_bar"
 						id="form_close"
 						variant="contained"
@@ -121,9 +144,10 @@ function Street() {
 						onClick={handleClick}
 						disableFocusRipple={true}
 						disableRipple={true}
-					>
-						Open New Bar
-					</Button>
+						>
+							Open New Bar
+						</Button>
+					</Breadcrumbs>
 					<Popover
 						id={id}
 						open={open}
@@ -157,31 +181,30 @@ function Street() {
 							</form>
 						</Typography>
 					</Popover>
+					<div className="bar_list">
+						{channels.map((channel) =>
+							closeProximityToUser(channel.location) ? (
+								((atLeastOneBar = true),
+								(
+									<BarListing
+										key={channel.id}
+										title={channel.name}
+										id={channel.id}
+										barCreatorId={channel.creatorId}
+									/>
+								))
+							) : (
+								<></>
+							)
+						)}
+						{!atLeastOneBar && (
+							<h1 id="test__no_bar">
+								Sorry, there no bars are near you. Start your own!
+							</h1>
+						)}
+					</div>
 				</div>
-			</div>
-			<div className="bar_list">
-				{channels.map((channel) =>
-					closeProximityToUser(channel.location) ? (
-						((atLeastOneBar = true),
-						(
-							<BarListing
-								key={channel.id}
-								title={channel.name}
-								id={channel.id}
-								barCreatorId={channel.creatorId}
-							/>
-						))
-					) : (
-						<></>
-					)
-				)}
-				{!atLeastOneBar && (
-					<h1 id="test__no_bar">
-						Sorry, there no bars are near you. Start your own!
-					</h1>
-				)}
-			</div>
-		</div>
+			</Fragment>
 	);
 }
 

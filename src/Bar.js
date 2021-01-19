@@ -1,17 +1,22 @@
+// React
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
 import db from "./firebase";
-
 import Table from "./Table";
 
-import "./Bar.css";
-
+// Material UI 
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import HomeIcon from '@material-ui/icons/Home';
+
+// Custom CSS
+import "./Bar.css";
 
 function Bar() {
 	const { barId } = useParams();
@@ -85,6 +90,14 @@ function Bar() {
 		typography: {
 			padding: theme.spacing(2),
 		},
+		link: {
+			display: 'flex',
+		},
+		icon: {
+			marginRight: theme.spacing(0.5),
+			width: 20,
+			height: 20,
+		},
 	}));
 
 	const classes = useStyles();
@@ -103,22 +116,28 @@ function Bar() {
 	// end of code for table name popup input
 
 	return (
-		<div className="container bar_container">
-			<div className="bar_header">
-				<div className="header-left">
-					<h3>{`Here we are in the ${barDetails?.name} bar`}</h3>
-				</div>
-				<Button
-					className="button__grab_table"
-					id="form_close"
-					variant="contained"
-					color="primary"
-					onClick={handleClick}
-					disableFocusRipple={true}
-					disableRipple={true}
-				>
+			<div className="street">
+				<Breadcrumbs aria-label="breadcrumb" className="breadCrumbs">
+					<Link color="inherit" onClick={leaveBar} className={classes.link}>
+						<HomeIcon className={classes.icon} />
+						Bars Nearby
+					</Link>
+					<Link color="inherit" onClick={leaveBar} className={classes.link}>
+						<HomeIcon className={classes.icon} />
+						{barDetails?.name}
+					</Link>
+					<Button
+						// className="button__grab_table"
+						id="form_close"
+						variant="contained"
+						color="primary"
+						onClick={handleClick}
+						disableFocusRipple={true}
+						disableRipple={true}
+					>
 					Grab a table
-				</Button>
+					</Button>
+				</Breadcrumbs>
 				<Popover
 					id={id}
 					open={open}
@@ -151,7 +170,7 @@ function Bar() {
 							/>
 							<div>
 								<button
-									id="input__table_box"
+									id="input__bar_box"
 									type="submit"
 									onClick={addTable}
 								></button>
@@ -159,23 +178,94 @@ function Bar() {
 						</form>
 					</Typography>
 				</Popover>
-				<div className="header-right">
-					<h4 onClick={leaveBar}>Leave Bar</h4>
+				<div className="table_list">
+					{tables.map((table) => (
+						<Table
+							key={table.id}
+							id={table.id}
+							name={table.name}
+							tableCreatorId={table.creatorId}
+							customTableImage={table.customTableImage}
+						/>
+					))}
 				</div>
 			</div>
-			<div className="table_list">
-				{tables.map((table) => (
-					<Table
-						key={table.id}
-						id={table.id}
-						name={table.name}
-						tableCreatorId={table.creatorId}
-						customTableImage={table.customTableImage}
-					/>
-				))}
-			</div>
-		</div>
 	);
+
+	// return (
+	// 	<div className="container bar_container">
+	// 		<div className="bar_header">
+	// 			<div className="header-left">
+	// 				<h3>{`Here we are in the ${barDetails?.name} bar`}</h3>
+	// 			</div>
+	// 			<Button
+	// 				className="button__grab_table"
+	// 				id="form_close"
+	// 				variant="contained"
+	// 				color="primary"
+	// 				onClick={handleClick}
+	// 				disableFocusRipple={true}
+	// 				disableRipple={true}
+	// 			>
+	// 				Grab a table
+	// 			</Button>
+	// 			<Popover
+	// 				id={id}
+	// 				open={open}
+	// 				anchorEl={anchorEl}
+	// 				onClose={handleClose}
+	// 				anchorOrigin={{
+	// 					vertical: "bottom",
+	// 					horizontal: "center",
+	// 				}}
+	// 				transformOrigin={{
+	// 					vertical: "top",
+	// 					horizontal: "center",
+	// 				}}
+	// 			>
+	// 				<Typography className={classes.typography}>
+	// 					<form className={classes.root} noValidate autoComplete="off">
+	// 						<TextField
+	// 							id="outlined-basic"
+	// 							label="Enter your table's name"
+	// 							variant="outlined"
+	// 							onChange={(event) => setInput(event.target.value)}
+	// 							value={input}
+	// 						/>
+	// 						<TextField
+	// 							id="outlined-basic"
+	// 							label="Enter an image URL"
+	// 							variant="outlined"
+	// 							onChange={(event) => setImageUrl(event.target.value)}
+	// 							value={imageUrl}
+	// 						/>
+	// 						<div>
+	// 							<button
+	// 								id="input__table_box"
+	// 								type="submit"
+	// 								onClick={addTable}
+	// 							></button>
+	// 						</div>
+	// 					</form>
+	// 				</Typography>
+	// 			</Popover>
+	// 			<div className="header-right">
+	// 				<h4 onClick={leaveBar}>Leave Bar</h4>
+	// 			</div>
+	// 		</div>
+			// <div className="table_list">
+			// 	{tables.map((table) => (
+			// 		<Table
+			// 			key={table.id}
+			// 			id={table.id}
+			// 			name={table.name}
+			// 			tableCreatorId={table.creatorId}
+			// 			customTableImage={table.customTableImage}
+			// 		/>
+			// 	))}
+			// </div>
+	// 	</div>
+	// );
 }
 
 export default Bar;
