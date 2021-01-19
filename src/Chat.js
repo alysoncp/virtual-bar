@@ -118,12 +118,12 @@ function Chat() {
 				</div>
 				<div className="table_users_list">
 					<ul>
-						{tableUsers.map(({ name }) => (
+						{tableUsers.map(({ name, photoURL }) => (
 							<li>
 								<Avatar
 										className="header__avatar"
 										alt={name}
-										src={user?.photoURL}
+										src={photoURL}
 									/>
 								<h5>{name}</h5>
 								{/* ---> changed from  { name } */}
