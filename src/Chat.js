@@ -18,7 +18,7 @@ function Chat() {
 
 	console.log("User's UID is: ", user.uid);
 
-	console.log("Set users *sitting_at*")
+	console.log("Set users *sitting_at*");
 
 	// --------------------------------------------------------
 	// For autoscrolling to bottom of chat
@@ -81,14 +81,10 @@ function Chat() {
 				setTableUsers(snapshot.docs.map((doc) => doc.data()));
 			});
 
-		db.collection("users")
-			.doc(user.uid)
-			.update({
-				at_bar: barId,
-				at_table: tableId,
-			})		
-
-
+		db.collection("users").doc(user.uid).update({
+			at_bar: barId,
+			at_table: tableId,
+		});
 	}, [tableId]);
 
 	console.log("TableUsers: ", tableUsers);
@@ -114,19 +110,14 @@ function Chat() {
 		<div className="table_chat">
 			<div className="table_users">
 				<div className="table_users_header">
-					<h3>Users at {tableDetails?.name}</h3>
+					<h3>Patrons</h3>
 				</div>
 				<div className="table_users_list">
 					<ul>
 						{tableUsers.map(({ name, photoURL }) => (
 							<li>
-								<Avatar
-										className="header__avatar"
-										alt={name}
-										src={photoURL}
-									/>
+								<Avatar className="header__avatar" alt={name} src={photoURL} />
 								<h5>{name}</h5>
-								{/* ---> changed from  { name } */}
 							</li>
 						))}
 					</ul>
@@ -137,7 +128,7 @@ function Chat() {
 				<div className="chat__header">
 					<div className="chat__headerLeft">
 						<h4 className="chat__channelName">
-							<strong> Table #{tableDetails?.name}</strong>
+							<strong>Hanging at {tableDetails?.name}</strong>
 						</h4>
 					</div>
 					<div className="chat__headerRight" onClick={leaveTable}>

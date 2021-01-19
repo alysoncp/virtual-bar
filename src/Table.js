@@ -93,22 +93,6 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 				)}
 			</CardActions>
 		</Card>
-
-		// <div className="table">
-		// 	<img
-		// 		src={
-		// 			customTableImage
-		// 				? customTableImage
-		// 				: "https://www.flaticon.com/svg/static/icons/svg/160/160705.svg"
-		// 		}
-		// 		alt="table logo"
-		// 	/>
-		// 	<div className="title">{`The #${name} table!!`}</div>
-		// 	<button onClick={goToTable}>Join Table</button>
-		// 	{userCanDelete(tableCreatorId, idToken) && (
-		// 		<button onClick={deleteTable}>Delete Table</button>
-		// 	)}
-		// </div>
 	);
 }
 

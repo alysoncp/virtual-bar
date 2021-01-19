@@ -69,6 +69,8 @@ function Bar() {
 	const addTable = (event) => {
 		event.preventDefault();
 		const randomPhrase = [
+			"Welcome to Deh Bar-Bar",
+			"Bar Bar Binks",
 			"What is this? A table for ants!?",
 			"Awwwwwwlrighty then!",
 			"Join knights who say 'NI!'",
