@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 	},
 });
 
-function Table({ id, name, tableCreatorId, customTableImage }) {
+function Table({ id, name, tableCreatorId, customTableImage, description }) {
 	const { barId } = useParams();
 	const history = useHistory();
 	const [{ idToken }] = useStateValue();
@@ -78,7 +78,7 @@ function Table({ id, name, tableCreatorId, customTableImage }) {
 						{name}
 					</Typography>
 					<Typography variant="body2" color="textSecondary" component="p">
-						Put description here.........
+						{description}
 					</Typography>
 				</CardContent>
 			</CardActionArea>
@@ -86,7 +86,7 @@ function Table({ id, name, tableCreatorId, customTableImage }) {
 				<Button size="small" color="primary" onClick={goToTable}>
 					Join Table
 				</Button>
-				{userCanDelete(tableCreatorId, idToken) && (
+				{!usersPresent && userCanDelete(tableCreatorId, idToken) && (
 					<Button size="small" color="primary" onClick={deleteTable}>
 						Delete Bar
 					</Button>
