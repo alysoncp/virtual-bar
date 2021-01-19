@@ -1,4 +1,4 @@
-// React 
+// React
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import db from "./firebase";
@@ -6,22 +6,22 @@ import { useStateValue } from "./hooks+context/StateProvider";
 
 // Materiul UI
 import "./Table.css";
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
+	root: {
+		maxWidth: 345,
+	},
+	media: {
+		height: 140,
+	},
 });
 
 function Table({ id, name, tableCreatorId, customTableImage }) {
@@ -29,7 +29,7 @@ function Table({ id, name, tableCreatorId, customTableImage }) {
 	const history = useHistory();
 	const [{ idToken }] = useStateValue();
 	const classes = useStyles();
-	const [usersPresent, setUsersPresent] = useState(null)
+	const [usersPresent, setUsersPresent] = useState(null);
 
 	useEffect(() => {
 		db.collection("bars")
@@ -61,36 +61,38 @@ function Table({ id, name, tableCreatorId, customTableImage }) {
 	};
 
 	return (
-
 		<Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={customTableImage
-										? customTableImage
-										: "https://images.unsplash.com/photo-1575444758702-4a6b9222336e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YmFyfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"}
-          title="Some title"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-					{name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Put description here.........
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary" onClick={goToTable}>
-          Join Table
-        </Button>
+			<CardActionArea>
+				<CardMedia
+					onClick={goToTable}
+					className={classes.media}
+					image={
+						customTableImage
+							? customTableImage
+							: "https://images.unsplash.com/photo-1575444758702-4a6b9222336e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YmFyfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
+					}
+					title="Some title"
+				/>
+				<CardContent>
+					<Typography gutterBottom variant="h5" component="h2">
+						{name}
+					</Typography>
+					<Typography variant="body2" color="textSecondary" component="p">
+						Put description here.........
+					</Typography>
+				</CardContent>
+			</CardActionArea>
+			<CardActions>
+				<Button size="small" color="primary" onClick={goToTable}>
+					Join Table
+				</Button>
 				{userCanDelete(tableCreatorId, idToken) && (
 					<Button size="small" color="primary" onClick={deleteTable}>
 						Delete Bar
 					</Button>
 				)}
-      </CardActions>
-    </Card>
+			</CardActions>
+		</Card>
 
 		// <div className="table">
 		// 	<img
