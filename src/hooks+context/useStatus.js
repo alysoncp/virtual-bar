@@ -84,11 +84,12 @@ export default function useStatus() {
 
 			// -------------------------------------------------------------------
 
+			// ****** CANNOT USE CODE BELOW WHEN STORING DATA IS USER COLLECTION INSTEAD OF STATUS
 			// Check and console what what the client thinks the online status is
-			userStatusFirestoreRef.onSnapshot(function(doc) {
-				const isOnline = doc.data().state == 'online';
-				console.log("Is online function says: ", isOnline)
-			});
+			// userStatusFirestoreRef.onSnapshot(function(doc) {
+			// 	const isOnline = doc.data().state == 'online';
+			// 	console.log("Is online function says: ", isOnline)
+			// });
 
 		}		
 	
