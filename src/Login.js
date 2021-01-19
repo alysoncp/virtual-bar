@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom"
 import HaversineGeolocation from "haversine-geolocation";
 import "./Login.css";
 import { Button } from "@material-ui/core";
@@ -9,6 +10,7 @@ import { actionTypes } from "./hooks+context/reducer";
 
 function Login() {
 	const [state, dispatch] = useStateValue();
+	const history = useHistory();
 
 	const signIn = () => {
 		auth
@@ -29,6 +31,7 @@ function Login() {
 						idToken: idToken,
 					});
 				});
+				history.replace(`/`);
 			})
 			.catch((error) => {
 				alert(error.message);
