@@ -61,7 +61,7 @@ function BarListing({ Icon, title, id, addChannelOption, barCreatorId }) {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://cdn4.vectorstock.com/i/1000x1000/52/38/speed-beer-logo-icon-design-vector-22545238.jpg"
+          image="https://images.unsplash.com/photo-1575444758702-4a6b9222336e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YmFyfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
           title="Contemplative Reptile"
         />
         <CardContent>

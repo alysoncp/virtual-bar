@@ -3,13 +3,14 @@
 	display: flex;
 	flex: 1.0;
 	flex-direction: row;
+	margin-top: -32px;
 }
 
 .table_users {
 	flex: 0.5;
 	color: white;
 	padding: 25px;
-	background-color: rgb(13, 49, 27);
+	background-color: #3F51B5;
 }
 
 .table_users_header {

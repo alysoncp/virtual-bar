@@ -132,7 +132,7 @@ function Street() {
 			<Fragment>
 				<div className="street">
 					<Breadcrumbs aria-label="breadcrumb" className="breadCrumbs">
-						<Link color="inherit" href="/" className={classes.link}>
+						<Link color="inherit" className={classes.link}>
 							<HomeIcon className={classes.icon} />
 							Bars Nearby
 						</Link>

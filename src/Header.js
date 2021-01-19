@@ -231,7 +231,11 @@ function Header() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar
+                className="header__avatar"
+                alt={user?.displayName}
+                src={user?.photoURL}
+              />
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
