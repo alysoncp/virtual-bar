@@ -91,13 +91,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Header() {
 	const [{ user }] = useStateValue();
-	// const history = useHistory();
-
-  // const goHome = () => {
-	// 	history.push(`/`);
-	// };
+  const history = useHistory();
 
 	const logout = () => {
+    history.replace(`/`);
 		window.location.reload(false);
 	}
 
