@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
+import { actionTypes } from "./hooks+context/reducer";
 import db from "./firebase";
 import Table from "./Table";
 
@@ -23,14 +24,10 @@ function Bar() {
 	const history = useHistory();
 	const [barDetails, setBarDetails] = useState(null);
 	const [tables, setTables] = useState([]);
-	const [{ idToken }] = useStateValue();
-	const [{ user }] = useStateValue();
+	const [{ user, idToken }, dispatch] = useStateValue();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [input, setInput] = useState("");
 	const [imageUrl, setImageUrl] = useState("");
-
-	const location = useLocation();
-	console.log(location.pathname);
 
 
 	useEffect(() => {
@@ -55,12 +52,18 @@ function Bar() {
 				)
 			);
 
+		
 		db.collection("users")
 			.doc(user.uid)
 			.update({
 				at_bar: barId,
 				at_table: null,
-			})		
+			}).then(() => {	
+				dispatch({
+					type: actionTypes.SET_BAR,
+					at_bar: barId
+				})
+			});
 
 	}, [barId]);
 

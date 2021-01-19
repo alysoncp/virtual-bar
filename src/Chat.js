@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
+import { actionTypes } from "./hooks+context/reducer";
 import { Avatar } from "@material-ui/core";
 import ChatInput from "./ChatInput";
 import Message from "./Message";
@@ -12,7 +13,7 @@ function Chat() {
 	const [tableDetails, setTableDetails] = useState(null);
 	const [tableMessages, setTableMessages] = useState([]);
 	const [tableUsers, setTableUsers] = useState([]);
-	const [{ user }] = useStateValue();
+	const [{ user }, dispatch] = useStateValue();
 
 	const history = useHistory();
 
@@ -86,7 +87,14 @@ function Chat() {
 			.update({
 				at_bar: barId,
 				at_table: tableId,
-			})		
+			})	
+			.then(() => {
+				dispatch({
+					type: actionTypes.SET_TABLE,
+					at_table: tableId,
+				});	
+
+			});	
 
 
 	}, [tableId]);

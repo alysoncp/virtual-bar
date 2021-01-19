@@ -15,6 +15,8 @@ function App() {
 	
 	const [{ user }, dispatch] = useStateValue();
 
+
+
 	// Custom hook to set Realtime Database online/offline status
 	useStatus();
 
