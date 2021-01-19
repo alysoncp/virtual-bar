@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import db from "./firebase";
 import { useStateValue } from "./hooks+context/StateProvider";
@@ -8,12 +8,9 @@ function Table({ id, name, tableCreatorId, customTableImage }) {
 	const { barId } = useParams();
 	const history = useHistory();
 	const [{ idToken }] = useStateValue();
+	const [usersPresent, setUsersPresent] = useState(null);
 
-	const goToTable = () => {
-		history.push(`/bar/${barId}/table/${id}`);
-	};
-
-	const userCanDelete = (tableIdToken, userIdToken) => {
+	useEffect(() => {
 		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
@@ -21,13 +18,16 @@ function Table({ id, name, tableCreatorId, customTableImage }) {
 			.collection("usersAtTable")
 			.get()
 			.then((snap) => {
-				const size = snap.size;
-				console.log("This is the size", size);
+				const usersPresent = snap.size;
+				setUsersPresent(usersPresent);
 			});
+	}, []);
 
-		// 	db.collection('...').get().then(snap => {
-		// 		size = snap.size // will return the collection size
-		//  });
+	const goToTable = () => {
+		history.push(`/bar/${barId}/table/${id}`);
+	};
+
+	const userCanDelete = (tableIdToken, userIdToken) => {
 		return tableIdToken === userIdToken ? true : false;
 	};
 
@@ -51,7 +51,7 @@ function Table({ id, name, tableCreatorId, customTableImage }) {
 			/>
 			<div className="title">{`The #${name} table!!`}</div>
 			<button onClick={goToTable}>Join Table</button>
-			{userCanDelete(tableCreatorId, idToken) && (
+			{!usersPresent && userCanDelete(tableCreatorId, idToken) && (
 				<button onClick={deleteTable}>Delete Table</button>
 			)}
 		</div>
