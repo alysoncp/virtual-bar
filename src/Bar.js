@@ -161,6 +161,13 @@ function Bar() {
 								onChange={(event) => setInput(event.target.value)}
 								value={input}
 							/>
+							<TextField
+								id="outlined-basic"
+								label="Enter an image URL"
+								variant="outlined"
+								onChange={(event) => setImageUrl(event.target.value)}
+								value={imageUrl}
+							/>
 							<div>
 								<button
 									id="input__bar_box"
