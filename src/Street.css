@@ -10,14 +10,12 @@
 	background-color: #f8f8f8;
 	color: white;
 	padding: 20px;
+	margin-top: -32px;
 }
 
-.street_header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	background-color: rgb(13, 49, 27);
-	padding: 20px;
+.breadCrumbs {
+	padding-bottom: 20px;
+	width: 500px
 }
 
 .bar_list {
@@ -29,13 +27,6 @@
 	display: none !important;
 }
 
-.button__open_new_bar.MuiButtonBase-root,
-.MuiButton-root,
-.MuiButton-contained,
-.MuiButton-containedPrimary {
-	background-color: rgb(26, 96, 53);
-}
-
-.button__open_new_bar.MuiButtonBase-root:hover {
-	background-color: rgb(20, 191, 46);
+.button__open_new_bar {
+	align-self: flex-end;
 }
