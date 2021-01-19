@@ -58,9 +58,8 @@ function BarListing({ Icon, title, id, addChannelOption, barCreatorId }) {
 
 	return (
 		<Card className={classes.root}>
-			<CardActionArea>
+			<CardActionArea onClick={selectChannel}>
 				<CardMedia
-					onClick={selectChannel}
 					className={classes.media}
 					image="https://images.unsplash.com/photo-1575444758702-4a6b9222336e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YmFyfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
 					title="Contemplative Reptile"
