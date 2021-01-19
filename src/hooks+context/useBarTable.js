@@ -18,9 +18,11 @@ export default function useBarTable() {
         .update({
           at_bar: at_bar,
           at_table: at_table,
+          last_bar: last_bar,
+          last_table: last_table,
         })
 
-      if(!at_table) {
+      if(!at_table && last_table) {
         db.collection("bars")
         .doc(last_bar)
         .collection("tables")
@@ -40,10 +42,5 @@ export default function useBarTable() {
       
   }, [at_bar, at_table])
   
-  useEffect(() => {
-    console.log("Update to user: ", user);
-
-  }, [user])
-
 
 }
