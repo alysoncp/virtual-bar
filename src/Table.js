@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 	},
 });
 
-function Table({ id, name, tableCreatorId, customTableImage }) {
+function Table({ id, name, tableCreatorId, customTableImage, description }) {
 	const { barId } = useParams();
 	const history = useHistory();
 	const [{ idToken }] = useStateValue();
@@ -62,9 +62,8 @@ function Table({ id, name, tableCreatorId, customTableImage }) {
 
 	return (
 		<Card className={classes.root}>
-			<CardActionArea>
+			<CardActionArea onClick={goToTable}>
 				<CardMedia
-					onClick={goToTable}
 					className={classes.media}
 					image={
 						customTableImage
@@ -78,7 +77,7 @@ function Table({ id, name, tableCreatorId, customTableImage }) {
 						{name}
 					</Typography>
 					<Typography variant="body2" color="textSecondary" component="p">
-						Put description here.........
+						{description}
 					</Typography>
 				</CardContent>
 			</CardActionArea>
@@ -86,29 +85,13 @@ function Table({ id, name, tableCreatorId, customTableImage }) {
 				<Button size="small" color="primary" onClick={goToTable}>
 					Join Table
 				</Button>
-				{userCanDelete(tableCreatorId, idToken) && (
+				{!usersPresent && userCanDelete(tableCreatorId, idToken) && (
 					<Button size="small" color="primary" onClick={deleteTable}>
 						Delete Bar
 					</Button>
 				)}
 			</CardActions>
 		</Card>
-
-		// <div className="table">
-		// 	<img
-		// 		src={
-		// 			customTableImage
-		// 				? customTableImage
-		// 				: "https://www.flaticon.com/svg/static/icons/svg/160/160705.svg"
-		// 		}
-		// 		alt="table logo"
-		// 	/>
-		// 	<div className="title">{`The #${name} table!!`}</div>
-		// 	<button onClick={goToTable}>Join Table</button>
-		// 	{userCanDelete(tableCreatorId, idToken) && (
-		// 		<button onClick={deleteTable}>Delete Table</button>
-		// 	)}
-		// </div>
 	);
 }
 

@@ -6,15 +6,15 @@ import { actionTypes } from "./hooks+context/reducer";
 import db from "./firebase";
 import Table from "./Table";
 
-// Material UI 
+// Material UI
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
-import HomeIcon from '@material-ui/icons/Home';
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import Link from "@material-ui/core/Link";
+import HomeIcon from "@material-ui/icons/Home";
 
 // Custom CSS
 import "./Bar.css";
@@ -28,6 +28,7 @@ function Bar() {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [input, setInput] = useState("");
 	const [imageUrl, setImageUrl] = useState("");
+	const [desc, setDesc] = useState("");
 
 
 	useEffect(() => {
@@ -48,6 +49,7 @@ function Bar() {
 						name: doc.data().name,
 						creatorId: doc.data().creatorId,
 						customTableImage: doc.data().customTableImage,
+						description: doc.data().description,
 					}))
 				)
 			);
@@ -68,23 +70,47 @@ function Bar() {
 
 	const addTable = (event) => {
 		event.preventDefault();
-
-		if (input && !imageUrl) {
-			db.collection("bars").doc(barId).collection("tables").add({
-				name: input,
-				creatorId: idToken,
-			});
-		}
-
-		if (input && imageUrl) {
-			db.collection("bars").doc(barId).collection("tables").add({
-				name: input,
-				creatorId: idToken,
-				customTableImage: imageUrl,
-			});
+		const randomPhrase = [
+			"Welcome to Deh Bar-Bar",
+			"Bar Bar Binks",
+			"What is this? A table for ants!?",
+			"Awwwwwwlrighty then!",
+			"Join knights who say 'NI!'",
+			"How about that Limp Bizkit?",
+			"Do you like things and stuff? We do!",
+			"Sharks & frickin' laser beams",
+			"Go for Broke",
+			"I ate a sock cuz peeps on the Net told me to",
+			"They drank life before spitting it out",
+			"Come on Barbie let's go party!",
+			"Shenanigans",
+			"The blue parrot drove by the hitchhiking mongoose",
+			"Flying fish flew by the space station",
+			"#Drunk",
+			"Girls, Girls, Girls 🤟🎶",
+			"Tomorrow is a storyteller without equal",
+			"Insignificance loves to love",
+			"The legend of the raven's roar visits Japan in the winter",
+		];
+		if (!input) {
+			alert("Your table must have a name");
+			return;
+		} else {
+			db.collection("bars")
+				.doc(barId)
+				.collection("tables")
+				.add({
+					name: input,
+					creatorId: idToken,
+					customTableImage: imageUrl ? imageUrl : null,
+					description: desc
+						? desc
+						: randomPhrase[Math.floor(Math.random() * randomPhrase.length)],
+				});
 		}
 
 		setInput("");
+		setDesc("");
 		setImageUrl("");
 		handleClose();
 	};
@@ -102,7 +128,7 @@ function Bar() {
 			padding: theme.spacing(2),
 		},
 		link: {
-			display: 'flex',
+			display: "flex",
 		},
 		icon: {
 			marginRight: theme.spacing(0.5),
@@ -127,156 +153,88 @@ function Bar() {
 	// end of code for table name popup input
 
 	return (
-			<div className="street">
-				<Breadcrumbs aria-label="breadcrumb" className="breadCrumbs">
-					<Link color="inherit" onClick={leaveBar} className={classes.link}>
-						<HomeIcon className={classes.icon} />
-						Bars Nearby
-					</Link>
-					<Link color="inherit" onClick={leaveBar} className={classes.link}>
-						<HomeIcon className={classes.icon} />
-						{barDetails?.name}
-					</Link>
-					<Button
-						// className="button__grab_table"
-						id="form_close"
-						variant="contained"
-						color="primary"
-						onClick={handleClick}
-						disableFocusRipple={true}
-						disableRipple={true}
-					>
-					Grab a table
-					</Button>
-				</Breadcrumbs>
-				<Popover
-					id={id}
-					open={open}
-					anchorEl={anchorEl}
-					onClose={handleClose}
-					anchorOrigin={{
-						vertical: "bottom",
-						horizontal: "center",
-					}}
-					transformOrigin={{
-						vertical: "top",
-						horizontal: "center",
-					}}
+		<div className="street">
+			<Breadcrumbs aria-label="breadcrumb" className="breadCrumbs">
+				<Link color="inherit" onClick={leaveBar} className={classes.link}>
+					<HomeIcon className={classes.icon} />
+					Bars Nearby
+				</Link>
+				<Link color="inherit" onClick={leaveBar} className={classes.link}>
+					<HomeIcon className={classes.icon} />
+					{barDetails?.name}
+				</Link>
+				<Button
+					id="form_close"
+					variant="contained"
+					color="primary"
+					onClick={handleClick}
+					disableFocusRipple={true}
+					disableRipple={true}
 				>
-					<Typography className={classes.typography}>
-						<form className={classes.root} noValidate autoComplete="off">
-							<TextField
-								id="outlined-basic"
-								label="Enter your table's name"
-								variant="outlined"
-								onChange={(event) => setInput(event.target.value)}
-								value={input}
-							/>
-							<TextField
-								id="outlined-basic"
-								label="Enter an image URL"
-								variant="outlined"
-								onChange={(event) => setImageUrl(event.target.value)}
-								value={imageUrl}
-							/>
-							<div>
-								<button
-									id="input__bar_box"
-									type="submit"
-									onClick={addTable}
-								></button>
-							</div>
-						</form>
-					</Typography>
-				</Popover>
-				<div className="table_list">
-					{tables.map((table) => (
-						<Table
-							key={table.id}
-							id={table.id}
-							name={table.name}
-							tableCreatorId={table.creatorId}
-							customTableImage={table.customTableImage}
+					Grab a table
+				</Button>
+			</Breadcrumbs>
+			<Popover
+				id={id}
+				open={open}
+				anchorEl={anchorEl}
+				onClose={handleClose}
+				anchorOrigin={{
+					vertical: "bottom",
+					horizontal: "center",
+				}}
+				transformOrigin={{
+					vertical: "top",
+					horizontal: "center",
+				}}
+			>
+				<Typography className={classes.typography}>
+					<form className={classes.root} noValidate autoComplete="off">
+						<TextField
+							id="outlined-basic"
+							label="Enter your table's name"
+							variant="outlined"
+							onChange={(event) => setInput(event.target.value)}
+							value={input}
 						/>
-					))}
-				</div>
+						<TextField
+							id="outlined-basic"
+							label="Enter a short description"
+							variant="outlined"
+							onChange={(event) => setDesc(event.target.value)}
+							value={desc}
+						/>
+						<TextField
+							id="outlined-basic"
+							label="Enter an image URL"
+							variant="outlined"
+							onChange={(event) => setImageUrl(event.target.value)}
+							value={imageUrl}
+						/>
+						<div>
+							<button
+								id="input__bar_box"
+								type="submit"
+								onClick={addTable}
+							></button>
+						</div>
+					</form>
+				</Typography>
+			</Popover>
+			<div className="table_list">
+				{tables.map((table) => (
+					<Table
+						key={table.id}
+						id={table.id}
+						name={table.name}
+						tableCreatorId={table.creatorId}
+						customTableImage={table.customTableImage}
+						description={table.description}
+					/>
+				))}
 			</div>
+		</div>
 	);
-
-	// return (
-	// 	<div className="container bar_container">
-	// 		<div className="bar_header">
-	// 			<div className="header-left">
-	// 				<h3>{`Here we are in the ${barDetails?.name} bar`}</h3>
-	// 			</div>
-	// 			<Button
-	// 				className="button__grab_table"
-	// 				id="form_close"
-	// 				variant="contained"
-	// 				color="primary"
-	// 				onClick={handleClick}
-	// 				disableFocusRipple={true}
-	// 				disableRipple={true}
-	// 			>
-	// 				Grab a table
-	// 			</Button>
-	// 			<Popover
-	// 				id={id}
-	// 				open={open}
-	// 				anchorEl={anchorEl}
-	// 				onClose={handleClose}
-	// 				anchorOrigin={{
-	// 					vertical: "bottom",
-	// 					horizontal: "center",
-	// 				}}
-	// 				transformOrigin={{
-	// 					vertical: "top",
-	// 					horizontal: "center",
-	// 				}}
-	// 			>
-	// 				<Typography className={classes.typography}>
-	// 					<form className={classes.root} noValidate autoComplete="off">
-	// 						<TextField
-	// 							id="outlined-basic"
-	// 							label="Enter your table's name"
-	// 							variant="outlined"
-	// 							onChange={(event) => setInput(event.target.value)}
-	// 							value={input}
-	// 						/>
-	// 						<TextField
-	// 							id="outlined-basic"
-	// 							label="Enter an image URL"
-	// 							variant="outlined"
-	// 							onChange={(event) => setImageUrl(event.target.value)}
-	// 							value={imageUrl}
-	// 						/>
-	// 						<div>
-	// 							<button
-	// 								id="input__table_box"
-	// 								type="submit"
-	// 								onClick={addTable}
-	// 							></button>
-	// 						</div>
-	// 					</form>
-	// 				</Typography>
-	// 			</Popover>
-	// 			<div className="header-right">
-	// 				<h4 onClick={leaveBar}>Leave Bar</h4>
-	// 			</div>
-	// 		</div>
-			// <div className="table_list">
-			// 	{tables.map((table) => (
-			// 		<Table
-			// 			key={table.id}
-			// 			id={table.id}
-			// 			name={table.name}
-			// 			tableCreatorId={table.creatorId}
-			// 			customTableImage={table.customTableImage}
-			// 		/>
-			// 	))}
-			// </div>
-	// 	</div>
-	// );
 }
 
 export default Bar;

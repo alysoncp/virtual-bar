@@ -58,9 +58,8 @@ function BarListing({ Icon, title, id, addChannelOption, barCreatorId }) {
 
 	return (
 		<Card className={classes.root}>
-			<CardActionArea>
+			<CardActionArea onClick={selectChannel}>
 				<CardMedia
-					onClick={selectChannel}
 					className={classes.media}
 					image="https://images.unsplash.com/photo-1575444758702-4a6b9222336e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YmFyfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
 					title="Contemplative Reptile"
@@ -86,26 +85,6 @@ function BarListing({ Icon, title, id, addChannelOption, barCreatorId }) {
 			</CardActions>
 		</Card>
 	);
-
-	// return (
-	// 	<div className="bar_listing">
-	// 		<div className="bar_listing_header">
-	// 			<img
-	// 				className="bar_logo"
-	// 				src="https://cdn4.vectorstock.com/i/1000x1000/52/38/speed-beer-logo-icon-design-vector-22545238.jpg"
-	// 				alt="beer logo"
-	// 			/>
-	// 			<h4>{title}</h4>
-	// 		</div>
-	// 		<div className="bar_description">
-	// 			Need to add descriptions to database...
-	// 		</div>
-	// 		<button onClick={selectChannel}>Join Bar</button>
-	// 		{userCanDelete(barCreatorId, idToken) && (
-	// 			<button onClick={deleteBar}>Delete Bar</button>
-	// 		)}
-	// 	</div>
-	// );
 }
 
 export default BarListing;
