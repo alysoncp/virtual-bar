@@ -34,6 +34,14 @@ function Street() {
 				}))
 			);
 		});
+
+		db.collection("users")
+			.doc(user.uid)
+			.update({
+				at_bar: null,
+				at_table: null,
+			})		
+
 	}, []);
 
 	// flag for rendering information telling user no bars are near them

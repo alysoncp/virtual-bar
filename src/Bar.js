@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, useLocation } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
 import db from "./firebase";
 
@@ -19,9 +19,14 @@ function Bar() {
 	const [barDetails, setBarDetails] = useState(null);
 	const [tables, setTables] = useState([]);
 	const [{ idToken }] = useStateValue();
+	const [{ user }] = useStateValue();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [input, setInput] = useState("");
 	const [imageUrl, setImageUrl] = useState("");
+
+	const location = useLocation();
+	console.log(location.pathname);
+
 
 	useEffect(() => {
 		if (barId) {
@@ -44,6 +49,14 @@ function Bar() {
 					}))
 				)
 			);
+
+		db.collection("users")
+			.doc(user.uid)
+			.update({
+				at_bar: barId,
+				at_table: null,
+			})		
+
 	}, [barId]);
 
 	const leaveBar = () => {

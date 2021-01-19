@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useStateValue } from "./hooks+context/StateProvider";
 import useStatus from "./hooks+context/useStatus";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 import Header from "./Header";
 import Chat from "./Chat";
 import Login from "./Login";

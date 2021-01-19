@@ -26,6 +26,8 @@ export default function useStatus() {
 			const isOfflineForDatabase = {
 					state: 'offline',
 					last_changed: firebase.database.ServerValue.TIMESTAMP,
+					at_bar: null,
+					at_table: null,
 			};
 
 			const isOnlineForDatabase = {
@@ -60,6 +62,8 @@ export default function useStatus() {
 			const isOfflineForFirestore = {
 					state: 'offline',
 					last_changed: firebase.firestore.FieldValue.serverTimestamp(),
+					at_bar: null,
+					at_table: null,
 			};
 
 			const isOnlineForFirestore = {

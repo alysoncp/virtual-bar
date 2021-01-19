@@ -18,6 +18,8 @@ function Chat() {
 
 	console.log("User's UID is: ", user.uid);
 
+	console.log("Set users *sitting_at*")
+
 	// --------------------------------------------------------
 	// For autoscrolling to bottom of chat
 	const messagesEndRef = useRef(null);
@@ -78,6 +80,15 @@ function Chat() {
 			.onSnapshot((snapshot) => {
 				setTableUsers(snapshot.docs.map((doc) => doc.data()));
 			});
+
+		db.collection("users")
+			.doc(user.uid)
+			.update({
+				at_bar: barId,
+				at_table: tableId,
+			})		
+
+
 	}, [tableId]);
 
 	console.log("TableUsers: ", tableUsers);
