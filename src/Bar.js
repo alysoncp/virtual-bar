@@ -53,17 +53,12 @@ function Bar() {
 			);
 
 		
-		db.collection("users")
-			.doc(user.uid)
-			.update({
-				at_bar: barId,
-				at_table: null,
-			}).then(() => {	
-				dispatch({
-					type: actionTypes.SET_BAR,
-					at_bar: barId
-				})
-			});
+		dispatch({
+			type: actionTypes.LEAVE_BAR_OR_TABLE,
+			at_bar: barId,
+			at_table: null,
+		})
+	
 
 	}, [barId]);
 

@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useStateValue } from "./hooks+context/StateProvider";
 import useStatus from "./hooks+context/useStatus";
+import useBarTable from "./hooks+context/useBarTable";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useLocation } from 'react-router-dom'
 import Header from "./Header";
 import Chat from "./Chat";
 import Login from "./Login";
@@ -13,9 +13,10 @@ import "./App.css";
 
 function App() {
 	
-	const [{ user }, dispatch] = useStateValue();
+	const [{ user }] = useStateValue();
 
-
+	// Write users present Bar and Table to database
+	useBarTable();
 
 	// Custom hook to set Realtime Database online/offline status
 	useStatus();

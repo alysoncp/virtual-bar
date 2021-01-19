@@ -82,24 +82,18 @@ function Chat() {
 				setTableUsers(snapshot.docs.map((doc) => doc.data()));
 			});
 
-		db.collection("users")
-			.doc(user.uid)
-			.update({
-				at_bar: barId,
+			
+			dispatch({
+				type: actionTypes.SET_BAR_AND_TABLE,
 				at_table: tableId,
-			})	
-			.then(() => {
-				dispatch({
-					type: actionTypes.SET_TABLE,
-					at_table: tableId,
-				});	
-
+				at_bar: barId
 			});	
-
+			
+			
+		console.log("TABLEUSERS: ", tableUsers);
 
 	}, [tableId]);
 
-	console.log("TableUsers: ", tableUsers);
 
 	const leaveTable = () => {
 		history.push(`/bar/${barId}`);
