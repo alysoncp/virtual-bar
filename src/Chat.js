@@ -14,6 +14,7 @@ function Chat() {
 	const [tableMessages, setTableMessages] = useState([]);
 	const [tableUsers, setTableUsers] = useState([]);
 	const [{ user }, dispatch] = useStateValue();
+	const [userList, setUserList] =  useState([]);
 
 	const history = useHistory();
 
@@ -67,11 +68,11 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("usersAtTable")
-			.add({
-				uid: user.uid,
+			.doc(user.uid).set({
 				name: user?.displayName,
 				photoURL: user?.photoURL,
 			});
+
 
 		db.collection("bars")
 			.doc(barId)

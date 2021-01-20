@@ -36,10 +36,7 @@ export default function useBarTable() {
         }); 
       }  
     }
-     
-
-
-      
+           
   }, [at_bar, at_table])
   
 
