@@ -67,11 +67,17 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("usersAtTable")
-			.add({
+			.doc(user.uid).set({
 				uid: user.uid,
 				name: user?.displayName,
 				photoURL: user?.photoURL,
 			});
+
+		// 	db.collection("cities").doc("LA").set({
+		// 		name: "Los Angeles",
+		// 		state: "CA",
+		// 		country: "USA"
+		// })
 
 		db.collection("bars")
 			.doc(barId)
