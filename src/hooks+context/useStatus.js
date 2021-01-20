@@ -6,7 +6,19 @@ export default function useStatus() {
 
   console.log("useStatus hook")
 
-  const [{ user, last_bar, last_table }] = useStateValue();
+	const [{ user, last_bar, last_table }] = useStateValue();
+	// Fetch the current user's ID from Firebase Authentication.
+	const uid = firebase.auth().currentUser?.uid;
+
+	
+	useEffect(() => {
+		firebase.database().ref('users/' + uid).update({
+			last_bar: last_bar,
+			last_table: last_table,
+		});
+		
+	}, [last_table])
+
 
   useEffect(() => {
 		console.log("User changed: ", user)
@@ -15,21 +27,14 @@ export default function useStatus() {
 			// ----------------------------------------------------------
 			// Code to connect to Realtime database
 
-			// Fetch the current user's ID from Firebase Authentication.
-			const uid = firebase.auth().currentUser?.uid;
-
-			// Create a reference to this user's specific status node.
+					// Create a reference to this user's specific status node.
 			// This is where we will store data about being online/offline.
 			const userStatusDatabaseRef = firebase.database().ref('/users/' + uid);
-			const tableDatabaseIdRef = firebase.database().ref('/bars/' + last_bar + '/tables/' + last_table + '/usersAtTable/' + uid);
-		
 					
 			// Create two constants which we will write to the Realtime database when this device is offline or online.
 			const isOfflineForDatabase = {
 					state: 'offline',
 					last_changed: firebase.database.ServerValue.TIMESTAMP,
-					at_bar: null,
-					at_table: null,
 			};
 
 			const isOnlineForDatabase = {
@@ -41,38 +46,31 @@ export default function useStatus() {
 			// Returns `true` when connected and `false` when disconnected.
 			firebase.database().ref('.info/connected').on('value', function(snapshot) {
 					if (snapshot.val() == false) {
-						tableDatabaseIdRef.remove();
 						return;
 			};
 
 				// Use 'onDisconnect()' 
 				// Triggers when client has disconnected by closing the app, losing internet, etc.
-				userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
+				userStatusDatabaseRef.onDisconnect().update(isOfflineForDatabase).then(function() {
 						userStatusDatabaseRef.update(isOnlineForDatabase);
 	
 				});
 
-				
 
 			});
 			
-
-
 			console.log("Current user uid: ", uid)
 
 			// ------------------------------------------------------------------------
 			// Update Cloud firestore's local cache...
 
 			const userStatusFirestoreRef = firebase.firestore().doc('/users/' + uid);
-			const tableFirestoreIdRef = firebase.firestore().doc('/bars/' + last_bar + '/tables/' + last_table + '/usersAtTable/' + uid);
 
 			// Firestore uses a different server timestamp value 
 			// Instead create two more constants for Firestore state.
 			const isOfflineForFirestore = {
 					state: 'offline',
 					last_changed: firebase.firestore.FieldValue.serverTimestamp(),
-					at_bar: null,
-					at_table: null,
 			};
 
 			const isOnlineForFirestore = {
@@ -84,11 +82,10 @@ export default function useStatus() {
 					if (snapshot.val() == false) {
 							// Set Firestore's state to 'offline'. This ensures that our Firestore cache is awarevof the switch to 'offline.'
 							userStatusFirestoreRef.update(isOfflineForFirestore);
-							tableFirestoreIdRef.delete()
 							return;
 					};
 
-					userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
+					userStatusDatabaseRef.onDisconnect().update(isOfflineForDatabase).then(function() {
 							userStatusDatabaseRef.update(isOnlineForDatabase);
 
 							// We'll also add Firestore set here for when we come online.
