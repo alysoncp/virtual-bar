@@ -16,11 +16,12 @@
 
 .breadCrumbs {
 	padding-bottom: 20px;
-	width: 500px
+	width: 500px;
 }
 
 .bar_list {
 	display: flex;
+	flex-wrap: wrap;
 	flex-direction: row;
 }
 
