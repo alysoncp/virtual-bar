@@ -62,6 +62,7 @@ function Street() {
 					id: doc.id,
 					name: doc.data().name,
 					creatorId: doc.data().creatorId,
+					photo: doc.data().photo_url,
 					location: {
 						latitude: doc.data().location.latitude,
 						longitude: doc.data().location.longitude,
@@ -216,6 +217,7 @@ function Street() {
 									id={channel.id}
 									barCreatorId={channel.creatorId}
 									description={channel.description}
+									photo={channel.photo}
 								/>
 							))
 						) : (

@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 	},
 });
 
-function BarListing({ title, id, description, barCreatorId }) {
+function BarListing({ title, id, description, barCreatorId, photo }) {
 	const history = useHistory();
 	const [{ idToken }] = useStateValue();
 	const classes = useStyles();
@@ -62,7 +62,7 @@ function BarListing({ title, id, description, barCreatorId }) {
 			<CardActionArea onClick={selectChannel}>
 				<CardMedia
 					className={classes.media}
-					image="https://images.unsplash.com/photo-1575444758702-4a6b9222336e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YmFyfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
+					image={photo}
 					title="Contemplative Reptile"
 				/>
 				<CardContent>
