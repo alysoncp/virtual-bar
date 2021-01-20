@@ -14,6 +14,7 @@ function Chat() {
 	const [tableMessages, setTableMessages] = useState([]);
 	const [tableUsers, setTableUsers] = useState([]);
 	const [{ user }, dispatch] = useStateValue();
+	const [userList, setUserList] =  useState([]);
 
 	const history = useHistory();
 
@@ -68,16 +69,10 @@ function Chat() {
 			.doc(tableId)
 			.collection("usersAtTable")
 			.doc(user.uid).set({
-				uid: user.uid,
 				name: user?.displayName,
 				photoURL: user?.photoURL,
 			});
 
-		// 	db.collection("cities").doc("LA").set({
-		// 		name: "Los Angeles",
-		// 		state: "CA",
-		// 		country: "USA"
-		// })
 
 		db.collection("bars")
 			.doc(barId)
