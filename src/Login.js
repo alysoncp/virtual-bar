@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import HaversineGeolocation from "haversine-geolocation";
 import "./Login.css";
 import { Button } from "@material-ui/core";
@@ -8,9 +8,9 @@ import db, { auth, provider } from "./firebase";
 import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
 
-import logo from "./images/logo2.png"
-import googleIcon from "./images/google-icon.png"
-import loginIcon from "./images/login-icon.png"
+import logo from "./images/logo2.png";
+// import loginIcon from "./images/login-icon.png";
+import cocktail from "./images/cocktail.png";
 
 function Login() {
 	const [state, dispatch] = useStateValue();
@@ -44,15 +44,17 @@ function Login() {
 
 	return (
 		<div className="login">
-			<img src={logo} width={1200}/>
+			<img src={logo} width={1200} />
 			<div className="login__container">
 				{/* <img
 					src="https://cdn4.vectorstock.com/i/1000x1000/52/38/speed-beer-logo-icon-design-vector-22545238.jpg"
 					alt="beer logo"
 				/> */}
-				<img src={loginIcon} />
-				<h1>Sign in to Virtual Bar</h1>
-				<Button onClick={signIn}>Sign in with Google</Button>
+				<img classname="icon" src={cocktail} />
+				<h1>Welcome to Virtual Bar</h1>
+				<Button id="neon-btn" className="btn two" onClick={signIn}>
+					Sign in with Google
+				</Button>
 				{/* <img src={googleIcon} onClick={signIn} width={50}/> */}
 			</div>
 		</div>
