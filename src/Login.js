@@ -8,6 +8,8 @@ import db, { auth, provider } from "./firebase";
 import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
 
+import image from "./images/logo2.png"
+
 function Login() {
 	const [state, dispatch] = useStateValue();
 	const history = useHistory();
@@ -40,6 +42,7 @@ function Login() {
 
 	return (
 		<div className="login">
+			<img src={image} width={1200}/>
 			<div className="login__container">
 				<img
 					src="https://cdn4.vectorstock.com/i/1000x1000/52/38/speed-beer-logo-icon-design-vector-22545238.jpg"

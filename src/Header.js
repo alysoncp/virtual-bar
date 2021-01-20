@@ -21,6 +21,9 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
+// Logo
+import image from "./images/logo1.png"
+
 // Custom CSS
 import "./Header.css";
 
@@ -194,6 +197,7 @@ function Header() {
           <Typography className={classes.title} variant="h6" noWrap>
             VIRTUAL BAR
           </Typography>
+          {/* <img src={image} width="150"/> */}
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
