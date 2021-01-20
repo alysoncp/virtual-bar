@@ -1,6 +1,7 @@
 // React 
 import React, { useState, useEffect, Fragment } from "react";
 import { useStateValue } from "./hooks+context/StateProvider";
+import { actionTypes } from "./hooks+context/reducer";
 import firebase from "firebase";
 import db from "./firebase";
 import HaversineGeolocation from "haversine-geolocation";
@@ -48,7 +49,7 @@ function handleBreadCrumbClick(event) {
 
 function Street() {
 	const [channels, setChannels] = useState([]);
-	const [{ user, userLocation, idToken }] = useStateValue();
+	const [{ user, userLocation, idToken }, dispatch] = useStateValue();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [input, setInput] = useState("");
 	const classes = useStyles();
@@ -68,12 +69,13 @@ function Street() {
 			);
 		});
 
-		db.collection("users")
-			.doc(user.uid)
-			.update({
-				at_bar: null,
-				at_table: null,
-			})		
+
+	dispatch({
+		type: actionTypes.LEAVE_BAR_OR_TABLE,
+		at_table: null,
+		at_bar: null,
+	});	
+				
 
 	}, []);
 
