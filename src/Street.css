@@ -23,6 +23,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
+	overflow: auto;
 }
 
 #input__bar_box {
