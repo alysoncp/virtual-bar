@@ -21,13 +21,14 @@ import "./BarListing.css";
 const useStyles = makeStyles({
 	root: {
 		maxWidth: 345,
+		minWidth: 345,
 	},
 	media: {
 		height: 140,
 	},
 });
 
-function BarListing({ Icon, title, id, addChannelOption, barCreatorId }) {
+function BarListing({ title, id, description, barCreatorId }) {
 	const history = useHistory();
 	const [{ idToken }] = useStateValue();
 	const classes = useStyles();
@@ -69,7 +70,7 @@ function BarListing({ Icon, title, id, addChannelOption, barCreatorId }) {
 						{title}
 					</Typography>
 					<Typography variant="body2" color="textSecondary" component="p">
-						Put description here.........
+						{description}
 					</Typography>
 				</CardContent>
 			</CardActionArea>

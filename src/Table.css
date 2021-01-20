@@ -21,3 +21,26 @@
 .button__grab_table.MuiButtonBase-root:hover {
 	background-color: rgb(20, 191, 46);
 }
+
+button > div.MuiCardContent-root > p {
+	overflow: hidden;
+	min-width: 100%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	overflow: hidden;
+	max-height: 3.6em;
+	line-height: 1.8em;
+}
+
+button > div.MuiCardContent-root > h2 {
+	overflow: hidden;
+	max-width: 100%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	overflow: hidden;
+	max-height: 1.8em;
+	min-height: 1.8em;
+	line-height: 1.8em;
+}

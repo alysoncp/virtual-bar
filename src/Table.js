@@ -18,6 +18,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles({
 	root: {
 		maxWidth: 345,
+		minWidth: 345,
 	},
 	media: {
 		height: 140,
@@ -87,7 +88,7 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 				</Button>
 				{!usersPresent && userCanDelete(tableCreatorId, idToken) && (
 					<Button size="small" color="primary" onClick={deleteTable}>
-						Delete Bar
+						Delete Table
 					</Button>
 				)}
 			</CardActions>

@@ -1,12 +1,35 @@
 .bar_listing {
-  border: 1px solid rgb(13, 49, 27);
-  width: 200px;
-  padding: 30px;
-  color: rgb(13, 49, 27);
-  margin: 30px;
+	border: 1px solid rgb(13, 49, 27);
+	width: 200px;
+	padding: 30px;
+	color: rgb(13, 49, 27);
+	margin: 30px;
 }
 
-
 .bar_logo {
-  width: 80%;
+	width: 80%;
+}
+
+button > div.MuiCardContent-root > p {
+	overflow: hidden;
+	max-width: 100%;
+	min-width: 100%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	overflow: hidden;
+	max-height: 3.6em;
+	min-height: 3.6em;
+	line-height: 1.8em;
+}
+
+button > div.MuiCardContent-root > h2 {
+	overflow: hidden;
+	max-width: 100%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	overflow: hidden;
+	max-height: 1.8em;
+	line-height: 1.8em;
 }

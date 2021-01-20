@@ -30,7 +30,6 @@ function Bar() {
 	const [imageUrl, setImageUrl] = useState("");
 	const [desc, setDesc] = useState("");
 
-
 	useEffect(() => {
 		if (barId) {
 			db.collection("bars")
@@ -54,14 +53,11 @@ function Bar() {
 				)
 			);
 
-		
 		dispatch({
 			type: actionTypes.LEAVE_BAR_OR_TABLE,
 			at_bar: barId,
 			at_table: null,
-		})
-	
-
+		});
 	}, [barId]);
 
 	const leaveBar = () => {
@@ -70,6 +66,7 @@ function Bar() {
 
 	const addTable = (event) => {
 		event.preventDefault();
+
 		const randomPhrase = [
 			"Welcome to Deh Bar-Bar",
 			"Bar Bar Binks",
@@ -79,19 +76,20 @@ function Bar() {
 			"How about that Limp Bizkit?",
 			"Do you like things and stuff? We do!",
 			"Sharks & frickin' laser beams",
-			"Go for Broke",
+			"Go for Broke, or something....",
 			"I ate a sock cuz peeps on the Net told me to",
 			"They drank life before spitting it out",
 			"Come on Barbie let's go party!",
-			"Shenanigans",
+			"Shenanigans Shenanigans Shenanigans Shenanigans, ",
 			"The blue parrot drove by the hitchhiking mongoose",
 			"Flying fish flew by the space station",
-			"#Drunk",
-			"Girls, Girls, Girls 🤟🎶",
+			"#Drunk #Drunk #Drunk #Drunk #Drunk #Drunk",
+			"Girls, Girls, Girls! - Motley Crew 🤟🎶",
 			"Tomorrow is a storyteller without equal",
 			"Insignificance loves to love",
 			"The legend of the raven's roar visits Japan in the winter",
 		];
+
 		if (!input) {
 			alert("Your table must have a name");
 			return;
