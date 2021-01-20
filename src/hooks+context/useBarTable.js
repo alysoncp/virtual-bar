@@ -28,12 +28,8 @@ export default function useBarTable() {
         .collection("tables")
         .doc(last_table)
         .collection("usersAtTable")
-        .where("uid", "==", user.uid)
-        .get().then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            doc.ref.delete();
-          }); 
-        }); 
+        .doc(user.uid)
+		  .delete()
       }  
     }
            
