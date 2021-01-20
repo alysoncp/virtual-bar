@@ -186,81 +186,6 @@ function Header() {
 		</Menu>
 	);
 
-<<<<<<< HEAD
-  return (
-    <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            VIRTUAL BAR
-          </Typography>
-          {/* <img src={image} width="150"/> */}
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <Avatar
-                className="header__avatar"
-                alt={user?.displayName}
-                src={user?.photoURL}
-              />
-            </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </div>
-  );
-=======
 	return (
 		<div className={classes.grow}>
 			<AppBar position="static">
@@ -343,30 +268,6 @@ function Header() {
 			{renderMenu}
 		</div>
 	);
->>>>>>> ce7454375579e3b67e90cb83159ec3db32dbcfd5
 }
-
-// return (
-// 	<div className="header">
-// 		<div className="header__left">
-// <Avatar
-// 	className="header__avatar"
-// 	alt={user?.displayName}
-// 	src={user?.photoURL}
-// />
-// {user?.displayName}
-// 			{/* <AccessTimeIcon /> */}
-
-// 		</div>
-// 		<div className="app__title">
-// 			<h2>Virtual Bar</h2>
-// 		</div>
-// 		<div className="header__right" >
-// 			<div className='nav-item' onClick={logout}><h3>Logout</h3></div>
-// 		</div>
-
-// 	</div>
-// 	);
-// }
 
 export default Header;
