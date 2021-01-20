@@ -16,6 +16,34 @@ exports.newUserSignUp = functions.auth.user().onCreate(user => {
   });
 });
 
+// ----------------------------------------------------------------------------
+
+
+// Listen for any change on document `uid` in collection `users`
+exports.updateTableUsers = functions.firestore
+    .document('users/{uid}')
+    .onUpdate((change, context) => {
+      // Get an object representing the document
+      const newValue = change.after.data();
+
+      // ...or the previous value before this update
+      // const previousValue = change.before.data();
+
+      // access a particular field, then update table corresponding 
+      if (newValue.state == "offline") {
+        return admin.firestore()
+          .collection("bars")
+          .doc(newValue.last_bar)
+          .collection("tables")
+          .doc(newValue.last_table)
+          .collection("usersAtTable")
+          .doc(context.params.uid)
+          .delete()
+      }
+
+    });
+
+
 
 // ----------------------------------------------------------------------------
 
