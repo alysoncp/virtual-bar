@@ -97,20 +97,15 @@ function Chat() {
 
 
 	const leaveTable = () => {
-		history.push(`/bar/${barId}`);
-
 		const userToDelete = db
 			.collection("bars")
 			.doc(barId)
 			.collection("tables")
 			.doc(tableId)
 			.collection("usersAtTable")
-			.where("uid", "==", user.uid);
-		userToDelete.get().then(function (querySnapshot) {
-			querySnapshot.forEach(function (doc) {
-				doc.ref.delete();
-			});
-		});
+			.doc(user.uid)
+		  .delete()
+		history.push(`/bar/${barId}`);
 	};
 
 	return (
