@@ -8,7 +8,9 @@ import db, { auth, provider } from "./firebase";
 import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
 
-import image from "./images/logo2.png"
+import logo from "./images/logo2.png"
+import googleIcon from "./images/google-icon.png"
+import loginIcon from "./images/login-icon.png"
 
 function Login() {
 	const [state, dispatch] = useStateValue();
@@ -42,14 +44,16 @@ function Login() {
 
 	return (
 		<div className="login">
-			<img src={image} width={1200}/>
+			<img src={logo} width={1200}/>
 			<div className="login__container">
-				<img
+				{/* <img
 					src="https://cdn4.vectorstock.com/i/1000x1000/52/38/speed-beer-logo-icon-design-vector-22545238.jpg"
 					alt="beer logo"
-				/>
+				/> */}
+				<img src={loginIcon} />
 				<h1>Sign in to Virtual Bar</h1>
 				<Button onClick={signIn}>Sign in with Google</Button>
+				{/* <img src={googleIcon} onClick={signIn} width={50}/> */}
 			</div>
 		</div>
 	);
