@@ -62,9 +62,8 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 
 	return (
 		<Card className={classes.root}>
-			<CardActionArea>
+			<CardActionArea onClick={goToTable}>
 				<CardMedia
-					onClick={goToTable}
 					className={classes.media}
 					image={
 						customTableImage

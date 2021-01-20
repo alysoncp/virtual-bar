@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
+import { actionTypes } from "./hooks+context/reducer";
 import { Avatar } from "@material-ui/core";
 import ChatInput from "./ChatInput";
 import Message from "./Message";
@@ -12,7 +13,7 @@ function Chat() {
 	const [tableDetails, setTableDetails] = useState(null);
 	const [tableMessages, setTableMessages] = useState([]);
 	const [tableUsers, setTableUsers] = useState([]);
-	const [{ user }] = useStateValue();
+	const [{ user }, dispatch] = useStateValue();
 
 	const history = useHistory();
 
@@ -81,13 +82,18 @@ function Chat() {
 				setTableUsers(snapshot.docs.map((doc) => doc.data()));
 			});
 
-		db.collection("users").doc(user.uid).update({
-			at_bar: barId,
-			at_table: tableId,
-		});
+			
+			dispatch({
+				type: actionTypes.SET_BAR_AND_TABLE,
+				at_table: tableId,
+				at_bar: barId
+			});	
+			
+			
+		console.log("TABLEUSERS: ", tableUsers);
+
 	}, [tableId]);
 
-	console.log("TableUsers: ", tableUsers);
 
 	const leaveTable = () => {
 		history.push(`/bar/${barId}`);
@@ -128,7 +134,7 @@ function Chat() {
 				<div className="chat__header">
 					<div className="chat__headerLeft">
 						<h4 className="chat__channelName">
-							<strong>Hanging at {tableDetails?.name}</strong>
+							<strong>Hanging at #{tableDetails?.name}</strong>
 						</h4>
 					</div>
 					<div className="chat__headerRight" onClick={leaveTable}>

@@ -25,6 +25,13 @@
 	margin-right: 30px;
 }
 
+.icon__online > .MuiSvgIcon-root {
+	color: rgb(0, 165, 0);
+	font-size: 14px;
+	margin-top: 1px;
+	margin-right: 2px;
+}
+
 .header__search {
 	flex: 0.4;
 	background-color: #421f44;
@@ -54,7 +61,6 @@
 .nav-item {
 	margin-left: auto;
 	margin-right: 40px;
-	
 }
 
 .header__right > .MuiSvgIcon-root {
@@ -62,8 +68,12 @@
 	margin-right: 20px;
 }
 
-.MuiCard-root{
+.MuiCard-root {
 	max-width: 350px;
 	/* margin-right: auto; */
 	margin: auto;
+}
+
+.avatar__name {
+	padding-right: 10px;
 }
