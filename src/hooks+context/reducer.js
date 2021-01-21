@@ -11,12 +11,10 @@ export const initialState = {
 export const actionTypes = {
 	SET_USER: "SET_USER",
 	SET_BAR_AND_TABLE: "SET_BAR_AND_TABLE",
-	LEAVE_BAR_OR_TABLE: "LEAVE_BAR_OR_TABLE"
+	LEAVE_BAR_OR_TABLE: "LEAVE_BAR_OR_TABLE",
 };
 
 const reducer = (state, action) => {
-	console.log(action);
-
 	switch (action.type) {
 		case actionTypes.SET_USER:
 			return {
@@ -32,13 +30,13 @@ const reducer = (state, action) => {
 				at_table: action.at_table,
 				last_bar: action.at_bar,
 				last_table: action.at_table,
-			};	
+			};
 		case actionTypes.LEAVE_BAR_OR_TABLE:
 			return {
 				...state,
 				at_bar: action.at_bar,
 				at_table: action.at_table,
-			};	
+			};
 		default:
 			return state;
 	}
