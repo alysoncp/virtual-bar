@@ -3,9 +3,10 @@ import { useStateValue } from "./hooks+context/StateProvider";
 import db from "./firebase";
 import firebase from "firebase";
 
-function WhisperInput({ barId, tableId }) {
+function WhisperInput({ barId, tableId, id }) {
 	const [input, setInput] = useState("");
 	const [{ user }] = useStateValue();
+	console.log("Users id: ", id)
 
 	const sendMessage = (event) => {
 		event.preventDefault();
@@ -19,7 +20,7 @@ function WhisperInput({ barId, tableId }) {
 				message: `(WHISPER FROM PERSON) ${input}`,
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 				user: user.displayName,
-				recipient: user.uid,
+				recipient: id,
 				userImage: user.photoURL,
 			});
 		setInput("");

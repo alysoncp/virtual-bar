@@ -18,11 +18,6 @@ function Chat() {
 	const [userList, setUserList] = useState([]);
 
 	const history = useHistory();
-// --------------------------------------------------------
-
-	const startWhisper = () => {
-		alert("Whispering!")
-	}
 
 // --------------------------------------------------------
 	// For autoscrolling to bottom of chat
@@ -75,6 +70,7 @@ function Chat() {
 			.set({
 				name: user?.displayName,
 				photoURL: user?.photoURL,
+				uid: user?.uid,
 			});
 
 		db.collection("bars")
@@ -115,13 +111,14 @@ function Chat() {
 				</div>
 				<div className="table_users_list">
 					<ul>
-						{tableUsers.map(({ name, photoURL }) => (
+						{tableUsers.map(({ name, photoURL, uid }) => (
 							<li className="userName">
 								<Avatar className="header__avatar" alt={name} src={photoURL} />
 								<h5>{name}</h5>
 								<WhisperInput 
 									barId={barId}
 									tableId={tableId}
+									id={uid}
 								/>
 							</li>
 						))}
