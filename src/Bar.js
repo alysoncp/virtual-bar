@@ -69,6 +69,7 @@ function Bar() {
 
 		const randomPhrase = [
 			"Welcome to Deh Bar-Bar",
+			"Discussing Michelle Oboma's arms",
 			"Bar Bar Binks",
 			"What is this? A table for ants!?",
 			"Awwwwwwlrighty then!",

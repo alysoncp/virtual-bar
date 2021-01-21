@@ -23,6 +23,7 @@ function ChatInput({ barId, tableId, tableNumber }) {
 
 	useEffect(() => {
 		const randomChatBoxPlaceholder = [
+			"Who has better arms? The Rock, or Michelle Oboma? Discuss...",
 			"This one time at band camp...",
 			"Would you ever sing with a banana at the dinner table?",
 			"Tell your best Chuck Norris joke...",
@@ -35,6 +36,7 @@ function ChatInput({ barId, tableId, tableNumber }) {
 			"What would the world be like if it was filled with male and female copies of you?",
 			"Where was the most in appropriate / most embarrassing place you’ve farted?",
 			"What is the weirdest thing you have seen in someone else’s home?",
+			"Convince everyone to place shot-glass checkers with you on Zoom!",
 		];
 
 		setRandomPlaceholder(
@@ -56,8 +58,8 @@ function ChatInput({ barId, tableId, tableNumber }) {
 				message: input,
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 				user: user.displayName,
-				recipient: "all"
-				// userImage: user.photoURL,
+				recipient: "all",
+				userImage: user.photoURL,
 			});
 		setInput("");
 	};

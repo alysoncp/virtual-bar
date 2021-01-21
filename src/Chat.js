@@ -15,6 +15,7 @@ function Chat() {
 	const [tableMessages, setTableMessages] = useState([]);
 	const [tableUsers, setTableUsers] = useState([]);
 	const [{ user }, dispatch] = useStateValue();
+	const [userList, setUserList] = useState([]);
 
 	const history = useHistory();
 // --------------------------------------------------------
@@ -69,11 +70,11 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("usersAtTable")
-			.doc(user.uid).set({
+			.doc(user.uid)
+			.set({
 				name: user?.displayName,
 				photoURL: user?.photoURL,
 			});
-
 
 		db.collection("bars")
 			.doc(barId)
@@ -84,18 +85,14 @@ function Chat() {
 				setTableUsers(snapshot.docs.map((doc) => doc.data()));
 			});
 
-			
-			dispatch({
-				type: actionTypes.SET_BAR_AND_TABLE,
-				at_table: tableId,
-				at_bar: barId
-			});	
-			
-			
+		dispatch({
+			type: actionTypes.SET_BAR_AND_TABLE,
+			at_table: tableId,
+			at_bar: barId,
+		});
+
 		console.log("TABLEUSERS: ", tableUsers);
-
 	}, [tableId]);
-
 
 	const leaveTable = () => {
 		const userToDelete = db
@@ -105,7 +102,7 @@ function Chat() {
 			.doc(tableId)
 			.collection("usersAtTable")
 			.doc(user.uid)
-		  .delete()
+			.delete();
 		history.push(`/bar/${barId}`);
 	};
 
@@ -145,8 +142,13 @@ function Chat() {
 				</div>
 
 				<div className="chat__messages">
-					{tableMessages.map(({ message, timestamp, user }) => (
-						<Message message={message} timestamp={timestamp} user={user} />
+					{tableMessages.map(({ message, timestamp, user, userImage }) => (
+						<Message
+							message={message}
+							timestamp={timestamp}
+							user={user}
+							userImage={userImage}
+						/>
 					))}
 				</div>
 				<div className="scroll-spacer" ref={messagesEndRef} />
