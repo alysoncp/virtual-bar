@@ -16,10 +16,11 @@ function Chat() {
 	const [tableUsers, setTableUsers] = useState([]);
 	const [{ user }, dispatch] = useStateValue();
 	const [userList, setUserList] = useState([]);
+	const [barName, setBarName] = useState([]);
 
 	const history = useHistory();
 
-// --------------------------------------------------------
+	// --------------------------------------------------------
 	// For autoscrolling to bottom of chat
 	const messagesEndRef = useRef(null);
 
@@ -28,7 +29,7 @@ function Chat() {
 	};
 
 	useEffect(scrollToBottom, [tableMessages]);
-// --------------------------------------------------------
+	// --------------------------------------------------------
 	// For only loading contemporary messages
 
 	const joinTimestamp = new Date();
@@ -36,7 +37,7 @@ function Chat() {
 	const twoMinAgo = new Date(joinTimestamp - 120000);
 	console.log("Two minutes ago was: " + twoMinAgo);
 
-// -------------------------------------------------------
+	// -------------------------------------------------------
 
 	useEffect(() => {
 		if (tableId) {
@@ -54,7 +55,7 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("messages")
-			.where('recipient', 'in', ['all', user.uid])
+			.where("recipient", "in", ["all", user.uid])
 			.where("timestamp", ">=", twoMinAgo)
 			.orderBy("timestamp", "asc")
 			.onSnapshot((snapshot) => {
@@ -82,13 +83,17 @@ function Chat() {
 				setTableUsers(snapshot.docs.map((doc) => doc.data()));
 			});
 
+		db.collection("bars")
+			.doc(barId)
+			.onSnapshot((snapshot) => {
+				setBarName(snapshot.data());
+			});
+
 		dispatch({
 			type: actionTypes.SET_BAR_AND_TABLE,
 			at_table: tableId,
 			at_bar: barId,
 		});
-
-		console.log("TABLEUSERS: ", tableUsers);
 	}, [tableId]);
 
 	const leaveTable = () => {
@@ -107,7 +112,7 @@ function Chat() {
 		<div className="table_chat">
 			<div className="table_users">
 				<div className="table_users_header">
-					<h3>Patrons</h3>
+					<h3>{barName.name} Patrons</h3>
 				</div>
 				<div className="table_users_list">
 					<ul>
@@ -115,11 +120,7 @@ function Chat() {
 							<li className="userName">
 								<Avatar className="header__avatar" alt={name} src={photoURL} />
 								<h5>{name}</h5>
-								<WhisperInput 
-									barId={barId}
-									tableId={tableId}
-									id={uid}
-								/>
+								<WhisperInput barId={barId} tableId={tableId} id={uid} />
 							</li>
 						))}
 					</ul>
