@@ -20,7 +20,7 @@ function WhisperInput({ barId, tableId, id }) {
 				message: `(WHISPER FROM PERSON) ${input}`,
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 				user: user.displayName,
-				recipient: id,
+				recipient: [id, user.uid],
 				userImage: user.photoURL,
 			});
 		setInput("");

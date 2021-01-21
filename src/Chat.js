@@ -54,7 +54,7 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("messages")
-			.where('recipient', 'in', ['all', user.uid])
+			.where('recipient', 'array-contains-any', ['all', user.uid])
 			.where("timestamp", ">=", twoMinAgo)
 			.orderBy("timestamp", "asc")
 			.onSnapshot((snapshot) => {
