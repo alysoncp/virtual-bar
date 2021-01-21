@@ -12,7 +12,7 @@ function Message({ message, user, timestamp, userImage }) {
 						{new Date(timestamp?.toDate()).toUTCString()}
 					</span>
 				</h4>
-				<div className="box sb1">
+				<div className="message__bubble bubble__lip">
 					<p>{message}</p>
 				</div>
 			</div>
