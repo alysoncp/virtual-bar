@@ -55,7 +55,7 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("messages")
-      .where('recipient', 'array-contains-any', ['all', user.uid])
+			.where("recipient", "array-contains-any", ["all", user.uid])
 			.where("timestamp", ">=", twoMinAgo)
 			.orderBy("timestamp", "asc")
 			.onSnapshot((snapshot) => {
@@ -120,7 +120,12 @@ function Chat() {
 							<li className="userName">
 								<Avatar className="header__avatar" alt={name} src={photoURL} />
 								<h5>{name}</h5>
-								<WhisperInput barId={barId} tableId={tableId} id={uid} />
+								<WhisperInput
+									barId={barId}
+									tableId={tableId}
+									id={uid}
+									recipientName={name}
+								/>
 							</li>
 						))}
 					</ul>

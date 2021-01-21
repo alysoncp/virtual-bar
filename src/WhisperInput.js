@@ -3,10 +3,9 @@ import { useStateValue } from "./hooks+context/StateProvider";
 import db from "./firebase";
 import firebase from "firebase";
 
-function WhisperInput({ barId, tableId, id }) {
+function WhisperInput({ recipientName, barId, tableId, id }) {
 	const [input, setInput] = useState("");
 	const [{ user }] = useStateValue();
-	console.log("Users id: ", id)
 
 	const sendMessage = (event) => {
 		event.preventDefault();
@@ -17,22 +16,41 @@ function WhisperInput({ barId, tableId, id }) {
 			.doc(tableId)
 			.collection("messages")
 			.add({
-				message: `(WHISPER FROM PERSON) ${input}`,
+				message: `(Whisper from ${user.displayName}) ${input}`,
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 				user: user.displayName,
-				recipient: [id, user.uid],
+				recipient: [id],
 				userImage: user.photoURL,
 			});
+
+		db.collection("bars")
+			.doc(barId)
+			.collection("tables")
+			.doc(tableId)
+			.collection("messages")
+			.add({
+				message: `(Whisper to ${recipientName}) ${input}`,
+				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+				user: user.displayName,
+				recipient: [user.uid],
+				userImage: user.photoURL,
+			});
+
 		setInput("");
 	};
 
 	return (
 		<div className="whisperInput">
 			<form noValidate autoComplete="off">
-				<input type="text" value={input}
+				<input
+					type="text"
+					value={input}
 					onChange={(event) => setInput(event.target.value)}
-					placeholder="Send Whisper..."></input>	
-				<button type="submit" onClick={sendMessage}>Whisper</button>
+					placeholder="Send Whisper..."
+				></input>
+				<button type="submit" onClick={sendMessage}>
+					Whisper
+				</button>
 			</form>
 		</div>
 	);
