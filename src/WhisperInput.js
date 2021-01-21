@@ -30,7 +30,7 @@ function WhisperInput({ barId, tableId }) {
 			<form noValidate autoComplete="off">
 				<input type="text" value={input}
 					onChange={(event) => setInput(event.target.value)}
-					placeholder="whisper to Alyson..."></input>	
+					placeholder="Send Whisper..."></input>	
 				<button type="submit" onClick={sendMessage}>Whisper</button>
 			</form>
 		</div>
