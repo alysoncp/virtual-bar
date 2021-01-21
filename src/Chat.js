@@ -59,6 +59,7 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("messages")
+			.where('recipient', 'in', ['all', user.uid])
 			.where("timestamp", ">=", twoMinAgo)
 			.orderBy("timestamp", "asc")
 			.onSnapshot((snapshot) => {
@@ -118,11 +119,10 @@ function Chat() {
 							<li className="userName">
 								<Avatar className="header__avatar" alt={name} src={photoURL} />
 								<h5>{name}</h5>
-								{/* <WhisperInput 
+								<WhisperInput 
 									barId={barId}
 									tableId={tableId}
-								/> */}
-								{/* <button className="whisper-button" onClick={startWhisper}>Whisper</button> */}
+								/>
 							</li>
 						))}
 					</ul>

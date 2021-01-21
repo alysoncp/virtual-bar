@@ -2,17 +2,6 @@ import React, { useState } from "react";
 import { useStateValue } from "./hooks+context/StateProvider";
 import db from "./firebase";
 import firebase from "firebase";
-import TextField from "@material-ui/core/TextField";
-// import { makeStyles } from "@material-ui/core/styles";
-
-// const useStyles = makeStyles((theme) => ({
-// 	root: {
-// 		"& > *": {
-// 			margin: theme.spacing(1),
-// 			width: "99%",
-// 		},
-// 	},
-// }));
 
 function WhisperInput({ barId, tableId }) {
 	const [input, setInput] = useState("");
@@ -27,29 +16,22 @@ function WhisperInput({ barId, tableId }) {
 			.doc(tableId)
 			.collection("messages")
 			.add({
-				message: input,
+				message: `(WHISPER FROM PERSON) ${input}`,
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 				user: user.displayName,
-				recipient: "XZzCKJOLQ0g6m1JZcCGW63OxNMf2"
-				// userImage: user.photoURL,
+				recipient: user.uid,
+				userImage: user.photoURL,
 			});
 		setInput("");
 	};
 
-	// const classes = useStyles();
-
 	return (
-		<div className="chatInput">
+		<div className="whisperInput">
 			<form noValidate autoComplete="off">
-				<TextField
-					id="outlined-basic"
-					// label={randomPlaceholder}
-					variant="outlined"
-					value={input}
+				<input type="text" value={input}
 					onChange={(event) => setInput(event.target.value)}
-					placeholder={`Message Alyson`}
-				/>
-				<button type="submit" onClick={sendMessage}></button>
+					placeholder="whisper to Alyson..."></input>	
+				<button type="submit" onClick={sendMessage}>Whisper</button>
 			</form>
 		</div>
 	);
