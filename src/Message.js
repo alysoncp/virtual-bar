@@ -1,7 +1,15 @@
 import React from "react";
 import "./Message.css";
 
+const moment = require('moment-timezone');
+
 function Message({ message, user, timestamp, userImage }) {
+
+	function utcTimeChange(timestamp, fromTz, toTz) {
+		const newDate = (moment.tz(timestamp, fromTz)).tz(toTz).format('YYYY-MM-DD LT');
+		return newDate;
+	}
+	
 	return (
 		<div className="message container">
 			<img src={userImage} alt="" />
