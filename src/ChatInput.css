@@ -1,9 +1,14 @@
 .chatInput > form {
-	  position: fixed;
-    bottom: 0%;
-    width: 74%;
+	position: fixed;
+	bottom: 0%;
+	width: 74%;
+	background-color: white;
 }
 
 .chatInput > form > button {
 	display: none !important;
+}
+
+div > #outlined-basic {
+	background-color: white;
 }

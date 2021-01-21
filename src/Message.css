@@ -20,5 +20,39 @@
 	color: rgb(88, 85, 85);
 	font-weight: 300;
 	font-size: 14px;
+}
 
+.message__info > h4 {
+	position: relative;
+	top: 10px;
+}
+
+div > .box {
+	display: inline-block;
+	margin: 0px 0px 0px 17px;
+	border-radius: 15px;
+	background: #4051b5;
+	color: #fff;
+	padding: 20px;
+	text-align: left;
+	font-weight: 900;
+	font-family: arial;
+	position: relative;
+	top: 16px;
+	z-index: -1000;
+	max-width: 1000px;
+	word-wrap: break-word;
+}
+
+div > .sb1:before {
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-left: 15px solid transparent;
+	border-right: 15px solid #4051b5;
+	border-top: 15px solid #4051b5;
+	border-bottom: 15px solid transparent;
+	left: -16px;
+	top: 0px;
 }
