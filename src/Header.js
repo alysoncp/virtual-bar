@@ -23,7 +23,8 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 
 // Logo
-import image from "./images/logo1.png"
+import image from "./images/logo1.png";
+import cocktail from "./images/cocktail.png";
 
 // Custom CSS
 import "./Header.css";
@@ -201,6 +202,9 @@ function Header() {
 					<Typography className={classes.title} variant="h6" noWrap>
 						VIRTUAL BAR
 					</Typography>
+					<div className="nav__cocktail">
+						<img src={cocktail} />
+					</div>
 					{/* <div className={classes.search}>
 						<div className={classes.searchIcon}>
 							<SearchIcon />
