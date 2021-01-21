@@ -58,6 +58,7 @@ function ChatInput({ barId, tableId, tableNumber }) {
 				message: input,
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 				user: user.displayName,
+				recipient: "all",
 				userImage: user.photoURL,
 			});
 		setInput("");

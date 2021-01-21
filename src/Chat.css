@@ -77,3 +77,11 @@
 .scroll-spacer {
 	height: 1px;
 }
+
+.userName:hover .whisper-button{
+	visibility: visible;
+}
+
+.whisper-button {
+	visibility: hidden;
+}

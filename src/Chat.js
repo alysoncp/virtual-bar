@@ -7,6 +7,7 @@ import ChatInput from "./ChatInput";
 import Message from "./Message";
 import db from "./firebase";
 import "./Chat.css";
+import WhisperInput from "./WhisperInput";
 
 function Chat() {
 	const { barId, tableId } = useParams();
@@ -17,12 +18,13 @@ function Chat() {
 	const [userList, setUserList] = useState([]);
 
 	const history = useHistory();
+// --------------------------------------------------------
 
-	console.log("User's UID is: ", user.uid);
+	const startWhisper = () => {
+		alert("Whispering!")
+	}
 
-	console.log("Set users *sitting_at*");
-
-	// --------------------------------------------------------
+// --------------------------------------------------------
 	// For autoscrolling to bottom of chat
 	const messagesEndRef = useRef(null);
 
@@ -31,7 +33,7 @@ function Chat() {
 	};
 
 	useEffect(scrollToBottom, [tableMessages]);
-	// --------------------------------------------------------
+// --------------------------------------------------------
 	// For only loading contemporary messages
 
 	const joinTimestamp = new Date();
@@ -39,7 +41,7 @@ function Chat() {
 	const twoMinAgo = new Date(joinTimestamp - 120000);
 	console.log("Two minutes ago was: " + twoMinAgo);
 
-	// -------------------------------------------------------
+// -------------------------------------------------------
 
 	useEffect(() => {
 		if (tableId) {
@@ -57,6 +59,7 @@ function Chat() {
 			.collection("tables")
 			.doc(tableId)
 			.collection("messages")
+			.where('recipient', 'in', ['all', user.uid])
 			.where("timestamp", ">=", twoMinAgo)
 			.orderBy("timestamp", "asc")
 			.onSnapshot((snapshot) => {
@@ -113,9 +116,13 @@ function Chat() {
 				<div className="table_users_list">
 					<ul>
 						{tableUsers.map(({ name, photoURL }) => (
-							<li>
+							<li className="userName">
 								<Avatar className="header__avatar" alt={name} src={photoURL} />
 								<h5>{name}</h5>
+								<WhisperInput 
+									barId={barId}
+									tableId={tableId}
+								/>
 							</li>
 						))}
 					</ul>
