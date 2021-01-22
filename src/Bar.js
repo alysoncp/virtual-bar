@@ -24,7 +24,6 @@ import HomeIcon from "@material-ui/icons/Home";
 import "./Bar.css";
 
 function Bar() {
-
 	const [{ idToken }, dispatch] = useStateValue();
 	const history = useHistory();
 
@@ -61,7 +60,7 @@ function Bar() {
 				)
 			);
 
-		// Update data layer	
+		// Update data layer
 		dispatch({
 			type: actionTypes.LEAVE_BAR_OR_TABLE,
 			at_bar: barId,
@@ -145,6 +144,14 @@ function Bar() {
 			width: 20,
 			height: 20,
 		},
+		bar__button: {
+			backgroundColor: "#311f34",
+			color: "#FFDC14",
+			"&:hover": {
+				background: "#FFDC14",
+				color: "#311f34",
+			},
+		},
 	}));
 
 	const classes = useStyles();
@@ -175,6 +182,7 @@ function Bar() {
 					{barDetails?.name}
 				</Link>
 				<Button
+					className={classes.bar__button}
 					id="form_close"
 					variant="contained"
 					color="primary"

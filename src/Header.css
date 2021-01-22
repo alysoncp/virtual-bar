@@ -1,3 +1,17 @@
+@font-face {
+	font-family: "neon-tubes-2-regular";
+	src: local("NeonTubes2"), url(./fonts/NeonTubes2.otf) format("truetype");
+	src: local("NeonTubes2"), url(./fonts/NeonTubes2.otf) format("opentype");
+	src: local("NeonTubes2"), url(./fonts/NeonTubes2.otf) format("woff");
+}
+
+div.nav__title {
+	font-family: "neon-tubes-2-regular";
+	font-size: 30px;
+	text-transform: none;
+	color: #ffdc14;
+}
+
 .header {
 	position: fixed;
 	width: 100vw;
@@ -6,7 +20,6 @@
 	align-items: center;
 	justify-content: space-between;
 	padding: 25px 0px;
-	background-color: rgb(13, 49, 27);
 	color: white;
 }
 
@@ -32,26 +45,6 @@
 	margin-right: 2px;
 }
 
-/* .header__search {
-	flex: 0.4;
-	background-color: #421f44;
-	text-align: center;
-	display: flex;
-	padding: 0px 50px;
-	color: grey;
-	border: 1px solid gray;
-	border-radius: 6px;
-}
-
-.header__search > input {
-	background-color: transparent;
-	border: none;
-	outline: none;
-	text-align: center;
-	min-width: 35vw;
-	color: white;
-} */
-
 .header__right {
 	flex: 0.3;
 	display: flex;
@@ -76,10 +69,16 @@
 
 .MuiCard-root {
 	max-width: 350px;
-	/* margin-right: auto; */
 	margin: auto;
 }
 
 .avatar__name {
 	padding-right: 10px;
+	color: #fff;
+}
+
+#root > div > div.makeStyles-grow-1 > header > div {
+	background-color: #1e0521;
+	box-shadow: inset 0 0 0 2000px rgba(30, 5, 33, 0.6);
+	background-image: url("./images/shattered.png");
 }
