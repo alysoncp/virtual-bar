@@ -1,0 +1,25 @@
+#input__whisper__box {
+	display: none !important;
+}
+
+#simple-popover
+	> div.MuiPaper-root.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded
+	> p {
+	padding: 8px;
+}
+.whisper__button.MuiButton-containedPrimary {
+	padding: 4px;
+	margin-left: 16px;
+	background-color: black;
+}
+
+.whisper__button.MuiButton-containedPrimary:hover {
+	background-color: rgb(67, 67, 67);
+}
+
+.MuiFormLabel-root.Mui-focused {
+	color: #000000 !important;
+}
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+	border-color: #000000 !important;
+}
