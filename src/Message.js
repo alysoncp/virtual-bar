@@ -3,7 +3,15 @@ import "./Message.css";
 
 const moment = require("moment-timezone");
 
-function Message({ message, user, timestamp, userImage, altMessageColor }) {
+function Message({
+	message,
+	user,
+	timestamp,
+	userImage,
+	altMessageColor,
+	whisperRecipient,
+	whisperSender,
+}) {
 	function utcTimeChange(timeStamp, fromTz, toTz) {
 		const newDate = moment
 			.tz(timeStamp, fromTz)
@@ -26,7 +34,13 @@ function Message({ message, user, timestamp, userImage, altMessageColor }) {
 				</p>
 				<div
 					className={
-						altMessageColor ? altMessageColor : "message__bubble bubble__lip"
+						altMessageColor
+							? altMessageColor
+							: whisperRecipient
+							? whisperRecipient
+							: whisperSender
+							? whisperSender
+							: "message__bubble bubble__lip"
 					}
 				>
 					<p>{message}</p>
