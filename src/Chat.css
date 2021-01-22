@@ -1,7 +1,7 @@
 .table_chat {
 	width: 100%;
 	display: flex;
-	flex: 1.0;
+	flex: 1;
 	flex-direction: row;
 	margin-top: -32px;
 }
@@ -9,14 +9,14 @@
 .table_users {
 	flex: 0.5;
 	color: white;
-	padding: 25px;
+	padding: 7px 25px 25px 25px;
 	background-color: #1e0521;
 	box-shadow: inset 0 0 0 2000px rgba(30, 5, 33, 0.6);
-	background-image: url("./images/shattered.png")
+	background-image: url("./images/shattered.png");
 }
 
 .table_users_header {
-	margin: 10px;
+	margin: 10px 10px 30px 10px;
 }
 
 .table_users_list {
