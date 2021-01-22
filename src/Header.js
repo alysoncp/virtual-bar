@@ -126,6 +126,12 @@ function Header() {
 		setMobileMoreAnchorEl(event.currentTarget);
 	};
 
+	const clickHome = (e) => {
+		e.preventDefault()
+		history.push("/");
+	}
+
+
 	const menuId = "primary-search-account-menu";
 	const renderMenu = (
 		<Menu
@@ -199,12 +205,13 @@ function Header() {
 					>
 						<MenuIcon />
 					</IconButton> */}
-					<Typography className={classes.title} variant="h6" noWrap>
+					<Typography className={classes.title} onClick={clickHome} variant="h6" noWrap>
 						VIRTUAL BAR
 					</Typography>
-					<div className="nav__cocktail">
+					<div onClick={clickHome} className="nav__cocktail">
 						<img src={cocktail} />
 					</div>
+				
 					{/* <div className={classes.search}>
 						<div className={classes.searchIcon}>
 							<SearchIcon />

@@ -18,12 +18,12 @@ function Message({ message, user, timestamp, userImage, altMessageColor }) {
 		<div className="message container">
 			<img src={userImage} alt="" />
 			<div className="message__info">
-				<h4>
-					{user}{" "}
+				<p>
+					<b>{user} </b>
 					<span className="message__timestamp">
 						{utcTimeChange(UTC, "Europe/London", moment.tz.guess())}
 					</span>
-				</h4>
+				</p>
 				<div
 					className={
 						altMessageColor ? altMessageColor : "message__bubble bubble__lip"
