@@ -15,6 +15,7 @@ import WhisperInput from "./WhisperInput";
 // Style
 import "./Chat.css";
 import { Avatar } from "@material-ui/core";
+import AddFriend from "./AddFriend";
 
 // Primary Chat function
 function Chat() {
@@ -28,6 +29,7 @@ function Chat() {
 	const [tableMessages, setTableMessages] = useState([]);
 	const [tableUsers, setTableUsers] = useState([]);
 	const [barName, setBarName] = useState([]);
+	const [friendsArray, setFriendsArray] = useState([]);
 
 	// --------------------------------------------------------
 	// For autoscrolling to bottom of chat
@@ -44,6 +46,16 @@ function Chat() {
 	const joinTimestamp = new Date();
 
 	const twoMinAgo = new Date(joinTimestamp - 120000);
+
+	// Get Friends list
+	useEffect(() => {
+		db.collection("users")
+			.doc(user.uid)
+			.onSnapshot((snapshot) => {
+				setFriendsArray(snapshot.data().friends);
+			});
+	}, [user]);
+
 
 	// -------------------------------------------------------
 	// For updating data
@@ -113,8 +125,7 @@ function Chat() {
 
 	// Remove yourself from the table users list when cleanly leaving the table
 	const leaveTable = () => {
-		const userToDelete = db
-			.collection("bars")
+		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
 			.doc(tableId)
@@ -135,29 +146,28 @@ function Chat() {
 				<div className="table_users_list">
 					<ul>
 						{tableUsers.map(({ name, photoURL, uid, isTyping }) => (
-							<Fragment>
-								<li className="userName">
-									<WhisperInput
-										barId={barId}
-										tableId={tableId}
-										uid={uid}
-										recipientName={name}
-									/>
-									<Avatar
-										className="header__avatar"
-										alt={name}
-										src={photoURL}
-									/>
-									<h5>{name}</h5>
-									{isTyping ? (
-										<i>
-											<h5>is typing...</h5>
-										</i>
-									) : (
-										<p></p>
-									)}
-								</li>
-							</Fragment>
+						<Fragment>
+							<li className="userName">
+								<WhisperInput
+									barId={barId}
+									tableId={tableId}
+									uid={uid}
+									recipientName={name}
+								/>
+								{uid === user.uid ? <p>MEEE!</p> :
+									friendsArray.includes(uid) ? 
+										<p>fraands</p> :
+										<AddFriend
+											friendID={uid}
+											friendName={name}
+										/>
+								}	
+								<Avatar className="header__avatar" alt={name} src={photoURL} />
+								<h5>{name}</h5>
+								{isTyping ? <i><h5>is typing...</h5></i> : <p></p>}
+
+							</li>
+						</Fragment>
 						))}
 					</ul>
 				</div>
