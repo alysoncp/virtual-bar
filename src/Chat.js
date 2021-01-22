@@ -15,6 +15,7 @@ import WhisperInput from "./WhisperInput";
 // Style
 import "./Chat.css";
 import { Avatar } from "@material-ui/core";
+import AddFriend from "./AddFriend";
 
 
 // Primary Chat function
@@ -29,6 +30,7 @@ function Chat() {
 	const [tableMessages, setTableMessages] = useState([]);
 	const [tableUsers, setTableUsers] = useState([]);
 	const [barName, setBarName] = useState([]);
+	const [friendsArray, setFriendsArray] = useState([]);
 
 	// --------------------------------------------------------
 	// For autoscrolling to bottom of chat
@@ -46,6 +48,16 @@ function Chat() {
 	console.log("User joined at: " + joinTimestamp);
 	const twoMinAgo = new Date(joinTimestamp - 120000);
 	console.log("Two minutes ago was: " + twoMinAgo);
+
+
+	// Get Friends list
+	useEffect(() => {
+		db.collection("users")
+			.doc(user.uid)
+			.onSnapshot((snapshot) => {
+				setFriendsArray(snapshot.data().friends);
+			});
+	}, [user]);
 
 
 	// -------------------------------------------------------
@@ -119,8 +131,7 @@ function Chat() {
 
 	// Remove yourself from the table users list when cleanly leaving the table
 	const leaveTable = () => {
-		const userToDelete = db
-			.collection("bars")
+		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
 			.doc(tableId)
@@ -130,6 +141,7 @@ function Chat() {
 		history.push(`/bar/${barId}`);
 	};
 
+	console.log("This is the friends array: ", friendsArray)
 
 	// Render the chat
 	return (
@@ -155,6 +167,14 @@ function Chat() {
 									uid={uid}
 									recipientName={name}
 								/>
+								{uid === user.uid ? <p>MEEE!</p> :
+									friendsArray.includes(uid) ? 
+										<p>fraands</p> :
+										<AddFriend
+											friendID={uid}
+											friendName={name}
+										/>
+								}	
 								{isTyping ? <i><h5>Typing..</h5></i> : <p></p>}
 							</li>
 						</Fragment>
