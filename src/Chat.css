@@ -10,7 +10,9 @@
 	flex: 0.5;
 	color: white;
 	padding: 25px;
-	background-color: #3F51B5;
+	background-color: #1e0521;
+	box-shadow: inset 0 0 0 2000px rgba(30, 5, 33, 0.6);
+	background-image: url("./images/shattered.png")
 }
 
 .table_users_header {

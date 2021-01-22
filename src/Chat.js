@@ -135,7 +135,7 @@ function Chat() {
 	return (
 
 		<div className="table_chat">
-
+			
 
 			{/* -------- Users at table sidebar -------- */}
 			<div className="table_users">
