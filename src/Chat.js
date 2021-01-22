@@ -34,7 +34,7 @@ function Chat() {
 
 	const joinTimestamp = new Date();
 	console.log("User joined at: " + joinTimestamp);
-	const twoMinAgo = new Date(joinTimestamp - 120000);
+	const twoMinAgo = new Date(joinTimestamp - 12000000);
 	console.log("Two minutes ago was: " + twoMinAgo);
 
 	// -------------------------------------------------------
@@ -147,20 +147,14 @@ function Chat() {
 				<div className="chat__messages">
 					{tableMessages.map((doc) => (
 						<Message
-							altMessageColor={
-								doc.user === user.displayName
-									? null
-									: "message__bubble__alt bubble__lip__alt"
+							me={doc.user === user.displayName
+										? true
+										: false
 							}
-							whisperRecipient={
-								doc.recipient[0] === "all"
-									? null
-									: "whisper__bubble bubble__lip__whisper"
-							}
-							whisperSender={
-								doc.user !== user.displayName && doc.recipient[0] === user.uid
-									? null
-									: "whisper__bubble bubble__lip__whisper"
+							whisper={
+								doc.recipient[0] !== "all"
+									? true
+									: false
 							}
 							message={doc.message}
 							timestamp={doc.timestamp}

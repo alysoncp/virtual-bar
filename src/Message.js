@@ -8,9 +8,8 @@ function Message({
 	user,
 	timestamp,
 	userImage,
-	altMessageColor,
-	whisperRecipient,
-	whisperSender,
+	me,
+	whisper,
 }) {
 	function utcTimeChange(timeStamp, fromTz, toTz) {
 		const newDate = moment
@@ -19,6 +18,19 @@ function Message({
 			.format("YYYY-MM-DD LT");
 		return newDate;
 	}
+
+// Set message classes -----------
+	let classString = ""
+	if(me) {
+		classString = classString.concat("message__bubble bubble__lip ")
+	} else {
+		classString = classString.concat("message__bubble__alt bubble__lip_alt ")
+	}
+	if(whisper){
+		classString = classString.concat("whisper__bubble bubble__lip__whisper ")
+	}	
+// -------------------------------
+
 
 	const UTC = new Date(timestamp?.toDate()).toUTCString();
 
@@ -34,13 +46,7 @@ function Message({
 				</p>
 				<div
 					className={
-						altMessageColor
-							? altMessageColor
-							: whisperRecipient
-							? whisperRecipient
-							: whisperSender
-							? whisperSender
-							: "message__bubble bubble__lip"
+						classString
 					}
 				>
 					<p>{message}</p>
