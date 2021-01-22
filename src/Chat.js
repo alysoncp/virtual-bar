@@ -17,7 +17,6 @@ import "./Chat.css";
 import { Avatar } from "@material-ui/core";
 import AddFriend from "./AddFriend";
 
-
 // Primary Chat function
 function Chat() {
 	// Data layer and hooks
@@ -45,10 +44,8 @@ function Chat() {
 	// For only loading contemporary messages
 
 	const joinTimestamp = new Date();
-	console.log("User joined at: " + joinTimestamp);
-	const twoMinAgo = new Date(joinTimestamp - 120000);
-	console.log("Two minutes ago was: " + twoMinAgo);
 
+	const twoMinAgo = new Date(joinTimestamp - 120000);
 
 	// Get Friends list
 	useEffect(() => {
@@ -63,7 +60,6 @@ function Chat() {
 	// -------------------------------------------------------
 	// For updating data
 	useEffect(() => {
-
 		// Grab table details
 		if (tableId) {
 			db.collection("bars")
@@ -75,7 +71,7 @@ function Chat() {
 				});
 		}
 
-		// Load the messages that were sent to you either by general or whisper chat	
+		// Load the messages that were sent to you either by general or whisper chat
 		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
@@ -88,7 +84,7 @@ function Chat() {
 				setTableMessages(snapshot.docs.map((doc) => doc.data()));
 			});
 
-		// Add yourself to the list of users at table	
+		// Add yourself to the list of users at table
 		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
@@ -112,22 +108,20 @@ function Chat() {
 				setTableUsers(snapshot.docs.map((doc) => doc.data()));
 			});
 
-		// Grab bar name	
+		// Grab bar name
 		db.collection("bars")
 			.doc(barId)
 			.onSnapshot((snapshot) => {
 				setBarName(snapshot.data());
 			});
 
-		// Set bar id and table id in data layer	
+		// Set bar id and table id in data layer
 		dispatch({
 			type: actionTypes.SET_BAR_AND_TABLE,
 			at_table: tableId,
 			at_bar: barId,
 		});
-
 	}, [tableId]); // End of UseEffect hook
-
 
 	// Remove yourself from the table users list when cleanly leaving the table
 	const leaveTable = () => {
@@ -141,14 +135,9 @@ function Chat() {
 		history.push(`/bar/${barId}`);
 	};
 
-	console.log("This is the friends array: ", friendsArray)
-
 	// Render the chat
 	return (
-
 		<div className="table_chat">
-			
-
 			{/* -------- Users at table sidebar -------- */}
 			<div className="table_users">
 				<div className="table_users_header">
@@ -175,7 +164,7 @@ function Chat() {
 								}	
 								<Avatar className="header__avatar" alt={name} src={photoURL} />
 								<h5>{name}</h5>
-								{isTyping ? <i><h5>is typing..</h5></i> : <p></p>}
+								{isTyping ? <i><h5>is typing...</h5></i> : <p></p>}
 
 							</li>
 						</Fragment>
