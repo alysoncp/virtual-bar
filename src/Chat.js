@@ -148,7 +148,9 @@ function Chat() {
 					{tableMessages.map((doc, index) => (
 						<Message
 							altMessageColor={
-								index % 2 === 1 ? "message__bubbleAlt bubble__lipAlt" : null
+								doc.user === user.displayName
+									? null
+									: "message__bubbleAlt bubble__lipAlt"
 							}
 							message={doc.message}
 							timestamp={doc.timestamp}

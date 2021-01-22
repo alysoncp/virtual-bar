@@ -22,7 +22,7 @@
 	font-size: 14px;
 }
 
-.message__info > h4 {
+.message__info > p {
 	position: relative;
 	top: 10px;
 }

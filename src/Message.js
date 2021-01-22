@@ -19,7 +19,7 @@ function Message({ message, user, timestamp, userImage, altMessageColor }) {
 			<img src={userImage} alt="" />
 			<div className="message__info">
 				<p>
-					<b>{user} </b>
+					<b>{user}</b>
 					<span className="message__timestamp">
 						{utcTimeChange(UTC, "Europe/London", moment.tz.guess())}
 					</span>
