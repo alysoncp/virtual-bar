@@ -120,7 +120,6 @@ function Chat() {
 						{tableUsers.map(({ name, photoURL, uid, isTyping }) => (
 						<Fragment>
 							<li className="userName">
-								{isTyping ? <p>Typing.....</p> : <p></p>}
 								<Avatar className="header__avatar" alt={name} src={photoURL} />
 								<h5>{name}</h5>
 								<WhisperInput
@@ -129,6 +128,7 @@ function Chat() {
 									uid={uid}
 									recipientName={name}
 								/>
+								{isTyping ? <i><h5>Typing..</h5></i> : <p></p>}
 							</li>
 						</Fragment>
 						))}
