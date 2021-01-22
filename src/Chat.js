@@ -34,7 +34,7 @@ function Chat() {
 
 	const joinTimestamp = new Date();
 	console.log("User joined at: " + joinTimestamp);
-	const twoMinAgo = new Date(joinTimestamp - 12000000);
+	const twoMinAgo = new Date(joinTimestamp - 120000);
 	console.log("Two minutes ago was: " + twoMinAgo);
 
 	// -------------------------------------------------------
