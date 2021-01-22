@@ -1,19 +1,14 @@
 .bar_listing {
-	border: 1px solid rgb(13, 49, 27);
+	border: 1px solid rgb(0, 0, 0);
 	width: 200px;
 	padding: 30px;
-	color: rgb(13, 49, 27);
+	color: rgb(0, 0, 0);
 	margin: 30px;
 }
 
 .bar_logo {
 	width: 80%;
 }
-
-/* #root > div > div.app__body > div > div > div > div {
-	background-color: #311f34;
-	color: white;
-} */
 
 button > div.MuiCardContent-root {
 	background-color: #311f34;
