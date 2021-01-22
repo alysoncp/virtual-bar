@@ -1,24 +1,34 @@
+// React and state imports
 import React, { useState, useEffect, useRef, Fragment } from "react";
 import { useParams, useHistory } from "react-router-dom";
+
+// Firebase and state imports
 import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
-import { Avatar } from "@material-ui/core";
-import ChatInput from "./ChatInput";
-import Message from "./Message";
 import db from "./firebase";
-import "./Chat.css";
+
+// Components
+import Message from "./Message";
+import ChatInput from "./ChatInput";
 import WhisperInput from "./WhisperInput";
 
+// Style
+import "./Chat.css";
+import { Avatar } from "@material-ui/core";
+
+
+// Primary Chat function
 function Chat() {
+	// Data layer and hooks
+	const [{ user }, dispatch] = useStateValue();
 	const { barId, tableId } = useParams();
+	const history = useHistory();
+
+	// Local State
 	const [tableDetails, setTableDetails] = useState(null);
 	const [tableMessages, setTableMessages] = useState([]);
 	const [tableUsers, setTableUsers] = useState([]);
-	const [{ user }, dispatch] = useStateValue();
-	const [userList, setUserList] = useState([]);
 	const [barName, setBarName] = useState([]);
-
-	const history = useHistory();
 
 	// --------------------------------------------------------
 	// For autoscrolling to bottom of chat
@@ -37,9 +47,12 @@ function Chat() {
 	const twoMinAgo = new Date(joinTimestamp - 120000);
 	console.log("Two minutes ago was: " + twoMinAgo);
 
-	// -------------------------------------------------------
 
+	// -------------------------------------------------------
+	// For updating data
 	useEffect(() => {
+
+		// Grab table details
 		if (tableId) {
 			db.collection("bars")
 				.doc(barId)
@@ -50,6 +63,7 @@ function Chat() {
 				});
 		}
 
+		// Load the messages that were sent to you either by general or whisper chat	
 		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
@@ -62,6 +76,7 @@ function Chat() {
 				setTableMessages(snapshot.docs.map((doc) => doc.data()));
 			});
 
+		// Add yourself to the list of users at table	
 		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
@@ -75,6 +90,7 @@ function Chat() {
 				isTyping: false,
 			});
 
+		// 	Load the list of users at table
 		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
@@ -84,19 +100,24 @@ function Chat() {
 				setTableUsers(snapshot.docs.map((doc) => doc.data()));
 			});
 
+		// Grab bar name	
 		db.collection("bars")
 			.doc(barId)
 			.onSnapshot((snapshot) => {
 				setBarName(snapshot.data());
 			});
 
+		// Set bar id and table id in data layer	
 		dispatch({
 			type: actionTypes.SET_BAR_AND_TABLE,
 			at_table: tableId,
 			at_bar: barId,
 		});
-	}, [tableId]);
 
+	}, [tableId]); // End of UseEffect hook
+
+
+	// Remove yourself from the table users list when cleanly leaving the table
 	const leaveTable = () => {
 		const userToDelete = db
 			.collection("bars")
@@ -109,8 +130,14 @@ function Chat() {
 		history.push(`/bar/${barId}`);
 	};
 
+
+	// Render the chat
 	return (
+
 		<div className="table_chat">
+
+
+			{/* -------- Users at table sidebar -------- */}
 			<div className="table_users">
 				<div className="table_users_header">
 					<h3>{barName.name} Patrons</h3>
@@ -136,6 +163,7 @@ function Chat() {
 				</div>
 			</div>
 
+			{/* -------- Chat window -------- */}
 			<div className="chat">
 				<div className="chat__header">
 					<div className="chat__headerLeft">

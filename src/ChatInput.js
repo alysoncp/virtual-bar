@@ -1,10 +1,14 @@
+// React, hooks and state
 import React, { useState, useEffect } from "react";
 import { useStateValue } from "./hooks+context/StateProvider";
+
+//Firebase
 import db from "./firebase";
 import firebase from "firebase";
+
+// Style
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-
 import "./ChatInput.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,11 +20,17 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function ChatInput({ barId, tableId, tableNumber }) {
-	const [input, setInput] = useState("");
-	const [{ user }] = useStateValue();
-	const [randomPlaceholder, setRandomPlaceholder] = useState("");
 
+// Primary ChatInput function
+function ChatInput({ barId, tableId, tableNumber }) {
+
+	const [{ user }] = useStateValue();
+	const [input, setInput] = useState("");
+	const [randomPlaceholder, setRandomPlaceholder] = useState("");
+	const classes = useStyles();
+
+
+	// Place random placeholder in chat field
 	useEffect(() => {
 		const randomChatBoxPlaceholder = [
 			"Who has better arms? The Rock, or Michelle Oboma? Discuss...",
@@ -47,6 +57,7 @@ function ChatInput({ barId, tableId, tableNumber }) {
 
 	}, []);
 
+	// Set the className string for the chat bubble for send/recieve message and main/whisper message
 	useEffect(() => {
 		if(input !== "") {
 			db.collection('bars').doc(barId).collection('tables').doc(tableId).collection('usersAtTable').doc(user.uid).update({
@@ -59,6 +70,7 @@ function ChatInput({ barId, tableId, tableNumber }) {
 		}
 	}, [input])
 
+	// Save a sent message to the database
 	const sendMessage = (event) => {
 		event.preventDefault();
 
@@ -81,8 +93,8 @@ function ChatInput({ barId, tableId, tableNumber }) {
 		setInput("");
 	};
 
-	const classes = useStyles();
 
+	// Render the Chat Input
 	return (
 		<div className="chatInput">
 			<form className={classes.root} noValidate autoComplete="off">
