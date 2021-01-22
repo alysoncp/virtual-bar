@@ -15,7 +15,6 @@ import WhisperInput from "./WhisperInput";
 // Style
 import "./Chat.css";
 import { Avatar } from "@material-ui/core";
-import AddFriend from "./AddFriend";
 
 
 // Primary Chat function
@@ -30,7 +29,6 @@ function Chat() {
 	const [tableMessages, setTableMessages] = useState([]);
 	const [tableUsers, setTableUsers] = useState([]);
 	const [barName, setBarName] = useState([]);
-	const [friendsArray, setFriendsArray] = useState([]);
 
 	// --------------------------------------------------------
 	// For autoscrolling to bottom of chat
@@ -48,16 +46,6 @@ function Chat() {
 	console.log("User joined at: " + joinTimestamp);
 	const twoMinAgo = new Date(joinTimestamp - 120000);
 	console.log("Two minutes ago was: " + twoMinAgo);
-
-
-	// Get Friends list
-	useEffect(() => {
-		db.collection("users")
-			.doc(user.uid)
-			.onSnapshot((snapshot) => {
-				setFriendsArray(snapshot.data().friends);
-			});
-	}, [user]);
 
 
 	// -------------------------------------------------------
@@ -131,7 +119,8 @@ function Chat() {
 
 	// Remove yourself from the table users list when cleanly leaving the table
 	const leaveTable = () => {
-		db.collection("bars")
+		const userToDelete = db
+			.collection("bars")
 			.doc(barId)
 			.collection("tables")
 			.doc(tableId)
@@ -141,7 +130,6 @@ function Chat() {
 		history.push(`/bar/${barId}`);
 	};
 
-	console.log("This is the friends array: ", friendsArray)
 
 	// Render the chat
 	return (
@@ -159,24 +147,15 @@ function Chat() {
 						{tableUsers.map(({ name, photoURL, uid, isTyping }) => (
 						<Fragment>
 							<li className="userName">
+								<Avatar className="header__avatar" alt={name} src={photoURL} />
+								<h5>{name}</h5>
 								<WhisperInput
 									barId={barId}
 									tableId={tableId}
 									uid={uid}
 									recipientName={name}
 								/>
-								{uid === user.uid ? <p>MEEE!</p> :
-									friendsArray.includes(uid) ? 
-										<p>fraands</p> :
-										<AddFriend
-											friendID={uid}
-											friendName={name}
-										/>
-								}	
-								<Avatar className="header__avatar" alt={name} src={photoURL} />
-								<h5>{name}</h5>
-								{isTyping ? <i><h5>is typing..</h5></i> : <p></p>}
-
+								{isTyping ? <i><h5>Typing..</h5></i> : <p></p>}
 							</li>
 						</Fragment>
 						))}
@@ -189,7 +168,7 @@ function Chat() {
 				<div className="chat__header">
 					<div className="chat__headerLeft">
 						<h4 className="chat__channelName">
-							<strong>Hanging at {tableDetails?.name}</strong>
+							<strong>Hanging at #{tableDetails?.name}</strong>
 						</h4>
 					</div>
 					<div className="chat__headerRight" onClick={leaveTable}>
