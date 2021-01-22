@@ -1,9 +1,13 @@
-// React
+// React and hooks
 import React, { useState, useEffect } from "react";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
+
+// Firebase
 import db from "./firebase";
+
+// Components
 import Table from "./Table";
 
 // Material UI
@@ -20,23 +24,27 @@ import HomeIcon from "@material-ui/icons/Home";
 import "./Bar.css";
 
 function Bar() {
-	const { barId } = useParams();
+
+	const [{ idToken }, dispatch] = useStateValue();
 	const history = useHistory();
+
+	const { barId } = useParams();
 	const [barDetails, setBarDetails] = useState(null);
 	const [tables, setTables] = useState([]);
-	const [{ user, idToken }, dispatch] = useStateValue();
+	const [desc, setDesc] = useState("");
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [input, setInput] = useState("");
 	const [imageUrl, setImageUrl] = useState("");
-	const [desc, setDesc] = useState("");
 
 	useEffect(() => {
+		// Set the bar details by bar id
 		if (barId) {
 			db.collection("bars")
 				.doc(barId)
 				.onSnapshot((snapshot) => setBarDetails(snapshot.data()));
 		}
 
+		// Load the tables available in your area
 		db.collection("bars")
 			.doc(barId)
 			.collection("tables")
@@ -53,6 +61,7 @@ function Bar() {
 				)
 			);
 
+		// Update data layer	
 		dispatch({
 			type: actionTypes.LEAVE_BAR_OR_TABLE,
 			at_bar: barId,
@@ -60,10 +69,12 @@ function Bar() {
 		});
 	}, [barId]);
 
+	// Reroute when cleanly exiting bar back to street
 	const leaveBar = () => {
 		history.push("/");
 	};
 
+	// Create a new table
 	const addTable = (event) => {
 		event.preventDefault();
 
@@ -151,6 +162,7 @@ function Bar() {
 	// --------------------------------------
 	// end of code for table name popup input
 
+	// Render component
 	return (
 		<div className="street">
 			<Breadcrumbs aria-label="breadcrumb" className="breadCrumbs">

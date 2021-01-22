@@ -1,27 +1,35 @@
+// React and hooks
 import React from "react";
 import { useHistory } from "react-router-dom";
-import HaversineGeolocation from "haversine-geolocation";
-import "./Login.css";
-import { Button } from "@material-ui/core";
-import firebase from "firebase";
-import db, { auth, provider } from "./firebase";
 import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
 
+// Geolocation module
+import HaversineGeolocation from "haversine-geolocation";
+
+// Firebase
+import { auth, provider } from "./firebase";
+
+// Styling
+import "./Login.css";
+import { Button } from "@material-ui/core";
 import logo from "./images/logo2.png";
-// import loginIcon from "./images/login-icon.png";
 import cocktail from "./images/cocktail.png";
 
+
+// Primary Login function
 function Login() {
 	const [state, dispatch] = useStateValue();
 	const history = useHistory();
 
+	// Use Google Authentication to sign in a user
 	const signIn = () => {
 		auth
 			.signInWithPopup(provider)
 			.then((result) => {
 				const idToken = result.user.uid;
 
+				// Grab users location
 				HaversineGeolocation.isGeolocationAvailable().then((data) => {
 					const userLocation = {
 						latitude: data.coords.latitude,
@@ -42,6 +50,7 @@ function Login() {
 			});
 	};
 
+	// Render Login
 	return (
 		<div className="login">
 			<img src={logo} width={1200} />

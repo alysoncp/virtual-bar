@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+// React and hooks
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
 import useStatus from "./hooks+context/useStatus";
 import useBarTable from "./hooks+context/useBarTable";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// Components
 import Header from "./Header";
 import Chat from "./Chat";
 import Login from "./Login";
 import Street from "./Street";
 import Bar from "./Bar";
-import db from "./firebase"
 
+// Styling
 import "./App.css";
 
+
+// Primary App function
 function App() {
 	
+	// Load current user from data layer
 	const [{ user }] = useStateValue();
-	const [userDbStatus, setUserDbStatus] = useState();
 
 	// Write users present Bar and Table to database
 	useBarTable();
@@ -23,14 +28,8 @@ function App() {
 	// Custom hook to set Realtime Database online/offline status
 	useStatus();
 
-	if(user){
-		db.collection("users")
-			.doc(user.uid)
-			.onSnapshot((snapshot) => {
-				console.log(`Received doc snapshot: ${snapshot}`);
-			})
-	}
 
+	// Render app with React Router
 	return (
 		<div className="app">
 			<Router>

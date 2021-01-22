@@ -1,7 +1,9 @@
-// React
+// React and hooks
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
+import { useHistory } from "react-router-dom";
+
+// Firebase
 import db from "./firebase";
 
 // Material UI
@@ -30,11 +32,13 @@ const useStyles = makeStyles({
 	},
 });
 
+// Primary Bar Listing function
 function BarListing({ title, id, description, barCreatorId, photo }) {
 	const history = useHistory();
 	const [{ idToken }] = useStateValue();
 	const classes = useStyles();
 
+	// Route to a bar
 	const selectChannel = () => {
 		if (id) {
 			history.push(`/bar/${id}`);
@@ -43,6 +47,7 @@ function BarListing({ title, id, description, barCreatorId, photo }) {
 		}
 	};
 
+	// Check if bar belongs to user
 	const userCanDelete = (barIdToken, userIdToken) => {
 		if (barIdToken === userIdToken) {
 			return true;
@@ -51,6 +56,7 @@ function BarListing({ title, id, description, barCreatorId, photo }) {
 		}
 	};
 
+	// Delete a bar
 	const deleteBar = () => {
 		if (window.confirm("Are you sure you want to delete the bar?")) {
 			db.collection("bars").doc(id).delete();
@@ -59,6 +65,7 @@ function BarListing({ title, id, description, barCreatorId, photo }) {
 		}
 	};
 
+	// Render Bar Listing
 	return (
 		<Card className={classes.root}>
 			<CardActionArea onClick={selectChannel}>
