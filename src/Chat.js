@@ -145,12 +145,27 @@ function Chat() {
 				</div>
 
 				<div className="chat__messages">
-					{tableMessages.map(({ message, timestamp, user, userImage }) => (
+					{tableMessages.map((doc) => (
 						<Message
-							message={message}
-							timestamp={timestamp}
-							user={user}
-							userImage={userImage}
+							altMessageColor={
+								doc.user === user.displayName
+									? null
+									: "message__bubble__alt bubble__lip__alt"
+							}
+							whisperRecipient={
+								doc.recipient[0] === "all"
+									? null
+									: "whisper__bubble bubble__lip__whisper"
+							}
+							whisperSender={
+								doc.user !== user.displayName && doc.recipient[0] === user.uid
+									? null
+									: "whisper__bubble bubble__lip__whisper"
+							}
+							message={doc.message}
+							timestamp={doc.timestamp}
+							user={doc.user}
+							userImage={doc.userImage}
 						/>
 					))}
 				</div>
