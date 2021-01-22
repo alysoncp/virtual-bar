@@ -30,6 +30,15 @@ const useStyles = makeStyles({
 	media: {
 		height: 140,
 	},
+
+	bar__button: {
+		color: "#FFDC14",
+		"&:hover": {
+			background: "#FFDC14",
+			color: "#311f34",
+			boxShadow: "10px 10px 99px 6px #ffdc14",
+		},
+	},
 });
 
 // Primary Bar Listing function
@@ -79,7 +88,12 @@ function BarListing({ title, id, description, barCreatorId, photo }) {
 					title="Contemplative Reptile"
 				/>
 				<CardContent>
-					<Typography gutterBottom variant="h5" component="h2">
+					<Typography
+						classNames={classes.barTitle}
+						gutterBottom
+						variant="h5"
+						component="h2"
+					>
 						{title}
 					</Typography>
 					<Typography variant="body2" color="textSecondary" component="p">
@@ -88,11 +102,21 @@ function BarListing({ title, id, description, barCreatorId, photo }) {
 				</CardContent>
 			</CardActionArea>
 			<CardActions>
-				<Button size="small" color="primary" onClick={selectChannel}>
+				<Button
+					className={classes.bar__button}
+					size="small"
+					color="primary"
+					onClick={selectChannel}
+				>
 					Join Bar
 				</Button>
 				{userCanDelete(barCreatorId, idToken) && (
-					<Button size="small" color="primary" onClick={deleteBar}>
+					<Button
+						className={classes.bar__button}
+						size="small"
+						color="primary "
+						onClick={deleteBar}
+					>
 						Delete Bar
 					</Button>
 				)}

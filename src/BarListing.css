@@ -10,6 +10,16 @@
 	width: 80%;
 }
 
+#root > div > div.app__body > div > div > div > div {
+	background-color: #311f34;
+	color: white;
+}
+
+button > div.MuiCardContent-root {
+	background-color: #311f34;
+	color: white;
+}
+
 button > div.MuiCardContent-root > p {
 	overflow: hidden;
 	max-width: 100%;
@@ -21,6 +31,8 @@ button > div.MuiCardContent-root > p {
 	max-height: 3.6em;
 	min-height: 3.6em;
 	line-height: 1.8em;
+	background-color: #311f34;
+	color: white;
 }
 
 button > div.MuiCardContent-root > h2 {
@@ -32,4 +44,6 @@ button > div.MuiCardContent-root > h2 {
 	overflow: hidden;
 	max-height: 1.8em;
 	line-height: 1.8em;
+	background-color: #311f34;
+	color: white;
 }

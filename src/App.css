@@ -1,11 +1,11 @@
 body {
-	--slack-color: #3f0f40;
+	/* --slack-color: #3f0f40; */
 	overflow: hidden;
 }
 
 .app__body {
 	position: absolute;
-	height:90vh;
+	height: 90vh;
 	top: 10vh;
 	width: 100vw;
 	display: flex;

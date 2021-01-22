@@ -23,6 +23,15 @@ const useStyles = makeStyles({
 	media: {
 		height: 140,
 	},
+	bar__button: {
+		backgroundColor: "#311f34",
+		color: "#FFDC14",
+		"&:hover": {
+			background: "#FFDC14",
+			color: "#311f34",
+			boxShadow: "10px 10px 99px 6px #ffdc14",
+		},
+	},
 });
 
 function Table({ id, name, tableCreatorId, customTableImage, description }) {
@@ -83,11 +92,21 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 				</CardContent>
 			</CardActionArea>
 			<CardActions>
-				<Button size="small" color="primary" onClick={goToTable}>
+				<Button
+					className={classes.bar__button}
+					size="small"
+					color="primary"
+					onClick={goToTable}
+				>
 					Join Table
 				</Button>
 				{!usersPresent && userCanDelete(tableCreatorId, idToken) && (
-					<Button size="small" color="primary" onClick={deleteTable}>
+					<Button
+						className={classes.bar__button}
+						size="small"
+						color="primary"
+						onClick={deleteTable}
+					>
 						Delete Table
 					</Button>
 				)}

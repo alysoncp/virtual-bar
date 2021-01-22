@@ -11,7 +11,7 @@
 	display: none !important;
 }
 
-.button__grab_table.MuiButtonBase-root,
+/* .button__grab_table.MuiButtonBase-root,
 .MuiButton-root,
 .MuiButton-contained,
 .MuiButton-containedPrimary {
@@ -20,7 +20,7 @@
 
 .button__grab_table.MuiButtonBase-root:hover {
 	background-color: rgb(20, 191, 46);
-}
+} */
 
 button > div.MuiCardContent-root > p {
 	overflow: hidden;
@@ -44,3 +44,12 @@ button > div.MuiCardContent-root > h2 {
 	min-height: 1.8em;
 	line-height: 1.8em;
 }
+
+/* #root > div > div.app__body > div > div > div > div > button {
+	color: #ffdc14;
+}
+
+#root > div > div.app__body > div > div > div > div > button:hover {
+	color: #311f34;
+	background-color: #ffdc14;
+} */

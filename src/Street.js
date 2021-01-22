@@ -40,6 +40,14 @@ const useStyles = makeStyles((theme) => ({
 		width: 20,
 		height: 20,
 	},
+	bar__button: {
+		backgroundColor: "#311f34",
+		color: "#FFDC14",
+		"&:hover": {
+			background: "#FFDC14",
+			color: "#311f34",
+		},
+	},
 }));
 
 function handleBreadCrumbClick(event) {
@@ -155,7 +163,7 @@ function Street() {
 						Bars Nearby
 					</Link>
 					<Button
-						className="button__open_new_bar"
+						className={`${classes.bar__button} "button__open_new_bar"`}
 						id="form_close"
 						variant="contained"
 						color="primary"
