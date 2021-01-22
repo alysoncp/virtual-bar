@@ -159,8 +159,6 @@ function Chat() {
 						{tableUsers.map(({ name, photoURL, uid, isTyping }) => (
 						<Fragment>
 							<li className="userName">
-								<Avatar className="header__avatar" alt={name} src={photoURL} />
-								<h5>{name}</h5>
 								<WhisperInput
 									barId={barId}
 									tableId={tableId}
@@ -175,7 +173,10 @@ function Chat() {
 											friendName={name}
 										/>
 								}	
-								{isTyping ? <i><h5>Typing..</h5></i> : <p></p>}
+								<Avatar className="header__avatar" alt={name} src={photoURL} />
+								<h5>{name}</h5>
+								{isTyping ? <i><h5>is typing..</h5></i> : <p></p>}
+
 							</li>
 						</Fragment>
 						))}
@@ -188,7 +189,7 @@ function Chat() {
 				<div className="chat__header">
 					<div className="chat__headerLeft">
 						<h4 className="chat__channelName">
-							<strong>Hanging at #{tableDetails?.name}</strong>
+							<strong>Hanging at {tableDetails?.name}</strong>
 						</h4>
 					</div>
 					<div className="chat__headerRight" onClick={leaveTable}>

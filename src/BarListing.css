@@ -10,10 +10,10 @@
 	width: 80%;
 }
 
-#root > div > div.app__body > div > div > div > div {
+/* #root > div > div.app__body > div > div > div > div {
 	background-color: #311f34;
 	color: white;
-}
+} */
 
 button > div.MuiCardContent-root {
 	background-color: #311f34;

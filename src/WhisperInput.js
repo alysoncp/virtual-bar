@@ -13,6 +13,8 @@ import Button from "@material-ui/core/Button";
 
 // Custom styles
 import "./WhisperInput.css";
+import CommentIcon from '@material-ui/icons/Comment';
+import white from "@material-ui/core/colors/red";
 
 //Material UI styles
 const useStyles = makeStyles((theme) => ({
@@ -92,17 +94,15 @@ function WhisperInput({ recipientName, barId, tableId, uid }) {
 
 	return (
 		<div className="whisperInput">
-			<Button
+			<CommentIcon
 				className="whisper__button"
 				id="form_close"
 				variant="contained"
-				color="primary"
+				style={{ color: white }}
 				onClick={handleClick}
 				disableFocusRipple={true}
 				disableRipple={true}
-			>
-				Whisper
-			</Button>
+			/>
 			<Popover
 				id={id}
 				open={open}

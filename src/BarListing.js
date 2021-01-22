@@ -26,6 +26,7 @@ const useStyles = makeStyles({
 		minWidth: 345,
 		marginTop: 15,
 		marginBottom: 15,
+		backgroundColor: "#311f34",
 	},
 	media: {
 		height: 140,
@@ -38,6 +39,11 @@ const useStyles = makeStyles({
 			color: "#311f34",
 			boxShadow: "10px 10px 99px 6px #ffdc14",
 		},
+	},
+
+	button_div: {
+		backgroundColor: "#311f34",
+		color: "white,",
 	},
 });
 
