@@ -1,17 +1,19 @@
 import React from "react";
 import "./Message.css";
 
-const moment = require('moment-timezone');
+const moment = require("moment-timezone");
 
-function Message({ message, user, timestamp, userImage }) {
-
+function Message({ message, user, timestamp, userImage, altMessageColor }) {
 	function utcTimeChange(timeStamp, fromTz, toTz) {
-		const newDate = (moment.tz(timeStamp, fromTz)).tz(toTz).format('YYYY-MM-DD LT');
+		const newDate = moment
+			.tz(timeStamp, fromTz)
+			.tz(toTz)
+			.format("YYYY-MM-DD LT");
 		return newDate;
-	};
+	}
 
 	const UTC = new Date(timestamp?.toDate()).toUTCString();
-	
+
 	return (
 		<div className="message container">
 			<img src={userImage} alt="" />
@@ -22,7 +24,11 @@ function Message({ message, user, timestamp, userImage }) {
 						{utcTimeChange(UTC, "Europe/London", moment.tz.guess())}
 					</span>
 				</h4>
-				<div className="message__bubble bubble__lip">
+				<div
+					className={
+						altMessageColor ? altMessageColor : "message__bubble bubble__lip"
+					}
+				>
 					<p>{message}</p>
 				</div>
 			</div>

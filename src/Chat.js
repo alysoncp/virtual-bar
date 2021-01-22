@@ -145,12 +145,15 @@ function Chat() {
 				</div>
 
 				<div className="chat__messages">
-					{tableMessages.map(({ message, timestamp, user, userImage }) => (
+					{tableMessages.map((doc, index) => (
 						<Message
-							message={message}
-							timestamp={timestamp}
-							user={user}
-							userImage={userImage}
+							altMessageColor={
+								index % 2 === 1 ? "message__bubbleAlt bubble__lipAlt" : null
+							}
+							message={doc.message}
+							timestamp={doc.timestamp}
+							user={doc.user}
+							userImage={doc.userImage}
 						/>
 					))}
 				</div>

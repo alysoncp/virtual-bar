@@ -56,3 +56,33 @@ div > .bubble__lip:before {
 	left: -16px;
 	top: 0px;
 }
+
+div > .message__bubbleAlt {
+	display: inline-block;
+	margin: 0px 0px 0px 17px;
+	border-radius: 15px;
+	background: #636a91;
+	color: #fff;
+	padding: 10px 20px 10px 20px;
+	text-align: left;
+	font-weight: 900;
+	font-family: arial;
+	position: relative;
+	top: 16px;
+	z-index: -1000;
+	max-width: 1000px;
+	word-wrap: break-word;
+}
+
+div > .bubble__lipAlt:before {
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-left: 15px solid transparent;
+	border-right: 15px solid #636a91;
+	border-top: 15px solid #636a91;
+	border-bottom: 15px solid transparent;
+	left: -16px;
+	top: 0px;
+}
