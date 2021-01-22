@@ -147,7 +147,7 @@ function Chat() {
 				<div className="chat__messages">
 					{tableMessages.map((doc) => (
 						<Message
-							me={doc.user === user.displayName
+							iSent={doc.user === user.displayName
 										? true
 										: false
 							}

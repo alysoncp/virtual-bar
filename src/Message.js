@@ -8,9 +8,11 @@ function Message({
 	user,
 	timestamp,
 	userImage,
-	me,
+	iSent,
 	whisper,
 }) {
+
+// Format time stamp -------------	
 	function utcTimeChange(timeStamp, fromTz, toTz) {
 		const newDate = moment
 			.tz(timeStamp, fromTz)
@@ -19,20 +21,22 @@ function Message({
 		return newDate;
 	}
 
+	const UTC = new Date(timestamp?.toDate()).toUTCString();
+
+
+
 // Set message classes -----------
 	let classString = ""
-	if(me) {
+	if(iSent) {
 		classString = classString.concat("message__bubble bubble__lip ")
 	} else {
-		classString = classString.concat("message__bubble__alt bubble__lip_alt ")
+		classString = classString.concat("message__bubble__alt bubble__lip__alt ")
 	}
 	if(whisper){
-		classString = classString.concat("whisper__bubble bubble__lip__whisper ")
+		classString = classString.concat("whisper__bubble")
 	}	
 // -------------------------------
 
-
-	const UTC = new Date(timestamp?.toDate()).toUTCString();
 
 	return (
 		<div className="message container">
@@ -44,11 +48,7 @@ function Message({
 						{utcTimeChange(UTC, "Europe/London", moment.tz.guess())}
 					</span>
 				</p>
-				<div
-					className={
-						classString
-					}
-				>
+				<div className={classString}>
 					<p>{message}</p>
 				</div>
 			</div>
