@@ -3,16 +3,8 @@ import "./Message.css";
 
 const moment = require("moment-timezone");
 
-function Message({
-	message,
-	user,
-	timestamp,
-	userImage,
-	iSent,
-	whisper,
-}) {
-
-// Format time stamp -------------	
+function Message({ message, user, timestamp, userImage, iSent, whisper }) {
+	// Format time stamp -------------
 	function utcTimeChange(timeStamp, fromTz, toTz) {
 		const newDate = moment
 			.tz(timeStamp, fromTz)
@@ -23,20 +15,17 @@ function Message({
 
 	const UTC = new Date(timestamp?.toDate()).toUTCString();
 
-
-
-// Set message classes -----------
-	let classString = ""
-	if(iSent) {
-		classString = classString.concat("message__bubble bubble__lip ")
+	// Set message classes -----------
+	let classString = "";
+	if (iSent) {
+		classString = classString.concat("message__bubble bubble__lip ");
 	} else {
-		classString = classString.concat("message__bubble__alt bubble__lip__alt ")
+		classString = classString.concat("message__bubble__alt bubble__lip__alt ");
 	}
-	if(whisper){
-		classString = classString.concat("whisper__bubble")
-	}	
-// -------------------------------
-
+	if (whisper) {
+		classString = classString.concat("whisper__bubble");
+	}
+	// -------------------------------
 
 	return (
 		<div className="message container">

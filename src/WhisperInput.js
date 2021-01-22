@@ -1,11 +1,45 @@
+// React
 import React, { useState } from "react";
 import { useStateValue } from "./hooks+context/StateProvider";
 import db from "./firebase";
 import firebase from "firebase";
 
-function WhisperInput({ recipientName, barId, tableId, id }) {
+// Material UI
+import TextField from "@material-ui/core/TextField";
+import Popover from "@material-ui/core/Popover";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
+// Custom styles
+import "./WhisperInput.css";
+
+//Material UI styles
+const useStyles = makeStyles((theme) => ({
+	root: {
+		"& > *": {
+			margin: theme.spacing(1),
+			width: "25ch",
+		},
+	},
+	typography: {
+		padding: theme.spacing(2),
+	},
+	link: {
+		display: "flex",
+	},
+	icon: {
+		marginRight: theme.spacing(0.5),
+		width: 20,
+		height: 20,
+	},
+}));
+
+function WhisperInput({ recipientName, barId, tableId, uid }) {
 	const [input, setInput] = useState("");
 	const [{ user }] = useStateValue();
+	const [anchorEl, setAnchorEl] = useState(null);
+	const classes = useStyles();
 
 	const sendMessage = (event) => {
 		event.preventDefault();
@@ -19,7 +53,7 @@ function WhisperInput({ recipientName, barId, tableId, id }) {
 				message: `(Whisper from ${user.displayName}) ${input}`,
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 				user: user.displayName,
-				recipient: [id],
+				recipient: [uid],
 				userImage: user.photoURL,
 			});
 
@@ -37,11 +71,72 @@ function WhisperInput({ recipientName, barId, tableId, id }) {
 			});
 
 		setInput("");
+		handleClose();
 	};
+
+	// start of code for whisper popup input
+	// ----------------------------------------
+
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
+	const open = Boolean(anchorEl);
+	const id = open ? "simple-popover" : undefined;
+	// --------------------------------------
+	// end of code for whisper popup input
 
 	return (
 		<div className="whisperInput">
-			<form noValidate autoComplete="off">
+			<Button
+				className="whisper__button"
+				id="form_close"
+				variant="contained"
+				color="primary"
+				onClick={handleClick}
+				disableFocusRipple={true}
+				disableRipple={true}
+			>
+				Whisper
+			</Button>
+			<Popover
+				id={id}
+				open={open}
+				anchorEl={anchorEl}
+				onClose={handleClose}
+				anchorOrigin={{
+					vertical: "bottom",
+					horizontal: "center",
+				}}
+				transformOrigin={{
+					vertical: "top",
+					horizontal: "center",
+				}}
+			>
+				<Typography className={classes.typography}>
+					<form className={classes.root} noValidate autoComplete="off">
+						<TextField
+							id="outlined-basic"
+							label={`Whisper ${recipientName}`}
+							variant="outlined"
+							onChange={(event) => setInput(event.target.value)}
+							value={input}
+						/>
+						<div>
+							<button
+								id="input__whisper__box"
+								type="submit"
+								onClick={sendMessage}
+							></button>
+						</div>
+					</form>
+				</Typography>
+			</Popover>
+			{/* <form noValidate autoComplete="off">
 				<input
 					type="text"
 					value={input}
@@ -51,7 +146,7 @@ function WhisperInput({ recipientName, barId, tableId, id }) {
 				<button type="submit" onClick={sendMessage}>
 					Whisper
 				</button>
-			</form>
+			</form> */}
 		</div>
 	);
 }

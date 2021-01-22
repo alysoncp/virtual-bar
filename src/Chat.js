@@ -123,7 +123,7 @@ function Chat() {
 								<WhisperInput
 									barId={barId}
 									tableId={tableId}
-									id={uid}
+									uid={uid}
 									recipientName={name}
 								/>
 							</li>
@@ -147,15 +147,8 @@ function Chat() {
 				<div className="chat__messages">
 					{tableMessages.map((doc) => (
 						<Message
-							iSent={doc.user === user.displayName
-										? true
-										: false
-							}
-							whisper={
-								doc.recipient[0] !== "all"
-									? true
-									: false
-							}
+							iSent={doc.user === user.displayName ? true : false}
+							whisper={doc.recipient[0] !== "all" ? true : false}
 							message={doc.message}
 							timestamp={doc.timestamp}
 							user={doc.user}

@@ -25,6 +25,7 @@
 .message__info > p {
 	position: relative;
 	top: 10px;
+	z-index: -1000;
 }
 
 /* chat bubble styling for user */
