@@ -44,7 +44,20 @@ function ChatInput({ barId, tableId, tableNumber }) {
 				Math.floor(Math.random() * randomChatBoxPlaceholder.length)
 			]
 		);
+
 	}, []);
+
+	useEffect(() => {
+		if(input !== "") {
+			db.collection('bars').doc(barId).collection('tables').doc(tableId).collection('usersAtTable').doc(user.uid).update({
+				isTyping: true
+			})
+		} else {
+			db.collection('bars').doc(barId).collection('tables').doc(tableId).collection('usersAtTable').doc(user.uid).update({
+				isTyping: false
+			})
+		}
+	}, [input])
 
 	const sendMessage = (event) => {
 		event.preventDefault();
@@ -61,6 +74,10 @@ function ChatInput({ barId, tableId, tableNumber }) {
 				recipient: ["all"],
 				userImage: user.photoURL,
 			});
+		
+			db.collection('bars').doc(barId).collection('tables').doc(tableId).collection('usersAtTable').doc(user.uid).update({
+				isTyping: false
+			})
 		setInput("");
 	};
 
@@ -69,6 +86,7 @@ function ChatInput({ barId, tableId, tableNumber }) {
 	return (
 		<div className="chatInput">
 			<form className={classes.root} noValidate autoComplete="off">
+				{input !== "" ? <p>Luca Properzi is typing...</p> : <p></p>}
 				<TextField
 					id="outlined-basic"
 					label={randomPlaceholder}

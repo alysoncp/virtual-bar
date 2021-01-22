@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
 import { actionTypes } from "./hooks+context/reducer";
@@ -72,6 +72,7 @@ function Chat() {
 				name: user?.displayName,
 				photoURL: user?.photoURL,
 				uid: user?.uid,
+				isTyping: false,
 			});
 
 		db.collection("bars")
@@ -116,8 +117,10 @@ function Chat() {
 				</div>
 				<div className="table_users_list">
 					<ul>
-						{tableUsers.map(({ name, photoURL, uid }) => (
+						{tableUsers.map(({ name, photoURL, uid, isTyping }) => (
+						<Fragment>
 							<li className="userName">
+								{isTyping ? <p>Typing.....</p> : <p></p>}
 								<Avatar className="header__avatar" alt={name} src={photoURL} />
 								<h5>{name}</h5>
 								<WhisperInput
@@ -127,6 +130,7 @@ function Chat() {
 									recipientName={name}
 								/>
 							</li>
+						</Fragment>
 						))}
 					</ul>
 				</div>
