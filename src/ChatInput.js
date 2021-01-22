@@ -49,8 +49,12 @@ function ChatInput({ barId, tableId, tableNumber }) {
 
 	useEffect(() => {
 		if(input !== "") {
-			db.collection('users').doc(user.uid).update({
+			db.collection('bars').doc(barId).collection('tables').doc(tableId).collection('usersAtTable').doc(user.uid).update({
 				isTyping: true
+			})
+		} else {
+			db.collection('bars').doc(barId).collection('tables').doc(tableId).collection('usersAtTable').doc(user.uid).update({
+				isTyping: false
 			})
 		}
 	}, [input])
@@ -71,9 +75,9 @@ function ChatInput({ barId, tableId, tableNumber }) {
 				userImage: user.photoURL,
 			});
 		
-		db.collection('users').doc(user.uid).update({
-			isTyping: false
-		})
+			db.collection('bars').doc(barId).collection('tables').doc(tableId).collection('usersAtTable').doc(user.uid).update({
+				isTyping: false
+			})
 		setInput("");
 	};
 

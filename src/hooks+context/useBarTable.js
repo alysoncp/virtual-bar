@@ -20,7 +20,6 @@ export default function useBarTable() {
           at_table: at_table,
           last_bar: last_bar,
           last_table: last_table,
-          isTyping: false
         })
 
       if(!at_table && last_table) {
