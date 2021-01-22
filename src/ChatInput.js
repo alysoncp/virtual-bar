@@ -86,7 +86,6 @@ function ChatInput({ barId, tableId, tableNumber }) {
 	return (
 		<div className="chatInput">
 			<form className={classes.root} noValidate autoComplete="off">
-				{input !== "" ? <p>Luca Properzi is typing...</p> : <p></p>}
 				<TextField
 					id="outlined-basic"
 					label={randomPlaceholder}
