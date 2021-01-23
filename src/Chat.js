@@ -16,8 +16,6 @@ import AddFriend from "./AddFriend";
 // Style
 import "./Chat.css";
 import { Avatar } from "@material-ui/core";
-import PeopleIcon from "@material-ui/icons/People";
-import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 
 // Primary Chat function
 function Chat() {
@@ -256,6 +254,8 @@ function Chat() {
 							iSent={doc.user === user.displayName ? true : false}
 							whisper={doc.recipient[0] !== "all" ? true : false}
 							message={doc.message}
+							whisper_part1={doc.whisper_part1}
+							whisper_part2={doc.whisper_part2}
 							timestamp={doc.timestamp}
 							user={doc.user}
 							userImage={doc.userImage}

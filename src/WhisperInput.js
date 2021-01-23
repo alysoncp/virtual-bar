@@ -45,32 +45,35 @@ function WhisperInput({ recipientName, barId, tableId, uid }) {
 
 	const sendMessage = (event) => {
 		event.preventDefault();
+		if (input) {
+			db.collection("bars")
+				.doc(barId)
+				.collection("tables")
+				.doc(tableId)
+				.collection("messages")
+				.add({
+					whisper_part1: `(Whisper from ${user.displayName})`,
+					whisper_part2: `${input}`,
+					timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+					user: user.displayName,
+					recipient: [uid],
+					userImage: user.photoURL,
+				});
 
-		db.collection("bars")
-			.doc(barId)
-			.collection("tables")
-			.doc(tableId)
-			.collection("messages")
-			.add({
-				message: `(Whisper from ${user.displayName}) ${input}`,
-				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-				user: user.displayName,
-				recipient: [uid],
-				userImage: user.photoURL,
-			});
-
-		db.collection("bars")
-			.doc(barId)
-			.collection("tables")
-			.doc(tableId)
-			.collection("messages")
-			.add({
-				message: `(Whisper to ${recipientName}) ${input}`,
-				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-				user: user.displayName,
-				recipient: [user.uid],
-				userImage: user.photoURL,
-			});
+			db.collection("bars")
+				.doc(barId)
+				.collection("tables")
+				.doc(tableId)
+				.collection("messages")
+				.add({
+					whisper_part1: `(Whisper to ${recipientName})`,
+					whisper_part2: `${input}`,
+					timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+					user: user.displayName,
+					recipient: [user.uid],
+					userImage: user.photoURL,
+				});
+		}
 
 		setInput("");
 		handleClose();
