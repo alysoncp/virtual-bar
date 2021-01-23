@@ -11,6 +11,7 @@ import db from "./firebase";
 import Message from "./Message";
 import ChatInput from "./ChatInput";
 import WhisperInput from "./WhisperInput";
+import AddFriend from "./AddFriend";
 
 // Style
 import "./Chat.css";
@@ -28,6 +29,7 @@ function Chat() {
 	const [tableMessages, setTableMessages] = useState([]);
 	const [tableUsers, setTableUsers] = useState([]);
 	const [barName, setBarName] = useState([]);
+	const [friendsArray, setFriendsArray] = useState([]);
 
 	// --------------------------------------------------------
 	// For autoscrolling to bottom of chat
@@ -46,6 +48,17 @@ function Chat() {
 	const twoMinAgo = new Date(joinTimestamp - 120000);
 
 	// -------------------------------------------------------
+
+	useEffect(() => {
+		db.collection("users")
+			.doc(user.uid)
+			.onSnapshot((snapshot) => {
+				setBarName(snapshot.data().friends);
+			});
+	}, [user])
+
+
+
 	// For updating data
 	useEffect(() => {
 		// Grab table details
@@ -137,8 +150,6 @@ function Chat() {
 						{tableUsers.map(({ name, photoURL, uid, isTyping }) => (
 						<Fragment>
 							<li className="userName">
-								<Avatar className="header__avatar" alt={name} src={photoURL} />
-								<h5>{name}</h5>
 								<WhisperInput
 									barId={barId}
 									tableId={tableId}
