@@ -3,7 +3,16 @@ import "./Message.css";
 
 const moment = require("moment-timezone");
 
-function Message({ message, user, timestamp, userImage, iSent, whisper }) {
+function Message({
+	message,
+	whisper_part1,
+	whisper_part2,
+	user,
+	timestamp,
+	userImage,
+	iSent,
+	whisper,
+}) {
 	// Format time stamp -------------
 	function utcTimeChange(timeStamp, fromTz, toTz) {
 		const newDate = moment
@@ -39,6 +48,8 @@ function Message({ message, user, timestamp, userImage, iSent, whisper }) {
 				</p>
 				<div className={classString}>
 					<p>{message}</p>
+					<p className="msg__part1">{whisper_part1}</p>
+					<p>{whisper_part2}</p>
 				</div>
 			</div>
 		</div>

@@ -82,28 +82,31 @@ function ChatInput({ barId, tableId, tableNumber }) {
 	const sendMessage = (event) => {
 		event.preventDefault();
 
-		db.collection("bars")
-			.doc(barId)
-			.collection("tables")
-			.doc(tableId)
-			.collection("messages")
-			.add({
-				message: input,
-				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-				user: user.displayName,
-				recipient: ["all"],
-				userImage: user.photoURL,
-			});
+		if (input) {
+			db.collection("bars")
+				.doc(barId)
+				.collection("tables")
+				.doc(tableId)
+				.collection("messages")
+				.add({
+					message: input,
+					timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+					user: user.displayName,
+					recipient: ["all"],
+					userImage: user.photoURL,
+				});
 
-		db.collection("bars")
-			.doc(barId)
-			.collection("tables")
-			.doc(tableId)
-			.collection("usersAtTable")
-			.doc(user.uid)
-			.update({
-				isTyping: false,
-			});
+			db.collection("bars")
+				.doc(barId)
+				.collection("tables")
+				.doc(tableId)
+				.collection("usersAtTable")
+				.doc(user.uid)
+				.update({
+					isTyping: false,
+				});
+		}
+
 		setInput("");
 	};
 

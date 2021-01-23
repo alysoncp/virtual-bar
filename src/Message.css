@@ -97,3 +97,7 @@ div > .whisper__bubble {
 	font-style: italic;
 }
 /* chat bubble styling for whispers */
+
+div > .msg__part1 {
+	color: #e6c820;
+}
