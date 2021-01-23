@@ -9,6 +9,7 @@ import firebase from "firebase";
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import AddIcon from '@material-ui/icons/Add';
 
 // Custom styles
 
@@ -41,7 +42,7 @@ function AddFriend({ friendID, friendName }) {
 
 	return (
 		<div className="add-friend">
-			<Button onClick={addFriendToList}>Add Friend!</Button>
+			<AddIcon onClick={addFriendToList} />
 		</div>
 	);
 }
