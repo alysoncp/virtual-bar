@@ -159,7 +159,7 @@ function Chat() {
 									recipientName={name}
 								/>
 								{uid === user.uid ? <span></span> :
-									friendsArray.includes(uid) ? 
+									friendsArray?.includes(uid) ? 
 										<PeopleIcon /> :
 										<AddFriend
 											friendID={uid}
