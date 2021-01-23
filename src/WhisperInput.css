@@ -26,5 +26,35 @@
 
 .whisperInput {
 	padding-right: 10px;
-	
+}
+
+/* Whisper Icon tooltip */
+.whisper__tooltip {
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+}
+
+/* Add friend text */
+.whisper__tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+
+	/* Position the text */
+	position: absolute;
+	z-index: 1;
+	width: 120px;
+	top: 120%;
+	left: 50%;
+	margin-left: -60px;
+}
+
+/* Show the text when you mouse over the + icon */
+.whisper__tooltip:hover .tooltiptext {
+	visibility: visible;
 }

@@ -13,7 +13,7 @@ import Button from "@material-ui/core/Button";
 
 // Custom styles
 import "./WhisperInput.css";
-import CommentIcon from '@material-ui/icons/Comment';
+import CommentIcon from "@material-ui/icons/Comment";
 import white from "@material-ui/core/colors/red";
 
 //Material UI styles
@@ -94,15 +94,18 @@ function WhisperInput({ recipientName, barId, tableId, uid }) {
 
 	return (
 		<div className="whisperInput">
-			<CommentIcon
-				className="whisper__button"
-				id="form_close"
-				variant="contained"
-				style={{ color: white }}
-				onClick={handleClick}
-				disableFocusRipple={true}
-				disableRipple={true}
-			/>
+			<div className="whisper__tooltip">
+				<CommentIcon
+					className="whisper__button"
+					id="form_close"
+					variant="contained"
+					style={{ color: white }}
+					onClick={handleClick}
+					disableFocusRipple={true}
+					disableRipple={true}
+				/>
+				<span className="tooltiptext">Whisper {recipientName}</span>
+			</div>
 			<Popover
 				id={id}
 				open={open}
@@ -136,17 +139,6 @@ function WhisperInput({ recipientName, barId, tableId, uid }) {
 					</form>
 				</Typography>
 			</Popover>
-			{/* <form noValidate autoComplete="off">
-				<input
-					type="text"
-					value={input}
-					onChange={(event) => setInput(event.target.value)}
-					placeholder="Send Whisper..."
-				></input>
-				<button type="submit" onClick={sendMessage}>
-					Whisper
-				</button>
-			</form> */}
 		</div>
 	);
 }

@@ -1,0 +1,25 @@
+.add-friend {
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+}
+
+/* Add friend text */
+.add-friend .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+
+	/* Position the text */
+	position: absolute;
+	z-index: 1;
+}
+
+/* Show the text when you mouse over the + icon */
+.add-friend:hover .tooltiptext {
+	visibility: visible;
+}
