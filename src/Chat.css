@@ -20,7 +20,7 @@
 }
 
 .table_users_list {
-	margin: 10px;
+	margin: 40px 10px;
 }
 
 .table_users_list li {
@@ -29,9 +29,29 @@
 	margin-bottom: 10px;
 }
 
+.table_users_list h4 {
+	padding-bottom: 10px;
+}
+
 .table_users_list h5 {
 	padding-left: 10px;
 }
+
+
+/* // Placeholder styles */
+.table_you {
+	color: white;
+}
+
+.table_friends {
+	color: white;
+}
+
+.table_strangers {
+	color: white;
+}
+
+/* --------------------- */
 
 .chat {
 	width: 30%;

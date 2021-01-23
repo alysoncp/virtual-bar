@@ -151,22 +151,22 @@ function Chat() {
 
 
 				{/* YOU */}
-				<Fragment>
-				<div className="table_users_list">
-					<p>YOU</p>
-					<ul>
-						<li className="userName">
-							<Avatar className="header__avatar" alt={user.displayName} src={user.photoURL} />
-							<h5>{user.displayName}</h5>
-						</li>	
-					</ul>	
+				<div className="table_users_list table_you">
+					<h4>Welcome!</h4>
+					<Fragment>
+						<ul>
+							<li className="userName">
+								<Avatar className="header__avatar" alt={user.displayName} src={user.photoURL} />
+								<h5>{user.displayName}</h5>
+							</li>	
+						</ul>	
+					</Fragment> 
 				</div>		
-				</Fragment> 
 
 
 				{/* Friends List */}
-				<div className="table_users_list">
-				{(friendsArray?.length > 0) && <p>Not frands. Stranger Danger!</p>}
+				<div className="table_users_list table_friends">
+				{(friendsArray?.length > 0) && <h4>Friends here</h4>}
 					<ul>
 						{tableUsers.map(({ name, photoURL, uid, isTyping }) => (
 							<Fragment>
@@ -191,8 +191,8 @@ function Chat() {
 
 
 				{/* Strangers List */}
-				<div className="table_users_list">
-					{tableUsers && <p>Not Fraands. Stranger Danger!</p>}
+				<div className="table_users_list table_strangers">
+					{tableUsers && <h4>Others hanging out</h4>}
 					<ul>
 						{tableUsers.map(({ name, photoURL, uid, isTyping }) => (
 						<Fragment>
@@ -206,7 +206,9 @@ function Chat() {
 									/>
 									<Avatar className="header__avatar" alt={name} src={photoURL} />
 									<h5>{name}</h5>
-									<AddFriend />
+									<AddFriend 
+										friendID={uid}
+									/>
 									{isTyping ? <i><h5>is typing...</h5></i> : <p></p>}
 								</li>
 							: <p></p> }

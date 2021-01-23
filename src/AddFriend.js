@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function AddFriend({ friendID, friendName }) {
+function AddFriend({ friendID }) {
 	const [{ user }] = useStateValue();
 	const classes = useStyles();
 
