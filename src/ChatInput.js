@@ -41,7 +41,7 @@ function ChatInput({ barId, tableId, tableNumber }) {
 			"How many chickens would it take to kill an elephant?",
 			"What’s the best inside joke you’ve been a part of?",
 			"What would the world be like if it was filled with male and female copies of you?",
-			"Where was the most in appropriate / most embarrassing place you’ve farted?",
+			"Where was the most inappropriate / most embarrassing place you’ve farted?",
 			"What is the weirdest thing you have seen in someone else’s home?",
 			"Convince everyone to play shot-glass checkers with you on Zoom!",
 		];
