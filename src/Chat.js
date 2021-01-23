@@ -16,6 +16,8 @@ import AddFriend from "./AddFriend";
 // Style
 import "./Chat.css";
 import { Avatar } from "@material-ui/core";
+import PeopleIcon from '@material-ui/icons/People';
+
 
 // Primary Chat function
 function Chat() {
@@ -53,7 +55,7 @@ function Chat() {
 		db.collection("users")
 			.doc(user.uid)
 			.onSnapshot((snapshot) => {
-				setBarName(snapshot.data().friends);
+				setFriendsArray(snapshot.data().friends);
 			});
 	}, [user])
 
@@ -156,9 +158,9 @@ function Chat() {
 									uid={uid}
 									recipientName={name}
 								/>
-								{uid === user.uid ? <p>MEEE!</p> :
+								{uid === user.uid ? <span></span> :
 									friendsArray.includes(uid) ? 
-										<p>fraands</p> :
+										<PeopleIcon /> :
 										<AddFriend
 											friendID={uid}
 											friendName={name}
