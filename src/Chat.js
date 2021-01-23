@@ -57,7 +57,7 @@ function Chat() {
 			.onSnapshot((snapshot) => {
 				setFriendsArray(snapshot.data().friends);
 			});
-	}, [user])
+	}, [user]);
 
 
 
