@@ -148,33 +148,75 @@ function Chat() {
 				<div className="table_users_header">
 					<h3>{barName.name} Patrons</h3>
 				</div>
+
+
+				{/* YOU */}
+				<Fragment>
 				<div className="table_users_list">
+					<p>YOU</p>
+					<ul>
+						<li className="userName">
+							<Avatar className="header__avatar" alt={user.displayName} src={user.photoURL} />
+							<h5>{user.displayName}</h5>
+						</li>	
+					</ul>	
+				</div>		
+				</Fragment> 
+
+
+				{/* Friends List */}
+				<div className="table_users_list">
+				{(friendsArray?.length > 0) && <p>Not frands. Stranger Danger!</p>}
 					<ul>
 						{tableUsers.map(({ name, photoURL, uid, isTyping }) => (
-						<Fragment>
-							<li className="userName">
-								<WhisperInput
-									barId={barId}
-									tableId={tableId}
-									uid={uid}
-									recipientName={name}
-								/>
-								{uid === user.uid ? <SentimentVerySatisfiedIcon /> :
-									friendsArray?.includes(uid) ? 
-										<PeopleIcon /> :
-										<AddFriend
-											friendID={uid}
-											friendName={name}
+							<Fragment>
+								{friendsArray?.includes(uid) ? 
+									<li className="userName">
+										<WhisperInput
+											barId={barId}
+											tableId={tableId}
+											uid={uid}
+											recipientName={name}
 										/>
-								}	
-								<Avatar className="header__avatar" alt={name} src={photoURL} />
-								<h5>{name}</h5>
-								{isTyping ? <i><h5>is typing...</h5></i> : <p></p>}
-							</li>
-						</Fragment>
+										<Avatar className="header__avatar" alt={name} src={photoURL} />
+										<h5>{name}</h5>
+										{isTyping ? <i><h5>is typing...</h5></i> : <p></p>}
+									</li>
+								: <p></p> }
+							</Fragment> 
+
 						))}
 					</ul>
 				</div>
+
+
+				{/* Strangers List */}
+				<div className="table_users_list">
+					{tableUsers && <p>Not Fraands. Stranger Danger!</p>}
+					<ul>
+						{tableUsers.map(({ name, photoURL, uid, isTyping }) => (
+						<Fragment>
+							{(!friendsArray?.includes(uid) && uid != user.uid) ? 
+								<li className="userName">
+									<WhisperInput
+										barId={barId}
+										tableId={tableId}
+										uid={uid}
+										recipientName={name}
+									/>
+									<Avatar className="header__avatar" alt={name} src={photoURL} />
+									<h5>{name}</h5>
+									<AddFriend />
+									{isTyping ? <i><h5>is typing...</h5></i> : <p></p>}
+								</li>
+							: <p></p> }
+					</Fragment> 
+						))}
+					</ul>
+				</div>				
+
+
+
 			</div>
 
 			{/* -------- Chat window -------- */}
