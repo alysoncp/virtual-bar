@@ -20,15 +20,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-
 // Primary ChatInput function
 function ChatInput({ barId, tableId, tableNumber }) {
-
 	const [{ user }] = useStateValue();
 	const [input, setInput] = useState("");
 	const [randomPlaceholder, setRandomPlaceholder] = useState("");
 	const classes = useStyles();
-
 
 	// Place random placeholder in chat field
 	useEffect(() => {
@@ -46,7 +43,7 @@ function ChatInput({ barId, tableId, tableNumber }) {
 			"What would the world be like if it was filled with male and female copies of you?",
 			"Where was the most in appropriate / most embarrassing place you’ve farted?",
 			"What is the weirdest thing you have seen in someone else’s home?",
-			"Convince everyone to place shot-glass checkers with you on Zoom!",
+			"Convince everyone to play shot-glass checkers with you on Zoom!",
 		];
 
 		setRandomPlaceholder(
@@ -54,21 +51,32 @@ function ChatInput({ barId, tableId, tableNumber }) {
 				Math.floor(Math.random() * randomChatBoxPlaceholder.length)
 			]
 		);
-
 	}, []);
 
 	// Set the className string for the chat bubble for send/recieve message and main/whisper message
 	useEffect(() => {
-		if(input !== "") {
-			db.collection('bars').doc(barId).collection('tables').doc(tableId).collection('usersAtTable').doc(user.uid).update({
-				isTyping: true
-			})
+		if (input !== "") {
+			db.collection("bars")
+				.doc(barId)
+				.collection("tables")
+				.doc(tableId)
+				.collection("usersAtTable")
+				.doc(user.uid)
+				.update({
+					isTyping: true,
+				});
 		} else {
-			db.collection('bars').doc(barId).collection('tables').doc(tableId).collection('usersAtTable').doc(user.uid).update({
-				isTyping: false
-			})
+			db.collection("bars")
+				.doc(barId)
+				.collection("tables")
+				.doc(tableId)
+				.collection("usersAtTable")
+				.doc(user.uid)
+				.update({
+					isTyping: false,
+				});
 		}
-	}, [input])
+	}, [input]);
 
 	// Save a sent message to the database
 	const sendMessage = (event) => {
@@ -86,13 +94,18 @@ function ChatInput({ barId, tableId, tableNumber }) {
 				recipient: ["all"],
 				userImage: user.photoURL,
 			});
-		
-			db.collection('bars').doc(barId).collection('tables').doc(tableId).collection('usersAtTable').doc(user.uid).update({
-				isTyping: false
-			})
+
+		db.collection("bars")
+			.doc(barId)
+			.collection("tables")
+			.doc(tableId)
+			.collection("usersAtTable")
+			.doc(user.uid)
+			.update({
+				isTyping: false,
+			});
 		setInput("");
 	};
-
 
 	// Render the Chat Input
 	return (
