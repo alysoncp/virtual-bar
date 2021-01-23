@@ -27,6 +27,7 @@ const useStyles = makeStyles({
 		marginTop: 15,
 		marginBottom: 15,
 		backgroundColor: "#311f34",
+		boxShadow: "4px 4px 5px 0px rgba(50, 50, 50, 0.9)",
 	},
 	media: {
 		height: 140,
@@ -41,10 +42,10 @@ const useStyles = makeStyles({
 		},
 	},
 
-	button_div: {
-		backgroundColor: "#311f34",
-		color: "white,",
-	},
+	// button_div: {
+	// 	backgroundColor: "#311f34",
+	// 	color: "white,",
+	// },
 });
 
 // Primary Bar Listing function

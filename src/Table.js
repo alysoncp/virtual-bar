@@ -15,17 +15,20 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
+// Material UI styles override
 const useStyles = makeStyles({
 	root: {
 		maxWidth: 345,
 		minWidth: 345,
+		marginTop: 15,
+		marginBottom: 15,
 		backgroundColor: "#311f34",
+		boxShadow: "4px 4px 5px 0px rgba(50, 50, 50, 0.9)",
 	},
 	media: {
 		height: 140,
 	},
 	bar__button: {
-		backgroundColor: "#311f34",
 		color: "#FFDC14",
 		"&:hover": {
 			background: "#FFDC14",
@@ -35,6 +38,7 @@ const useStyles = makeStyles({
 	},
 });
 
+// Table component
 function Table({ id, name, tableCreatorId, customTableImage, description }) {
 	const { barId } = useParams();
 	const history = useHistory();
@@ -59,10 +63,12 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 		history.push(`/bar/${barId}/table/${id}`);
 	};
 
+	// If user has authorization to delete a table
 	const userCanDelete = (tableIdToken, userIdToken) => {
 		return tableIdToken === userIdToken ? true : false;
 	};
 
+	// Delete table if authorized
 	const deleteTable = () => {
 		if (window.confirm("Are you sure you want to delete your table?")) {
 			db.collection("bars").doc(barId).collection("tables").doc(id).delete();
