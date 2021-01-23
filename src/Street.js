@@ -50,11 +50,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function handleBreadCrumbClick(event) {
-	event.preventDefault();
-	console.info("You clicked a breadcrumb.");
-}
-
 function Street() {
 	const [channels, setChannels] = useState([]);
 	const [{ user, userLocation, idToken }, dispatch] = useStateValue();
