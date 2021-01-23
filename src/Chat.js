@@ -17,6 +17,7 @@ import AddFriend from "./AddFriend";
 import "./Chat.css";
 import { Avatar } from "@material-ui/core";
 import PeopleIcon from '@material-ui/icons/People';
+import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 
 
 // Primary Chat function
@@ -158,7 +159,7 @@ function Chat() {
 									uid={uid}
 									recipientName={name}
 								/>
-								{uid === user.uid ? <span></span> :
+								{uid === user.uid ? <SentimentVerySatisfiedIcon /> :
 									friendsArray?.includes(uid) ? 
 										<PeopleIcon /> :
 										<AddFriend
