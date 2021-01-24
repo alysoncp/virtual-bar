@@ -15,7 +15,28 @@ import AddFriend from "./AddFriend";
 
 // Style
 import "./Chat.css";
+
+// Material UI
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import { Avatar } from "@material-ui/core";
+
+// Material UI styles
+const useStyles = makeStyles((theme) => ({
+	typography: {
+		padding: theme.spacing(2),
+	},
+	bar__button: {
+		margin: 0,
+		position: "relative",
+		backgroundColor: "#311f34",
+		color: "#FFDC14",
+		"&:hover": {
+			background: "#FFDC14",
+			color: "#311f34",
+		},
+	},
+}));
 
 // Primary Chat function
 function Chat() {
@@ -30,6 +51,9 @@ function Chat() {
 	const [tableUsers, setTableUsers] = useState([]);
 	const [barName, setBarName] = useState([]);
 	const [friendsArray, setFriendsArray] = useState([]);
+
+	// Material UI Styles
+	const classes = useStyles();
 
 	// --------------------------------------------------------
 	// For autoscrolling to bottom of chat
@@ -243,8 +267,17 @@ function Chat() {
 							<strong>Hanging at {tableDetails?.name}</strong>
 						</h4>
 					</div>
-					<div className="chat__headerRight" onClick={leaveTable}>
-						Leave Table
+					<div className="chat__headerRight">
+						<Button
+							className={classes.bar__button}
+							disableFocusRipple={true}
+							disableRipple={true}
+							variant="contained"
+							color="primary"
+							onClick={leaveTable}
+						>
+							Leave Table
+						</Button>
 					</div>
 				</div>
 
