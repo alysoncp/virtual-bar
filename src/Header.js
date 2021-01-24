@@ -2,7 +2,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
-
+import FriendsList from "./FriendsList";
 // Material UI Imports
 import { Avatar } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
@@ -89,15 +89,12 @@ const useStyles = makeStyles((theme) => ({
 function Header() {
 	const [{ user }] = useStateValue();
 	const history = useHistory();
-
-	const logout = () => {
-		window.location.reload(false);
-	};
-
-	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+	// Material UI
+	const classes = useStyles();
+	const menuId = "primary-search-account-menu";
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -118,12 +115,17 @@ function Header() {
 		setMobileMoreAnchorEl(event.currentTarget);
 	};
 
+	// Logout and Home
 	const clickHome = (e) => {
 		e.preventDefault();
 		history.push("/");
 	};
 
-	const menuId = "primary-search-account-menu";
+	const logout = () => {
+		window.location.reload(false);
+	};
+
+	// Material UI drop-down menu for logout
 	const renderMenu = (
 		<Menu
 			anchorEl={anchorEl}
@@ -140,6 +142,7 @@ function Header() {
 		</Menu>
 	);
 
+	// Material UI mobile size
 	const mobileMenuId = "primary-search-account-menu-mobile";
 	const renderMobileMenu = (
 		<Menu
@@ -172,6 +175,7 @@ function Header() {
 					</div>
 					<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
+						<FriendsList />
 						<IconButton
 							edge="end"
 							aria-label="account of current user"

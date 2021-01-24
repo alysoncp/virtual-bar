@@ -87,7 +87,6 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 							? customTableImage
 							: "https://images.unsplash.com/photo-1575444758702-4a6b9222336e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YmFyfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
 					}
-					title="Some title"
 				/>
 				<CardContent>
 					<Typography gutterBottom variant="h5" component="h2">
