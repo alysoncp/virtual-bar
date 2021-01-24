@@ -95,7 +95,7 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 						{description}
 					</Typography>
 					<Typography variant="body3" color="textSecondary" component="p">
-						{`${usersPresent.length} people at this table`}
+						{`${usersPresent?.length} people at this table`}
 					</Typography>
 				</CardContent>
 			</CardActionArea>
@@ -108,7 +108,7 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 				>
 					Join Table
 				</Button>
-				{usersPresent.length === 0 && userCanDelete(tableCreatorId, idToken) && (
+				{usersPresent?.length === 0 && userCanDelete(tableCreatorId, idToken) && (
 					<Button
 						className={classes.bar__button}
 						size="small"
