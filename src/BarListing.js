@@ -41,11 +41,6 @@ const useStyles = makeStyles({
 			boxShadow: "10px 10px 99px 6px #ffdc14",
 		},
 	},
-
-	// button_div: {
-	// 	backgroundColor: "#311f34",
-	// 	color: "white,",
-	// },
 });
 
 // Primary Bar Listing function
@@ -95,12 +90,7 @@ function BarListing({ title, id, description, barCreatorId, photo }) {
 					title="Contemplative Reptile"
 				/>
 				<CardContent>
-					<Typography
-						classNames={classes.barTitle}
-						gutterBottom
-						variant="h5"
-						component="h2"
-					>
+					<Typography gutterBottom variant="h5" component="h2">
 						{title}
 					</Typography>
 					<Typography variant="body2" color="textSecondary" component="p">
@@ -121,7 +111,7 @@ function BarListing({ title, id, description, barCreatorId, photo }) {
 					<Button
 						className={classes.bar__button}
 						size="small"
-						color="primary "
+						color="primary"
 						onClick={deleteBar}
 					>
 						Delete Bar
