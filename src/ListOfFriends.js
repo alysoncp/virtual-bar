@@ -41,6 +41,7 @@ export default function InteractiveList({ friendsList }) {
 	useEffect(() => {
 		db.collection('users')
 			.where(firebase.firestore.FieldPath.documentId(), 'in', friendsList)
+			.where("state", "==", "online")
 			.onSnapshot((snapshot) => {
 				setFriendData(snapshot.docs.map((doc) => doc.data()));
 			});
