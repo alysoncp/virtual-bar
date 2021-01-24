@@ -37,7 +37,6 @@
 	padding-left: 10px;
 }
 
-
 /* // Placeholder styles */
 .table_you {
 	color: white;
@@ -79,6 +78,10 @@
 .chat__channelName > .MuiSvgIcon-root {
 	margin-left: 10px;
 	font-size: 18px;
+}
+
+.chat__headerRight {
+	cursor: pointer;
 }
 
 .chat__headerRight > p {
