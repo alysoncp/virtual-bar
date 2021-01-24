@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 		boxShadow: "4px 4px 5px 0px rgba(50, 50, 50, 0.9)",
 	},
 	media: {
-		height: 140,
+		height: 250,
 	},
 	bar__button: {
 		color: "#FFDC14",
