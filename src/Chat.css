@@ -65,7 +65,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 20px;
+	padding: 10px 20px 10px 20px;
 	border-bottom: 1px solid lightgray;
 	background-color: white;
 }
@@ -82,6 +82,7 @@
 
 .chat__headerRight {
 	cursor: pointer;
+	margin-right: 5px;
 }
 
 .chat__headerRight > p {
