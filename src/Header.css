@@ -10,6 +10,7 @@ div.nav__title {
 	font-size: 30px;
 	text-transform: none;
 	color: #ffdc14;
+	cursor: pointer;
 }
 
 .header {
