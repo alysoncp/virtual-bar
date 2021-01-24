@@ -141,7 +141,7 @@ function Chat() {
 			{/* -------- Users at table sidebar -------- */}
 			<div className="table_users">
 				<div className="table_users_header">
-					<h3>{barName.name} Patrons</h3>
+					<h3>{barName.name}</h3>
 				</div>
 
 				{/* YOU */}
