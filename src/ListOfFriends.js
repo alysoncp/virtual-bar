@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useStateValue } from "./hooks+context/StateProvider";
 import db from "./firebase";
+import firebase from "firebase"
 
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -36,15 +37,16 @@ export default function InteractiveList({ friendsList }) {
 	const [secondary, setSecondary] = useState(false);
 	const [friendData, setFriendData] = useState([]);
 
-	// Grab friends data
+
 	useEffect(() => {
-		friendsList.map(() => {
-			db.collection("users").onSnapshot((snapshot) => {
-				console.log(snapshot);
+		db.collection('users')
+			.where(firebase.firestore.FieldPath.documentId(), 'in', friendsList)
+			.onSnapshot((snapshot) => {
 				setFriendData(snapshot.docs.map((doc) => doc.data()));
 			});
-		});
-	}, []);
+	}, [])
+		
+
 
 	return (
 		<div className={classes.root}>
