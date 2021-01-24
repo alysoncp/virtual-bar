@@ -52,10 +52,8 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 			.collection("tables")
 			.doc(id)
 			.collection("usersAtTable")
-			.get()
-			.then((snap) => {
-				const usersPresent = snap.size;
-				setUsersPresent(usersPresent);
+			.onSnapshot((snapshot) => {
+				setUsersPresent(snapshot.docs.map((doc) => doc.data()));
 			});
 	}, []);
 
@@ -96,6 +94,9 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 					<Typography variant="body2" color="textSecondary" component="p">
 						{description}
 					</Typography>
+					<Typography variant="body3" color="textSecondary" component="p">
+						{`${usersPresent.length} people at this table`}
+					</Typography>
 				</CardContent>
 			</CardActionArea>
 			<CardActions>
@@ -107,7 +108,7 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 				>
 					Join Table
 				</Button>
-				{!usersPresent && userCanDelete(tableCreatorId, idToken) && (
+				{usersPresent.length === 0 && userCanDelete(tableCreatorId, idToken) && (
 					<Button
 						className={classes.bar__button}
 						size="small"
