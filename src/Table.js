@@ -94,7 +94,9 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 						{description}
 					</Typography>
 					<Typography variant="body3" color="textSecondary" component="p">
-						{`${usersPresent?.length} people at this table`}
+						{`${usersPresent?.length} patron${
+							usersPresent?.length === 1 ? "" : "s"
+						} at this table`}
 					</Typography>
 				</CardContent>
 			</CardActionArea>
