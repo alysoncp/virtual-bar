@@ -1,5 +1,5 @@
 // React and hooks
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useStateValue } from "./hooks+context/StateProvider";
 import { useHistory } from "react-router-dom";
 
@@ -47,7 +47,34 @@ const useStyles = makeStyles({
 function BarListing({ title, id, description, barCreatorId, photo }) {
 	const history = useHistory();
 	const [{ idToken }] = useStateValue();
+	const [usersPresent, setUsersPresent] = useState(null);
+	const [allTableId, setAllTableId] = useState([]);
 	const classes = useStyles();
+
+	// Check to see how many users are at a bar
+	useEffect(() => {
+		db.collection("bars")
+			.doc(id)
+			.collection("tables")
+			.onSnapshot((snapshot) => {
+				setAllTableId(snapshot.docs.map((doc) => doc.id));
+			});
+	}, []);
+
+	// Check to see if any users are at any tables
+	const checkForUsers = (tableIdArr, barId) => {
+		for (let tableId of tableIdArr) {
+			// for each tableId, do a db query and find out if there are any docs.
+			db.collection("bars")
+				.doc(barId)
+				.collection("tables")
+				.doc(tableId)
+				.collection("usersAtTable")
+				.onSnapshot((snapshot) => {
+					console.log(snapshot.docs.length);
+				});
+		}
+	};
 
 	// Route to a bar
 	const selectChannel = () => {

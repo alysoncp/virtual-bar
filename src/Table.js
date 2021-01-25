@@ -43,9 +43,10 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 	const { barId } = useParams();
 	const history = useHistory();
 	const [{ idToken }] = useStateValue();
-	const classes = useStyles();
 	const [usersPresent, setUsersPresent] = useState(null);
+	const classes = useStyles();
 
+	// Check to see how many users are at a table
 	useEffect(() => {
 		db.collection("bars")
 			.doc(barId)
@@ -57,6 +58,7 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 			});
 	}, []);
 
+	// Goto a table
 	const goToTable = () => {
 		history.push(`/bar/${barId}/table/${id}`);
 	};
@@ -90,10 +92,10 @@ function Table({ id, name, tableCreatorId, customTableImage, description }) {
 					<Typography gutterBottom variant="h5" component="h2">
 						{name}
 					</Typography>
-					<Typography variant="body2" color="textSecondary" component="p">
+					<Typography variant="body1" color="textSecondary" component="p">
 						{description}
 					</Typography>
-					<Typography variant="body3" color="textSecondary" component="p">
+					<Typography variant="body2" color="textSecondary" component="p">
 						{`${usersPresent?.length} patron${
 							usersPresent?.length === 1 ? "" : "s"
 						} at this table`}
