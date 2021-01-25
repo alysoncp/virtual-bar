@@ -42,6 +42,7 @@ export default function useBarTable() {
           at_bar: at_bar,
           at_bar_name: at_bar_name,
           at_table: at_table,
+          at_table_name: at_table_name,
           last_bar: last_bar,
           last_table: last_table,
         })
