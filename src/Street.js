@@ -135,6 +135,7 @@ function Street() {
 				),
 			});
 		}
+		setImageUrl("");
 		setInput("");
 		setDesc("");
 		handleClose();
