@@ -56,24 +56,30 @@ function Street() {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [input, setInput] = useState("");
 	const [desc, setDesc] = useState("");
+	const [imageUrl, setImageUrl] = useState("");
+
+	// Material UI
 	const classes = useStyles();
 
+	// Load all bars from db
 	useEffect(() => {
-		db.collection("bars").onSnapshot((snapshot) => {
-			setChannels(
-				snapshot.docs.map((doc) => ({
-					id: doc.id,
-					name: doc.data().name,
-					creatorId: doc.data().creatorId,
-					photo: doc.data().photo_url,
-					location: {
-						latitude: doc.data().location.latitude,
-						longitude: doc.data().location.longitude,
-					},
-					description: doc.data().description,
-				}))
-			);
-		});
+		db.collection("bars")
+			.orderBy("name", "asc")
+			.onSnapshot((snapshot) => {
+				setChannels(
+					snapshot.docs.map((doc) => ({
+						id: doc.id,
+						name: doc.data().name,
+						creatorId: doc.data().creatorId,
+						photo: doc.data().photo_url,
+						location: {
+							latitude: doc.data().location.latitude,
+							longitude: doc.data().location.longitude,
+						},
+						description: doc.data().description,
+					}))
+				);
+			});
 
 		dispatch({
 			type: actionTypes.LEAVE_BAR_OR_TABLE,
@@ -122,6 +128,7 @@ function Street() {
 				name: input,
 				creatorId: idToken,
 				description: desc ? desc : "Your standard generic watering hole",
+				photo_url: imageUrl ? imageUrl : null,
 				location: new firebase.firestore.GeoPoint(
 					userLocation.latitude,
 					userLocation.longitude
@@ -198,6 +205,13 @@ function Street() {
 								variant="outlined"
 								onChange={(event) => setDesc(event.target.value)}
 								value={desc}
+							/>
+							<TextField
+								id="outlined-basic"
+								label="Enter an image URL"
+								variant="outlined"
+								onChange={(event) => setImageUrl(event.target.value)}
+								value={imageUrl}
 							/>
 							<div>
 								<button
