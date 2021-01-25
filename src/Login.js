@@ -16,7 +16,6 @@ import { Button } from "@material-ui/core";
 import logo from "./images/logo2.png";
 import cocktail from "./images/cocktail.png";
 
-
 // Primary Login function
 function Login() {
 	const [state, dispatch] = useStateValue();
@@ -55,16 +54,11 @@ function Login() {
 		<div className="login">
 			<img src={logo} width={1200} />
 			<div className="login__container">
-				{/* <img
-					src="https://cdn4.vectorstock.com/i/1000x1000/52/38/speed-beer-logo-icon-design-vector-22545238.jpg"
-					alt="beer logo"
-				/> */}
 				<img classname="icon" src={cocktail} />
 				<h1>Welcome to Virtual Bar</h1>
 				<Button id="neon-btn" className="btn two" onClick={signIn}>
 					Sign in with Google
 				</Button>
-				{/* <img src={googleIcon} onClick={signIn} width={50}/> */}
 			</div>
 		</div>
 	);

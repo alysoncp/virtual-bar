@@ -15,10 +15,8 @@ import Bar from "./Bar";
 // Styling
 import "./App.css";
 
-
 // Primary App function
 function App() {
-	
 	// Load current user from data layer
 	const [{ user }] = useStateValue();
 
@@ -27,7 +25,6 @@ function App() {
 
 	// Custom hook to set Realtime Database online/offline status
 	useStatus();
-
 
 	// Render app with React Router
 	return (
@@ -39,7 +36,6 @@ function App() {
 					<>
 						<Header />
 						<div className="app__body">
-							{/* <Sidebar /> */}
 							<Switch>
 								<Route path="/bar/:barId/table/:tableId">
 									<Chat />
