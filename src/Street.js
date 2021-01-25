@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Street() {
 	const [channels, setChannels] = useState([]);
-	const [{ user, userLocation, idToken }, dispatch] = useStateValue();
+	const [{ userLocation, idToken }, dispatch] = useStateValue();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [input, setInput] = useState("");
 	const [desc, setDesc] = useState("");

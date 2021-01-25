@@ -3,6 +3,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useStateValue } from "./hooks+context/StateProvider";
 import FriendsList from "./FriendsList";
+
 // Material UI Imports
 import { Avatar } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";

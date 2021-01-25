@@ -1,14 +1,14 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 import firebase from "firebase";
 
-// Firebase connection config code. 
+// Firebase connection config code.
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASEAPIKEY,
-  authDomain: "virtual-bar-9a045.firebaseapp.com",
-  projectId: "virtual-bar-9a045",
-  storageBucket: "virtual-bar-9a045.appspot.com",
-  messagingSenderId: "1053209643695",
-  appId: "1:1053209643695:web:262d567469c7f8cbc9e25a"
+	apiKey: process.env.REACT_APP_FIREBASEAPIKEY,
+	authDomain: "virtual-bar-9a045.firebaseapp.com",
+	projectId: "virtual-bar-9a045",
+	storageBucket: "virtual-bar-9a045.appspot.com",
+	messagingSenderId: "1053209643695",
+	appId: "1:1053209643695:web:262d567469c7f8cbc9e25a",
 };
 
 // Set firebase shortcuts
@@ -16,7 +16,6 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebaseApp.firestore();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
-
 
 export { auth, provider };
 export default db;
