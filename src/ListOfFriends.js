@@ -74,7 +74,7 @@ export default function InteractiveList({ friendsList }) {
 									</ListItemAvatar>
 									<ListItemText
 										primary={friendData?.username}
-										secondary={secondary ? "Bar & Table" : null}
+										secondary={secondary ? `Bar: ${friendData?.at_bar_name}, Table: ${friendData?.at_table_name}`  : null}
 									/>
 								</ListItem>
 							))}
