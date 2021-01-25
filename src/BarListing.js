@@ -62,7 +62,7 @@ function BarListing({ title, id, description, barCreatorId, photo }) {
 	}, []);
 
 	// Check to see if any users are at any tables
-	const checkForUsers = (tableIdArr, barId) => {
+	function checkForUsers (tableIdArr, barId) {
 		for (let tableId of tableIdArr) {
 			// for each tableId, do a db query and find out if there are any docs.
 			db.collection("bars")
@@ -70,10 +70,16 @@ function BarListing({ title, id, description, barCreatorId, photo }) {
 				.collection("tables")
 				.doc(tableId)
 				.collection("usersAtTable")
-				.onSnapshot((snapshot) => {
-					console.log(snapshot.docs.length);
+				.get()
+				.then( snap => {
+					console.log("Snap size: ", snap.size)
+					if (snap.size > 0) {
+						console.log("YES IF")
+						return false;
+					}
 				});
 		}
+			return true;
 	};
 
 	// Route to a bar
@@ -134,7 +140,7 @@ function BarListing({ title, id, description, barCreatorId, photo }) {
 				>
 					Join Bar
 				</Button>
-				{userCanDelete(barCreatorId, idToken) && (
+				{userCanDelete(barCreatorId, idToken) && checkForUsers(allTableId, id) && (
 					<Button
 						className={classes.bar__button}
 						size="small"
