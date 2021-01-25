@@ -52,63 +52,65 @@ function BarListing({ title, id, description, barCreatorId, photo }) {
 	const classes = useStyles();
 
 	// Check to see how many users are at a bar
-	useEffect(() => {
-		db.collection("bars")
-			.doc(id)
-			.collection("tables")
-			.onSnapshot((snapshot) => {
-				setAllTableId(snapshot.docs.map((doc) => doc.id));
-			});
-	}, []);
+	// useEffect(() => {
+	// 	db.collection("bars")
+	// 		.doc(id)
+	// 		.collection("tables")
+	// 		.onSnapshot((snapshot) => {
+	// 			setAllTableId(snapshot.docs.map((doc) => doc.id));
+	// 		});
+	// }, []);
 
 	// Check to see if any users are at any tables
-	const checkForUsers = async (tableIdArr, barId) => {
-		const results = [];
-		const promises = tableIdArr.map((tableId) => {
-			return db
-				.collection("bars")
-				.doc(barId)
-				.collection("tables")
-				.doc(tableId)
-				.collection("usersAtTable")
-				.get();
-			// .onSnapshot((snapshot) => {
-			// 	console.log("snapshotdocs size", snapshot.size);
-			// 	return Number(snapshot.size);
-			// });
-		});
-		console.log("this is promises +>", promises);
-		return await Promise.all(promises).then((snapshots) => {
-			console.log("this is snapshots", snapshots);
-			for (let result of snapshots) {
-				if (result) {
-					result.forEach((doc) => {
-						console.log(doc.id, " => ", doc.data());
-					});
-				}
-				// console.log("this is the result value", result);
-				if (result !== 0) {
-					return true;
-				}
-			}
-			return false;
-		});
-		// for (let tableId of tableIdArr) {
-		// 	// for each tableId, do a db query and find out if there are any docs.
-		// 	const result = await db
-		// 		.collection("bars")
-		// 		.doc(barId)
-		// 		.collection("tables")
-		// 		.doc(tableId)
-		// 		.collection("usersAtTable")
-		// 		.onSnapshot((snapshot) => {
-		// 			console.log("snapshotdocs size", snapshot.size);
-		// 			return snapshot.size;
-		// 		});
+	// const checkForUsers = async (tableIdArr, barId) => {
+	// 	const results = [];
+	// 	const promises = tableIdArr.map((tableId) => {
+	// 		return db
+	// 			.collection("bars")
+	// 			.doc(barId)
+	// 			.collection("tables")
+	// 			.doc(tableId)
+	// 			.collection("usersAtTable")
+	// 			.get();
+	// 			.onSnapshot((snapshot) => {
+	// 			console.log("snapshotdocs size", snapshot.size);
+	// 			return Number(snapshot.size);
+	// 		});
+	// 	});
+	// 	console.log("this is promises +>", promises);
+	// 	return await Promise.all(promises).then((snapshots) => {
+	// 		console.log("this is snapshots", snapshots);
+	// 		for (let result of snapshots) {
+	// 			if (result) {
+	// 				result.forEach((doc) => {
+	// 					console.log(doc.id, " => ", doc.data());
+	// 				});
+	// 			}
+	// 			// console.log("this is the result value", result);
+	// 			if (result !== 0) {
+	// 				return true;
+	// 			}
+	// 		}
+	// 		return false;
+	// 	});
 
-		// 	results.push(result);
-		// }
-	};
+	// Original query
+	// 	// for (let tableId of tableIdArr) {
+	// 	// 	// for each tableId, do a db query and find out if there are any docs.
+	// 	// 	const result = await db
+	// 	// 		.collection("bars")
+	// 	// 		.doc(barId)
+	// 	// 		.collection("tables")
+	// 	// 		.doc(tableId)
+	// 	// 		.collection("usersAtTable")
+	// 	// 		.onSnapshot((snapshot) => {
+	// 	// 			console.log("snapshotdocs size", snapshot.size);
+	// 	// 			return snapshot.size;
+	// 	// 		});
+
+	// 	// 	results.push(result);
+	// 	// }
+	// };
 
 	// Route to a bar
 	const selectChannel = () => {
