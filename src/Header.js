@@ -21,9 +21,15 @@ import cocktail from "./images/cocktail.png";
 
 // Custom CSS
 import "./Header.css";
+import Image from "./images/shattered.png";
 
 // Material UI Styles
 const useStyles = makeStyles((theme) => ({
+	toolbar: {
+		backgroundColor: "#1e0521",
+		boxShadow: "inset 0 0 0 2000px rgba(30, 5, 33, 0.6)",
+		backgroundImage: `url(${Image})`,
+	},
 	grow: {
 		flexGrow: 1,
 	},
@@ -162,7 +168,7 @@ function Header() {
 	return (
 		<div className={classes.grow}>
 			<AppBar position="static">
-				<Toolbar>
+				<Toolbar className={classes.toolbar}>
 					<Typography
 						className={classes.title}
 						onClick={clickHome}
