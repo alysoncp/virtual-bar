@@ -11,7 +11,8 @@
 }
 
 button > div.MuiCardContent-root {
-	background-color: #311f34;
+	box-shadow: inset 0 0 0 2000px rgba(30, 5, 33, 0.6);
+	background-image: url("./images/shattered.png");
 	color: white;
 }
 

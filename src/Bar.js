@@ -19,6 +19,7 @@ import Button from "@material-ui/core/Button";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import HomeIcon from "@material-ui/icons/Home";
+import LocalBarIcon from '@material-ui/icons/LocalBar';
 
 // Custom CSS
 import "./Bar.css";
@@ -178,7 +179,7 @@ function Bar() {
 					Bars Nearby
 				</Link>
 				<Link color="inherit" onClick={leaveBar} className={classes.link}>
-					<HomeIcon className={classes.icon} />
+					<LocalBarIcon className={classes.icon} />
 					{barDetails?.name}
 				</Link>
 				<Button
