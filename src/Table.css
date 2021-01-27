@@ -20,6 +20,7 @@ button > div.MuiCardContent-root > p {
 	overflow: hidden;
 	max-height: 3.6em;
 	line-height: 1.8em;
+	background: transparent;
 }
 
 button > div.MuiCardContent-root > h2 {
@@ -32,4 +33,5 @@ button > div.MuiCardContent-root > h2 {
 	max-height: 1.8em;
 	min-height: 1.8em;
 	line-height: 1.8em;
+	background: transparent;
 }
