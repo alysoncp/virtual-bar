@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3a1ca694.chunk.css",
+    "main.js": "/static/js/main.3240c108.chunk.js",
+    "main.js.map": "/static/js/main.3240c108.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.31118a1b.js",
+    "runtime-main.js.map": "/static/js/runtime-main.31118a1b.js.map",
+    "static/js/2.8a05b857.chunk.js": "/static/js/2.8a05b857.chunk.js",
+    "static/js/2.8a05b857.chunk.js.map": "/static/js/2.8a05b857.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.3a1ca694.chunk.css.map": "/static/css/main.3a1ca694.chunk.css.map",
+    "static/js/2.8a05b857.chunk.js.LICENSE.txt": "/static/js/2.8a05b857.chunk.js.LICENSE.txt",
+    "static/media/Header.css": "/static/media/NeonTubes2.f01f7e70.otf",
+    "static/media/Login.css": "/static/media/background.3155909a.png",
+    "static/media/cocktail.27c40d7c.png": "/static/media/cocktail.27c40d7c.png",
+    "static/media/logo2.88c1d0ef.png": "/static/media/logo2.88c1d0ef.png",
+    "static/media/Street.css": "/static/media/redox-01.847b945e.png",
+    "static/media/Chat.css": "/static/media/shattered.6e5e9717.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.31118a1b.js",
+    "static/js/2.8a05b857.chunk.js",
+    "static/css/main.3a1ca694.chunk.css",
+    "static/js/main.3240c108.chunk.js"
+  ]
+}
