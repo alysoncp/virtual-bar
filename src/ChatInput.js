@@ -120,7 +120,7 @@ function ChatInput({ barId, tableId, tableNumber }) {
 					variant="outlined"
 					value={input}
 					onChange={(event) => setInput(event.target.value)}
-					placeholder={`Message Table #${tableNumber}`}
+					placeholder={`Message Table ${tableNumber}`}
 				/>
 				<button type="submit" onClick={sendMessage}></button>
 			</form>
