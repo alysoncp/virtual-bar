@@ -15,6 +15,10 @@
 	background-image: url("./images/shattered.png");
 }
 
+.table_users {
+	overflow: auto;
+}
+
 .table_users_header {
 	margin: 10px 10px 30px 10px;
 }
