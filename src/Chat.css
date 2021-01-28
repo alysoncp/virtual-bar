@@ -7,13 +7,20 @@
 }
 
 .table_users {
-	overflow: auto; margin: 0;
+	overflow: auto;
+	margin: 0;
 	flex: 0.5;
 	color: white;
 	padding: 7px 25px 25px 25px;
 	background-color: #1e0521;
 	box-shadow: inset 0 0 0 2000px rgba(30, 5, 33, 0.6);
 	background-image: url("./images/shattered.png");
+	-ms-overflow-style: none; /* Internet Explorer 10+ */
+	scrollbar-width: none; /* Firefox */
+}
+
+.table_users::-webkit-scrollbar {
+	display: none; /* Safari and Chrome */
 }
 
 .table_users_header {
