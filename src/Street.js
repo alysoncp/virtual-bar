@@ -108,7 +108,7 @@ function Street() {
 			locations[0],
 			locations[1]
 		);
-		const closeProximity = distanceBetween <= 20 ? true : false;
+		const closeProximity = distanceBetween <= 1000 ? true : false;
 		// make sure to change this back to <= 20 for deployment
 		return closeProximity;
 	};
