@@ -61,12 +61,14 @@ export default function InteractiveList({ friendsList }) {
 	const [friendData, setFriendData] = useState([]);
 
 	useEffect(() => {
-		db.collection("users")
-			.where(firebase.firestore.FieldPath.documentId(), "in", friendsList)
-			.where("state", "==", "online")
-			.onSnapshot((snapshot) => {
-				setFriendData(snapshot.docs.map((doc) => doc.data()));
-			});
+		if (friendsList) {
+			db.collection("users")
+				.where(firebase.firestore.FieldPath.documentId(), "in", friendsList)
+				.where("state", "==", "online")
+				.onSnapshot((snapshot) => {
+					setFriendData(snapshot.docs.map((doc) => doc.data()));
+				});
+		}
 	}, []);
 
 	return (
